@@ -10,7 +10,8 @@ import ProblemSubmissions from './components/ProblemSubmissions';
 import Login from './components/Login/Login.js';
 import LandingPage from './components/LandingPage/LandingPage.js';
 import WelcomePage from './components/WelcomePage/WelcomePage.js';
-import Header from './components/Header'; // Import the Header component
+import Header from './components/Header';
+import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute component
 import './App.css';
 
 /**
@@ -36,8 +37,15 @@ function App() {
           <Route path="/problems/:id/submissions" element={<ProblemSubmissions />} />
           {/* Route for the login page. */}
           <Route path="/login" element={<Login />} />
-          {/* Route for the welcome page. */}
-          <Route path="/welcome" element={<WelcomePage />} />
+          {/* Protected route for the welcome page. */}
+          <Route
+            path="/welcome"
+            element={
+              <ProtectedRoute>
+                <WelcomePage />
+              </ProtectedRoute>
+            }
+          />
           {/* Default route for the home page. */}
           <Route path="/" element={<LandingPage />} />
         </Routes>
