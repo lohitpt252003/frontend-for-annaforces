@@ -8,6 +8,7 @@ import ProblemsList from './components/ProblemsList';
 // Importing the ProblemDetail component from its new organized location.
 import ProblemDetail from './components/ProblemDetail';
 import ProblemSubmissions from './components/ProblemSubmissions';
+import Login from './components/Login/Login.js';
 import './App.css';
 
 /**
@@ -30,6 +31,9 @@ function App() {
             <li>
               <Link to="/problems">Problems</Link>
             </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
           </ul>
         </nav>
 
@@ -41,6 +45,8 @@ function App() {
           <Route path="/problems/:id" element={<ProblemDetail />} />
           {/* Route for problem submissions, using a dynamic ID parameter. */}
           <Route path="/problems/:id/submissions" element={<ProblemSubmissions />} />
+          {/* Route for the login page. */}
+          <Route path="/login" element={<Login />} />
           {/* Default route for the home page. */}
           <Route path="/" element={
             <header className="App-header">
