@@ -1,14 +1,16 @@
 import React from 'react';
 // BrowserRouter is used to enable client-side routing with URL segments.
 // Route and Routes define the mapping between URL paths and React components.
-// Link is used for navigation between routes without full page reloads.
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // Importing the ProblemsList component from its new organized location.
 import ProblemsList from './components/ProblemsList';
 // Importing the ProblemDetail component from its new organized location.
 import ProblemDetail from './components/ProblemDetail';
 import ProblemSubmissions from './components/ProblemSubmissions';
 import Login from './components/Login/Login.js';
+import LandingPage from './components/LandingPage/LandingPage.js';
+import WelcomePage from './components/WelcomePage/WelcomePage.js';
+import Header from './components/Header'; // Import the Header component
 import './App.css';
 
 /**
@@ -23,20 +25,7 @@ function App() {
     // Router wraps the entire application to enable routing.
     <Router>
       <div className="App">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/problems">Problems</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
-        </nav>
-
+        <Header />
         {/* Routes define the different paths and the components to render for each. */}
         <Routes>
           {/* Route for the problems listing page. */}
@@ -47,14 +36,10 @@ function App() {
           <Route path="/problems/:id/submissions" element={<ProblemSubmissions />} />
           {/* Route for the login page. */}
           <Route path="/login" element={<Login />} />
+          {/* Route for the welcome page. */}
+          <Route path="/welcome" element={<WelcomePage />} />
           {/* Default route for the home page. */}
-          <Route path="/" element={
-            <header className="App-header">
-              {/* Original App content can go here or be removed */}
-              <p>Welcome to the Annaforces Coding Platform!</p>
-              <p>Navigate to <Link to="/problems">Problems</Link> to see the list.</p>
-            </header>
-          } />
+          <Route path="/" element={<LandingPage />} />
         </Routes>
       </div>
     </Router>

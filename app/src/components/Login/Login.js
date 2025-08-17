@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [userId, setUserId] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -21,8 +23,7 @@ const Login = () => {
                 localStorage.setItem('user_id', data.user_id);
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('name', data.name);
-                alert('Login successful!');
-                // You can redirect the user to another page here
+                navigate('/welcome');
             } else {
                 setError(data.error || 'Login failed');
             }
