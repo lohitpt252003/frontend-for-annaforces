@@ -1,24 +1,57 @@
-import logo from './logo.svg';
+import React from 'react';
+// BrowserRouter is used to enable client-side routing with URL segments.
+// Route and Routes define the mapping between URL paths and React components.
+// Link is used for navigation between routes without full page reloads.
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+// Importing the ProblemsList component from its new organized location.
+import ProblemsList from './components/ProblemsList';
+// Importing the ProblemDetail component from its new organized location.
+import ProblemDetail from './components/ProblemDetail';
+import ProblemSubmissions from './components/ProblemSubmissions';
 import './App.css';
 
+/**
+ * App Component
+ * @description The main application component responsible for setting up routing and navigation.
+ * @param {object} props - React component props. (No explicit props are used by this component).
+ * @returns {JSX.Element} The JSX element representing the application's structure and routes.
+ * @async false
+ */
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // Router wraps the entire application to enable routing.
+    <Router>
+      <div className="App">
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/problems">Problems</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* Routes define the different paths and the components to render for each. */}
+        <Routes>
+          {/* Route for the problems listing page. */}
+          <Route path="/problems" element={<ProblemsList />} />
+          {/* Route for individual problem details, using a dynamic ID parameter. */}
+          <Route path="/problems/:id" element={<ProblemDetail />} />
+          {/* Route for problem submissions, using a dynamic ID parameter. */}
+          <Route path="/problems/:id/submissions" element={<ProblemSubmissions />} />
+          {/* Default route for the home page. */}
+          <Route path="/" element={
+            <header className="App-header">
+              {/* Original App content can go here or be removed */}
+              <p>Welcome to the Annaforces Coding Platform!</p>
+              <p>Navigate to <Link to="/problems">Problems</Link> to see the list.</p>
+            </header>
+          } />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
