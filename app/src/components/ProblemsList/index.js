@@ -41,7 +41,7 @@ function ProblemsList() {
                 });
                 // Set the problems state with the 'list' array from the API response.
                 // This handles the specific structure of the backend API response.
-                setProblems(response.data.list);
+                setProblems(response.data);
             } catch (err) {
                 // Catch and set any errors that occur during the API call.
                 setError(err);
@@ -70,7 +70,7 @@ function ProblemsList() {
             <ul>
                 {/* Map through the problems array to render each problem as a list item. */}
                 {/* Use a unique key for each list item, falling back to a random key if problem.id is missing. */}
-                {problems.map(problem => (
+                {Array.isArray(problems) && problems.map(problem => (
                     <li key={problem.id || `problem-${Math.random()}`}>
                         {/* Link to the individual problem detail page. */}
                         {/* Display 'NA' for problem.id or problem.title if they are missing from the API response. */}

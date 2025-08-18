@@ -1,27 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './index.css';
 
 const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
-        const userId = localStorage.getItem('user_id');
-        if (userId) {
+        const token = localStorage.getItem('token');
+        if (token) {
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
         }
     }, []);
-
-    const handleLogout = () => {
-        localStorage.removeItem('user_id');
-        localStorage.removeItem('username');
-        localStorage.removeItem('name');
-        setIsLoggedIn(false);
-        navigate('/login');
-    };
 
     return (
         <header className="app-header">
@@ -38,7 +29,7 @@ const Header = () => {
                     </li>
                     {isLoggedIn ? (
                         <li>
-                            <button onClick={handleLogout} className="logout-button">Logout</button>
+                            <Link to="/logout" className="logout-button">Logout</Link>
                         </li>
                     ) : (
                         <li>

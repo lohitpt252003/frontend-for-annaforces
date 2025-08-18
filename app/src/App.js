@@ -12,6 +12,7 @@ import Login from './components/Login/index.js';
 import LandingPage from './components/Home/index.js';
 import Welcome from './components/Welcome/index.js';
 import UserSubmissions from './components/UserSubmissions';
+import Logout from './components/Logout';
 import Header from './components/Header';
 import './App.css';
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/problems/:id/submit" element={<AddSubmission />} />
           {/* Route for the login page. */}
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/submissions/:userId" element={<UserSubmissions />} />
           
