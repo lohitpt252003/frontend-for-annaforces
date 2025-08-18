@@ -20,9 +20,8 @@ const Login = () => {
             const data = await response.json();
 
             if (response.ok) {
-                localStorage.setItem('user_id', data.user_id);
-                localStorage.setItem('username', data.username);
-                localStorage.setItem('name', data.name);
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
                 navigate('/welcome');
             } else {
                 setError(data.error || 'Login failed');

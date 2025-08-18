@@ -33,7 +33,12 @@ function ProblemsList() {
                 // Make an API call to fetch the list of problems.
                 // The base URL is retrieved from environment variables for flexibility.
                 // The /api/problems endpoint is used as per the API design.
-                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems`);
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 // Set the problems state with the 'list' array from the API response.
                 // This handles the specific structure of the backend API response.
                 setProblems(response.data.list);

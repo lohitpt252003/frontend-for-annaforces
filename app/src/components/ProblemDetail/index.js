@@ -33,7 +33,12 @@ function ProblemDetail() {
             try {
                 // Make an API call to fetch the details of a specific problem.
                 // The base URL is from environment variables, and the ID is from the URL parameter.
-                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${id}`);
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 // Set the problem state with the data received from the API.
                 setProblem(response.data);
             } catch (err) {
@@ -79,6 +84,7 @@ function ProblemDetail() {
             {/* Display problem difficulty, or 'NA' if missing. */}
             <p><strong>Difficulty:</strong> {problem.difficulty || "NA"}</p>
             <p><Link to={`/problems/${id}/submissions`}>View Submissions</Link></p>
+            <p><Link to={`/problems/${id}/submit`}>Submit Solution</Link></p>
             
             <h2>Statement</h2>
             {/* Display problem statement, or 'NA' if missing. */}

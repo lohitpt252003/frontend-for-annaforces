@@ -7,11 +7,12 @@ import ProblemsList from './components/ProblemsList';
 // Importing the ProblemDetail component from its new organized location.
 import ProblemDetail from './components/ProblemDetail';
 import ProblemSubmissions from './components/ProblemSubmissions';
+import AddSubmission from './components/AddSubmission';
 import Login from './components/Login/index.js';
 import LandingPage from './components/Home/index.js';
-import WelcomePage from './components/Welcome/index.js';
+import Welcome from './components/Welcome/index.js';
+import UserSubmissions from './components/UserSubmissions';
 import Header from './components/Header';
-import ProtectedRoute from './components/ProtectionRoute/index.js'; // Import the ProtectedRoute component
 import './App.css';
 
 /**
@@ -35,17 +36,12 @@ function App() {
           <Route path="/problems/:id" element={<ProblemDetail />} />
           {/* Route for problem submissions, using a dynamic ID parameter. */}
           <Route path="/problems/:id/submissions" element={<ProblemSubmissions />} />
+          <Route path="/problems/:id/submit" element={<AddSubmission />} />
           {/* Route for the login page. */}
           <Route path="/login" element={<Login />} />
-          {/* Protected route for the welcome page. */}
-          <Route
-            path="/welcome"
-            element={
-              <ProtectedRoute>
-                <WelcomePage />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/submissions/:userId" element={<UserSubmissions />} />
+          
           {/* Default route for the home page. */}
           <Route path="/" element={<LandingPage />} />
         </Routes>

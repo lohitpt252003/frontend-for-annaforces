@@ -31,7 +31,12 @@ function ProblemSubmissions() {
         const fetchSubmissions = async () => {
             try {
                 // Make an API call to fetch the list of submissions for the given problem ID.
-                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${id}/submissions`);
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${id}/submissions`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 // Set the submissions state with the data received from the API.
                 setSubmissions(response.data);
             } catch (err) {

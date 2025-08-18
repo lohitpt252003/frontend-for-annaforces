@@ -6,10 +6,9 @@ const WelcomePage = () => {
     const [userData, setUserData] = useState({ name: '', username: '' });
 
     useEffect(() => {
-        const name = localStorage.getItem('name');
-        const username = localStorage.getItem('username');
-        if (name && username) {
-            setUserData({ name, username });
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            setUserData({ name: user.name, username: user.username });
         }
     }, []);
 
@@ -31,7 +30,7 @@ const WelcomePage = () => {
                     <div className="dashboard-card">
                         <h3>My Submissions</h3>
                         <p>See your past submissions and their results.</p>
-                        <Link to="/submissions" className="btn btn-primary">View Submissions</Link>
+                        <Link to={`/submissions/${userData.username}`} className="btn btn-primary">View Submissions</Link>
                     </div>
                     <div className="dashboard-card">
                         <h3>Start a Contest</h3>
