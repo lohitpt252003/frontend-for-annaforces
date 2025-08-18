@@ -7,11 +7,11 @@ import ProblemsList from './components/ProblemsList';
 // Importing the ProblemDetail component from its new organized location.
 import ProblemDetail from './components/ProblemDetail';
 import ProblemSubmissions from './components/ProblemSubmissions';
-import Login from './components/Login/Login.js';
-import LandingPage from './components/LandingPage/LandingPage.js';
-import WelcomePage from './components/WelcomePage/WelcomePage.js';
+import Login from './components/Login/index.js';
+import LandingPage from './components/Home/index.js';
+import WelcomePage from './components/Welcome/index.js';
 import Header from './components/Header';
-import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute component
+import ProtectedRoute from './components/ProtectionRoute/index.js'; // Import the ProtectedRoute component
 import './App.css';
 
 /**
