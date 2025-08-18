@@ -7,7 +7,7 @@ const Logout = () => {
     useEffect(() => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        navigate('/login');
+        window.location.href = '/login';
     }, [navigate]);
 
     return null;
