@@ -1,0 +1,23 @@
+{
+    "overall_status": "accepted",
+    "test_results": [
+        {
+            "actual_output": "2\n",
+            "execution_time": 0,
+            "expected_output": "2",
+            "memory_usage": 3.40625,
+            "message": "Test case passed",
+            "status": "passed",
+            "test_case_number": 1
+        },
+        {
+            "actual_output": "4\n",
+            "execution_time": 0,
+            "expected_output": "4",
+            "memory_usage": 3.37109375,
+            "message": "Test case passed",
+            "status": "passed",
+            "test_case_number": 2
+        }
+    ]
+}

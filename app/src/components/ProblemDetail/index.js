@@ -39,9 +39,13 @@ function ProblemDetail() {
                         'Authorization': `Bearer ${token}`
                     }
                 });
+                // Log the response to see its structure
+                console.log('API Response:', response.data);
                 // Set the problem state with the data received from the API.
                 setProblem(response.data);
             } catch (err) {
+                // Log the error to the console
+                console.error('Error fetching problem:', err);
                 // Catch and set any errors that occur during the API call.
                 setError(err);
             } finally {
