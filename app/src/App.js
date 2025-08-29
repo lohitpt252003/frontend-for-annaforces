@@ -8,7 +8,7 @@ import ProblemDetail from './components/ProblemDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState('');
   const [token, setToken] = useState('');
@@ -46,7 +46,7 @@ function App() {
       <div>
         <Header isLoggedIn={isLoggedIn} userName={userName} onLogout={handleLogout} />
         <Routes>
-          <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+          <Route path="/login" element={isLoggedIn ? <Navigate to="/welcome" /> : <Login onLogin={handleLoginSuccess} />} />
           
           <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
             <Route path="/welcome" element={<WelcomePage userName={userName} />} />
