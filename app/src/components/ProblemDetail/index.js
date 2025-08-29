@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import './index.css'; // Import the CSS file
 
 function ProblemDetail() {
   const { problem_id } = useParams();
@@ -44,31 +45,33 @@ function ProblemDetail() {
   }, [problem_id]);
 
   if (loading) {
-    return <div style={{ padding: '20px', textAlign: 'center' }}>Loading problem details...</div>;
+    return <div className="problem-detail-loading">Loading problem details...</div>;
   }
 
   if (error) {
-    return <div style={{ padding: '20px', textAlign: 'center', color: 'red' }}>Error: {error}</div>;
+    return <div className="problem-detail-error">Error: {error}</div>;
   }
 
   if (!problem) {
-    return <div style={{ padding: '20px', textAlign: 'center' }}>Problem not found.</div>;
+    return <div className="problem-detail-not-found">Problem not found.</div>;
   }
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>{problem.meta.title} ({problem_id})</h2>
-      <p><strong>Difficulty:</strong> {problem.meta.difficulty}</p>
-      <p><strong>Tags:</strong> {problem.meta.tags.join(', ')}</p>
-      <p><strong>Authors:</strong> {problem.meta.authors.join(', ')}</p>
-      <Link to={`/problems/${problem_id}/submit`} style={{ display: 'inline-block', marginTop: '20px', padding: '10px 20px', backgroundColor: '#007bff', color: 'white', textDecoration: 'none', borderRadius: '5px' }}>
+    <div className="problem-detail-container">
+      <h2 className="problem-detail-title">{problem.meta.title} ({problem_id})</h2>
+      <div className="problem-detail-info">
+        <p><strong>Difficulty:</strong> {problem.meta.difficulty}</p>
+        <p><strong>Tags:</strong> {problem.meta.tags.join(', ')}</p>
+        <p><strong>Authors:</strong> {problem.meta.authors.join(', ')}</p>
+      </div>
+      <Link to={`/problems/${problem_id}/submit`} className="problem-detail-link-button problem-detail-submit-button">
         Submit Code
       </Link>
-      <Link to={`/problems/${problem_id}/submissions`} style={{ display: 'inline-block', marginTop: '20px', marginLeft: '10px', padding: '10px 20px', backgroundColor: '#28a745', color: 'white', textDecoration: 'none', borderRadius: '5px' }}>
+      <Link to={`/problems/${problem_id}/submissions`} className="problem-detail-link-button problem-detail-view-submissions-button">
         View All Submissions
       </Link>
-      <hr />
-      <div dangerouslySetInnerHTML={{ __html: problem.problem_statement }} />
+      <hr className="problem-detail-separator" />
+      <div className="problem-detail-statement" dangerouslySetInnerHTML={{ __html: problem.problem_statement }} />
     </div>
   );
 }
