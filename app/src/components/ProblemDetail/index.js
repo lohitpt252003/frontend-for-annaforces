@@ -64,6 +64,9 @@ function ProblemDetail() {
       <Link to={`/problems/${problem_id}/submit`} style={{ display: 'inline-block', marginTop: '20px', padding: '10px 20px', backgroundColor: '#007bff', color: 'white', textDecoration: 'none', borderRadius: '5px' }}>
         Submit Code
       </Link>
+      <Link to={`/problems/${problem_id}/submissions`} style={{ display: 'inline-block', marginTop: '20px', marginLeft: '10px', padding: '10px 20px', backgroundColor: '#28a745', color: 'white', textDecoration: 'none', borderRadius: '5px' }}>
+        View All Submissions
+      </Link>
       <hr />
       <div dangerouslySetInnerHTML={{ __html: problem.problem_statement }} />
     </div>

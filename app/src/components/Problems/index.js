@@ -60,6 +60,9 @@ function Problems() {
               <Link to={`/problems/${problemId}`} style={{ textDecoration: 'none', color: 'blue' }}>
                 <h3>{problemData.title} ({problemId})</h3>
               </Link>
+              <Link to={`/problems/${problemId}/submissions`} style={{ marginLeft: '10px', textDecoration: 'none', color: 'green' }}>
+                View Submissions
+              </Link>
               <p><strong>Difficulty:</strong> {problemData.difficulty}</p>
               <p><strong>Tags:</strong> {problemData.tags.join(', ')}</p>
               <p><strong>Authors:</strong> {problemData.authors.join(', ')}</p>
