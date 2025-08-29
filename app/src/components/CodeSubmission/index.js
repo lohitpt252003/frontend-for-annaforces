@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import './index.css'; // Import the CSS file
 
 function CodeSubmission({ token }) {
   const { problemId } = useParams();
@@ -43,17 +44,17 @@ function CodeSubmission({ token }) {
   return (
     <div className="code-submission-container">
       <h2>Submit Code for Problem: {problemId}</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="language">Language:</label>
-          <select id="language" value={language} onChange={(e) => setLanguage(e.target.value)}>
+      <form onSubmit={handleSubmit} className="code-submission-form">
+        <div className="code-submission-form-group">
+          <label htmlFor="language" className="code-submission-label">Language:</label>
+          <select id="language" value={language} onChange={(e) => setLanguage(e.target.value)} className="code-submission-select">
             <option value="python">Python</option>
             <option value="c">C</option>
             <option value="cpp">C++</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="code">Code:</label>
+        <div className="code-submission-form-group">
+          <label htmlFor="code" className="code-submission-label">Code:</label>
           <textarea
             id="code"
             value={code}
@@ -61,13 +62,14 @@ function CodeSubmission({ token }) {
             rows="20"
             cols="80"
             placeholder="Write your code here..."
+            className="code-submission-textarea"
           ></textarea>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="code-submission-button">Submit</button>
       </form>
 
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {message && <p className="code-submission-message success">{message}</p>}
+      {error && <p className="code-submission-message error">{error}</p>}
     </div>
   );
 }
