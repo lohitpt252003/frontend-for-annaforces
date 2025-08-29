@@ -1,0 +1,66 @@
+.submission-detail-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submission-detail-loading,
+.submission-detail-error,
+.submission-detail-no-data {
+  padding: 20px;
+  text-align: center;
+}
+
+.submission-detail-error {
+  color: red;
+}
+
+.submission-detail-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.submission-detail-container p {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.submission-detail-container strong {
+  color: #333;
+}
+
+.submission-detail-code-block {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+.submission-detail-test-results-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.submission-detail-test-results-list-item {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.submission-detail-test-results-list-item pre {
+  background-color: #e9e9e9;
+  padding: 5px;
+  border-radius: 3px;
+  overflow-x: auto;
+  white-space: pre-wrap; /* Ensures long lines wrap */
+  word-wrap: break-word; /* Ensures long words break */
+}
