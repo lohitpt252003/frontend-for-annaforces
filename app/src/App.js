@@ -11,6 +11,7 @@ import SubmissionDetail from './components/SubmissionDetail';
 import CodeSubmission from './components/CodeSubmission';
 import ProblemSubmissions from './components/ProblemSubmissions';
 import ProtectedRoute from './components/ProtectedRoute';
+import Credits from './components/Credits';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
@@ -51,7 +52,7 @@ function App() {
       <div>
         <Header isLoggedIn={isLoggedIn} userName={userName} onLogout={handleLogout} />
         <Routes>
-          <Route path="/login" element={isLoggedIn ? <Navigate to="/welcome" /> : <Login onLogin={handleLoginSuccess} />} />
+          <Route path="/login" element={<Login onLogin={handleLoginSuccess} />} />
           
           <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
             <Route path="/welcome" element={<WelcomePage userName={userName} />} />
@@ -62,6 +63,7 @@ function App() {
             <Route path="/profile" element={<Profile userId={userId} token={token} />} />
             <Route path="/users/:userId/submissions" element={<UserSubmissions token={token} />} />
             <Route path="/submissions/:submissionId" element={<SubmissionDetail token={token} />} />
+            <Route path="/credits" element={<Credits />} />
           </Route>
 
           <Route path="/" element={isLoggedIn ? <Navigate to="/welcome" /> : <Navigate to="/login" />} />

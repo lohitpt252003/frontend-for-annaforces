@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Login({ onLoginSuccess }) {
+function Login({ onLogin }) {
   const [userId, setUserId] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +27,8 @@ function Login({ onLoginSuccess }) {
         localStorage.setItem('name', data.name);
         localStorage.setItem('token', data.token);
 
-        onLoginSuccess(data.user_id, data.username, data.name, data.token);
+        onLogin(data.user_id, data.username, data.name, data.token);
+        navigate('/welcome');
       } else {
         setError(data.error || 'Login failed');
       }

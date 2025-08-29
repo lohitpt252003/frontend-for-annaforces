@@ -3,9 +3,15 @@ import { useParams, Link } from 'react-router-dom';
 
 function UserSubmissions({ token }) {
   const { userId } = useParams();
-  const [submissions, setSubmissions] = useState([]);
+  const [allSubmissions, setAllSubmissions] = useState([]); // Store all fetched submissions
+  const [submissions, setSubmissions] = useState([]); // Submissions to display after filtering
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filterProblemId, setFilterProblemId] = useState('');
+  const [filterStatus, setFilterStatus] = useState('');
+  const [filterLanguage, setFilterLanguage] = useState('');
+  const [filterStartDate, setFilterStartDate] = useState('');
+  const [filterEndDate, setFilterEndDate] = useState('');
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -19,7 +25,8 @@ function UserSubmissions({ token }) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setSubmissions(data);
+        setAllSubmissions(data); // Store all submissions
+        setSubmissions(data);    // Initially display all submissions
       } catch (error) {
         setError(error);
       } finally {
@@ -31,6 +38,44 @@ function UserSubmissions({ token }) {
       fetchSubmissions();
     }
   }, [userId, token]);
+
+  useEffect(() => {
+    let filtered = allSubmissions;
+
+    if (filterProblemId) {
+      filtered = filtered.filter(submission =>
+        submission.problem_id.toLowerCase().includes(filterProblemId.toLowerCase())
+      );
+    }
+
+    if (filterStatus) {
+      filtered = filtered.filter(submission =>
+        submission.status.toLowerCase() === filterStatus.toLowerCase()
+      );
+    }
+
+    if (filterLanguage) {
+      filtered = filtered.filter(submission =>
+        submission.language.toLowerCase() === filterLanguage.toLowerCase()
+      );
+    }
+
+    if (filterStartDate) {
+      const start = new Date(filterStartDate).getTime();
+      filtered = filtered.filter(submission =>
+        new Date(submission.timestamp).getTime() >= start
+      );
+    }
+
+    if (filterEndDate) {
+      const end = new Date(filterEndDate).getTime();
+      filtered = filtered.filter(submission =>
+        new Date(submission.timestamp).getTime() <= end
+      );
+    }
+
+    setSubmissions(filtered);
+  }, [allSubmissions, filterProblemId, filterStatus, filterLanguage, filterStartDate, filterEndDate]);
 
   if (loading) {
     return <div>Loading submissions...</div>;
@@ -47,6 +92,42 @@ function UserSubmissions({ token }) {
   return (
     <div className="user-submissions-container">
       <h2>Submissions for User: {userId}</h2>
+
+      <div className="filters-container">
+        <input
+          type="text"
+          placeholder="Filter by Problem ID"
+          value={filterProblemId}
+          onChange={(e) => setFilterProblemId(e.target.value)}
+        />
+        <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+          <option value="">All Statuses</option>
+          <option value="Accepted">Accepted</option>
+          <option value="Wrong Answer">Wrong Answer</option>
+          <option value="Time Limit Exceeded">Time Limit Exceeded</option>
+          <option value="Runtime Error">Runtime Error</option>
+          <option value="Compilation Error">Compilation Error</option>
+        </select>
+        <select value={filterLanguage} onChange={(e) => setFilterLanguage(e.target.value)}>
+          <option value="">All Languages</option>
+          <option value="c">C</option>
+          <option value="cpp">C++</option>
+          <option value="python">Python</option>
+        </select>
+        <input
+          type="date"
+          placeholder="Start Date"
+          value={filterStartDate}
+          onChange={(e) => setFilterStartDate(e.target.value)}
+        />
+        <input
+          type="date"
+          placeholder="End Date"
+          value={filterEndDate}
+          onChange={(e) => setFilterEndDate(e.target.value)}
+        />
+      </div>
+
       <ul>
         {submissions.map(submission => (
           <li key={submission.submission_id}>

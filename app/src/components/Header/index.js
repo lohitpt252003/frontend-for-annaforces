@@ -15,6 +15,7 @@ function Header({ isLoggedIn, userName, onLogout }) {
             <>
               <Link to="/problems" style={{ textDecoration: 'none', color: 'black', marginRight: '20px' }}>Problems</Link>
               <Link to="/profile" style={{ textDecoration: 'none', color: 'black', marginRight: '20px' }}>Profile</Link>
+              <Link to="/credits" style={{ textDecoration: 'none', color: 'black', marginRight: '20px' }}>Credits</Link>
             </>
           )}
           {isLoggedIn ? (

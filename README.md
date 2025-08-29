@@ -31,10 +31,11 @@ The project follows a modular component structure. Each component is located in 
 *   **`Problems`**: Fetches and displays a list of all available problems from the backend. Includes search and filter functionalities (by title, ID, difficulty, and tags). Problem titles are clickable links to their detail pages.
 *   **`ProblemDetail`**: Displays the detailed information for a specific problem, fetched from the backend.
 *   **`Profile`**: Displays the logged-in user's profile information, fetched from the backend.
-*   **`UserSubmissions`**: Displays a list of all submissions for a specific user, fetched from the backend. Each submission is a clickable link to its detailed view.
+*   **`UserSubmissions`**: Displays a list of all submissions for a specific user, fetched from the backend. Includes filter functionalities (by problem ID, status, language, and timestamp). Each submission is a clickable link to its detailed view.
 *   **`ProblemSubmissions`**: Displays a list of all submissions for a specific problem, fetched from the backend. Includes filter functionalities (by user ID, status, and timestamp). Each submission is a clickable link to its detailed view.
 *   **`SubmissionDetail`**: Displays the detailed information for a specific submission, including code, language, status, and test results, fetched from the backend.
 *   **`CodeSubmission`**: Provides a form for users to submit code for a specific problem, including language selection and code input.
+*   **`Credits`**: Displays credits for the project, including contributors and technologies used.
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
 
 ### Authentication Flow
@@ -60,4 +61,5 @@ The application uses `react-router-dom` for navigation:
 *   `/profile`: Displays the logged-in user's profile information (protected route).
 *   `/users/:userId/submissions`: Displays a list of all submissions for a specific user (protected route).
 *   `/submissions/:submissionId`: Displays detailed information for a specific submission (protected route).
+*   `/credits`: Displays the credits page (protected route).
 *   Any other unmatched route redirects to `/login`.
