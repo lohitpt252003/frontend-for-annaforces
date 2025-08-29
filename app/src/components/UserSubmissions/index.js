@@ -1,5 +1,9 @@
+
+
+
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import './index.css'; // Import the CSS file
 
 function UserSubmissions({ token }) {
   const { userId } = useParams();
@@ -78,29 +82,30 @@ function UserSubmissions({ token }) {
   }, [allSubmissions, filterProblemId, filterStatus, filterLanguage, filterStartDate, filterEndDate]);
 
   if (loading) {
-    return <div>Loading submissions...</div>;
+    return <div className="user-submissions-loading">Loading submissions...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div className="user-submissions-error">Error: {error.message}</div>;
   }
 
   if (submissions.length === 0) {
-    return <div>No submissions found for this user.</div>;
+    return <div className="user-submissions-no-submissions">No submissions found for this user.</div>;
   }
 
   return (
     <div className="user-submissions-container">
       <h2>Submissions for User: {userId}</h2>
 
-      <div className="filters-container">
+      <div className="user-submissions-filters">
         <input
           type="text"
           placeholder="Filter by Problem ID"
           value={filterProblemId}
           onChange={(e) => setFilterProblemId(e.target.value)}
+          className="user-submissions-filter-input"
         />
-        <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+        <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="user-submissions-filter-select">
           <option value="">All Statuses</option>
           <option value="Accepted">Accepted</option>
           <option value="Wrong Answer">Wrong Answer</option>
@@ -108,7 +113,7 @@ function UserSubmissions({ token }) {
           <option value="Runtime Error">Runtime Error</option>
           <option value="Compilation Error">Compilation Error</option>
         </select>
-        <select value={filterLanguage} onChange={(e) => setFilterLanguage(e.target.value)}>
+        <select value={filterLanguage} onChange={(e) => setFilterLanguage(e.target.value)} className="user-submissions-filter-select">
           <option value="">All Languages</option>
           <option value="c">C</option>
           <option value="cpp">C++</option>
@@ -119,19 +124,21 @@ function UserSubmissions({ token }) {
           placeholder="Start Date"
           value={filterStartDate}
           onChange={(e) => setFilterStartDate(e.target.value)}
+          className="user-submissions-filter-input"
         />
         <input
           type="date"
           placeholder="End Date"
           value={filterEndDate}
           onChange={(e) => setFilterEndDate(e.target.value)}
+          className="user-submissions-filter-input"
         />
       </div>
 
-      <ul>
+      <ul className="user-submissions-list">
         {submissions.map(submission => (
-          <li key={submission.submission_id}>
-            <Link to={`/submissions/${submission.submission_id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <li key={submission.submission_id} className="user-submissions-list-item">
+            <Link to={`/submissions/${submission.submission_id}`}>
               <p><strong>Submission ID:</strong> {submission.submission_id}</p>
               <p><strong>Problem ID:</strong> {submission.problem_id}</p>
               <p><strong>Status:</strong> {submission.status}</p>
@@ -152,3 +159,6 @@ function UserSubmissions({ token }) {
 }
 
 export default UserSubmissions;
+
+
+
