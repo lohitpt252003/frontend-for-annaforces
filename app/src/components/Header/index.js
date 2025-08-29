@@ -1,30 +1,30 @@
 import React from 'react';
 import Logout from '../Logout';
 import { Link } from 'react-router-dom';
+import './index.css'; // Import the CSS file
 
 function Header({ isLoggedIn, userName, onLogout }) {
   return (
     <header>
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', backgroundColor: '#f0f0f0' }}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <img src="https://via.placeholder.com/30" alt="Logo" style={{ marginRight: '10px' }} />
-          <Link to="/" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold', fontSize: '1.2em' }}>ANNAFORCES</Link>
+      <nav className="header-nav">
+        <div className="header-logo-container">
+          <img src="https://raw.githubusercontent.com/lohitpt252003/DATA/refs/heads/main/data/assets/images/logo.png" alt="Logo" className="header-logo-image" />
+          <Link to="/" className="header-link-brand">ANNAFORCES</Link>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="header-nav-links">
           {isLoggedIn && (
             <>
-              <Link to="/problems" style={{ textDecoration: 'none', color: 'black', marginRight: '20px' }}>Problems</Link>
-              <Link to="/profile" style={{ textDecoration: 'none', color: 'black', marginRight: '20px' }}>Profile</Link>
-              <Link to="/credits" style={{ textDecoration: 'none', color: 'black', marginRight: '20px' }}>Credits</Link>
+              <Link to="/problems" className="header-nav-link">Problems</Link>
+              <Link to="/profile" className="header-nav-link">Profile</Link>
+              <Link to="/credits" className="header-nav-link">Credits</Link>
             </>
           )}
           {isLoggedIn ? (
             <>
-              <span>Welcome, {userName}</span>
               <Logout onLogout={onLogout} />
             </>
           ) : (
-            <span>Welcome User</span>
+            <></>
           )}
         </div>
       </nav>
