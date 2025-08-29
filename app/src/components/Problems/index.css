@@ -1,0 +1,80 @@
+
+
+.problems-container {
+  padding: 20px;
+}
+
+.problems-loading,
+.problems-error {
+  padding: 20px;
+  text-align: center;
+}
+
+.problems-error {
+  color: red;
+}
+
+.problems-filters {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.problems-filter-input,
+.problems-filter-select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  flex-grow: 1;
+}
+
+.problems-filter-select {
+  flex-grow: 0; /* Selects don't need to grow as much as input */
+}
+
+.problems-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.problems-list-item {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9; /* Light background for list items */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.problems-list-item h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.problems-list-item-link {
+  text-decoration: none;
+  color: #007bff; /* Blue for problem title links */
+  font-weight: bold;
+}
+
+.problems-list-item-link:hover {
+  text-decoration: underline;
+}
+
+.problems-view-submissions-link {
+  margin-left: 10px;
+  text-decoration: none;
+  color: #28a745; /* Green for view submissions link */
+}
+
+.problems-view-submissions-link:hover {
+  text-decoration: underline;
+}
+
+.problems-no-problems {
+  text-align: center;
+  color: #777;
+  padding: 20px;
+}
+
+
