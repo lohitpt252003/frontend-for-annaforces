@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Header from './components/Header';
 import Login from './components/Login';
 import WelcomePage from './components/WelcomePage';
+import Problems from './components/Problems';
+import ProblemDetail from './components/ProblemDetail';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,9 +46,17 @@ function App() {
       <div>
         <Header isLoggedIn={isLoggedIn} userName={userName} onLogout={handleLogout} />
         <Routes>
-          <Route path="/login" element={isLoggedIn ? <Navigate to="/welcome" /> : <Login onLoginSuccess={handleLoginSuccess} />} />
-          <Route path="/welcome" element={isLoggedIn ? <WelcomePage userName={userName} /> : <Navigate to="/login" />} />
+          <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
+          
+          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
+            <Route path="/welcome" element={<WelcomePage userName={userName} />} />
+            <Route path="/problems" element={<Problems />} />
+            <Route path="/problems/:problem_id" element={<ProblemDetail />} />
+          </Route>
+
           <Route path="/" element={isLoggedIn ? <Navigate to="/welcome" /> : <Navigate to="/login" />} />
+          
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </div>
     </Router>

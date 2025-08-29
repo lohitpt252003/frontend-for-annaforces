@@ -1,5 +1,6 @@
 import React from 'react';
 import Logout from '../Logout';
+import { Link } from 'react-router-dom';
 
 function Header({ isLoggedIn, userName, onLogout }) {
   return (
@@ -7,9 +8,12 @@ function Header({ isLoggedIn, userName, onLogout }) {
       <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', backgroundColor: '#f0f0f0' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <img src="https://via.placeholder.com/30" alt="Logo" style={{ marginRight: '10px' }} />
-          <a href="/" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold', fontSize: '1.2em' }}>ANNAFORCES</a>
+          <Link to="/" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold', fontSize: '1.2em' }}>ANNAFORCES</Link>
         </div>
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {isLoggedIn && (
+            <Link to="/problems" style={{ textDecoration: 'none', color: 'black', marginRight: '20px' }}>Problems</Link>
+          )}
           {isLoggedIn ? (
             <>
               <span>Welcome, {userName}</span>
