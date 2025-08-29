@@ -1,5 +1,9 @@
+
+
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './index.css'; // Import the CSS file
 
 function Login({ onLogin }) {
   const [userId, setUserId] = useState('');
@@ -39,25 +43,27 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: '50px auto', border: '1px solid #ccc', borderRadius: '8px' }}>
-      <h2>Login</h2>
+    <div className="login-container">
+      <h2 className="login-title">Login</h2>
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '15px' }}>
-          <label htmlFor="userId" style={{ display: 'block', marginBottom: '5px' }}>User ID:</label>
+        <div className="login-form-group">
+          <label htmlFor="userId" className="login-label">User ID:</label>
           <input
             type="text"
             id="userId"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+            className="login-input"
             required
           />
         </div>
-        <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Login</button>
-        {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+        <button type="submit" className="login-button">Login</button>
+        {error && <p className="login-error">{error}</p>}
       </form>
     </div>
   );
 }
 
 export default Login;
+
+
