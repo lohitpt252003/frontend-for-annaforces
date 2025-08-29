@@ -1,14 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Logout from '../Logout';
 
-const Header = () => {
+function Header({ isLoggedIn, userName, onLogout }) {
   return (
-    <nav>
-      <Link to="/">Problems</Link>
-      
-      <Link to="/users">Users</Link>
-    </nav>
+    <header>
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px', backgroundColor: '#f0f0f0' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img src="https://via.placeholder.com/30" alt="Logo" style={{ marginRight: '10px' }} />
+          <a href="/" style={{ textDecoration: 'none', color: 'black', fontWeight: 'bold', fontSize: '1.2em' }}>ANNAFORCES</a>
+        </div>
+        <div>
+          {isLoggedIn ? (
+            <>
+              <span>Welcome, {userName}</span>
+              <Logout onLogout={onLogout} />
+            </>
+          ) : (
+            <span>Welcome User</span>
+          )}
+        </div>
+      </nav>
+    </header>
   );
-};
+}
 
 export default Header;

@@ -1,28 +1,52 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
-import ProblemList from './components/ProblemList';
-import ProblemDetail from './components/ProblemDetail';
-import UserList from './components/UserList';
-import UserSubmissions from './components/UserSubmissions';
-import ProblemSubmissions from './components/ProblemSubmissions';
-import './App.css';
+import Login from './components/Login';
+import WelcomePage from './components/WelcomePage';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [userId, setUserId] = useState('');
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('user_id');
+    const storedUserName = localStorage.getItem('username');
+    const storedToken = localStorage.getItem('token');
+
+    if (storedUserId && storedUserName && storedToken) {
+      setUserId(storedUserId);
+      setUserName(storedUserName);
+      setToken(storedToken);
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLoginSuccess = (newUserId, newUserName, newName, newToken) => {
+    setUserId(newUserId);
+    setUserName(newUserName);
+    setToken(newToken);
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setIsLoggedIn(false);
+    setUserName('');
+    setUserId('');
+    setToken('');
+  };
+
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <div className="container">
-          <Routes>
-            <Route path="/" element={<ProblemList />} />
-            <Route path="/problems/:problem_id" element={<ProblemDetail />} />
-            
-            <Route path="/users" element={<UserList />} />
-            <Route path="/users/:user_id/submissions" element={<UserSubmissions />} />
-            <Route path="/problems/:problem_id/submissions" element={<ProblemSubmissions />} />
-          </Routes>
-        </div>
+      <div>
+        <Header isLoggedIn={isLoggedIn} userName={userName} onLogout={handleLogout} />
+        <Routes>
+          <Route path="/login" element={isLoggedIn ? <Navigate to="/welcome" /> : <Login onLoginSuccess={handleLoginSuccess} />} />
+          <Route path="/welcome" element={isLoggedIn ? <WelcomePage userName={userName} /> : <Navigate to="/login" />} />
+          <Route path="/" element={isLoggedIn ? <Navigate to="/welcome" /> : <Navigate to="/login" />} />
+        </Routes>
       </div>
     </Router>
   );
