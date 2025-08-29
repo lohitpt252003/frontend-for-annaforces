@@ -1,0 +1,23 @@
+.welcome-container {
+  padding: 50px 20px; /* Increased padding for more space */
+  text-align: center;
+  background-color: #f4f7f6; /* Light background color */
+  min-height: calc(100vh - 60px); /* Adjust based on header height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-heading {
+  font-size: 2.5em; /* Larger heading */
+  color: #333;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+}
+
+.welcome-message {
+  font-size: 1.2em; /* Slightly larger message */
+  color: #555;
+  line-height: 1.6;
+}

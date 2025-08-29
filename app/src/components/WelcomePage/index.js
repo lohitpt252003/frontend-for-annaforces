@@ -1,10 +1,11 @@
 import React from 'react';
+import './index.css'; // Import the CSS file
 
 function WelcomePage({ userName }) {
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h2>Welcome, {userName}!</h2>
-      <p>You are now logged in to Annaforces.</p>
+    <div className="welcome-container">
+      <h2 className="welcome-heading">Welcome, {userName}!</h2>
+      <p className="welcome-message">You are now logged in to Annaforces.</p>
     </div>
   );
 }
