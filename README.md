@@ -33,6 +33,7 @@ The project follows a modular component structure. Each component is located in 
 *   **`Profile`**: Displays the logged-in user's profile information, fetched from the backend.
 *   **`UserSubmissions`**: Displays a list of all submissions for a specific user, fetched from the backend. Each submission is a clickable link to its detailed view.
 *   **`SubmissionDetail`**: Displays the detailed information for a specific submission, including code, language, status, and test results, fetched from the backend.
+*   **`CodeSubmission`**: Provides a form for users to submit code for a specific problem, including language selection and code input.
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
 
 ### Authentication Flow
@@ -53,6 +54,7 @@ The application uses `react-router-dom` for navigation:
 *   `/welcome`: Displays the welcome message for logged-in users.
 *   `/problems`: Displays a list of all problems (protected route).
 *   `/problems/:problem_id`: Displays details for a specific problem (protected route).
+*   `/problems/:problemId/submit`: Provides a form for submitting code to a specific problem (protected route).
 *   `/profile`: Displays the logged-in user's profile information (protected route).
 *   `/users/:userId/submissions`: Displays a list of all submissions for a specific user (protected route).
 *   `/submissions/:submissionId`: Displays detailed information for a specific submission (protected route).

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 function ProblemDetail() {
   const { problem_id } = useParams();
@@ -61,6 +61,9 @@ function ProblemDetail() {
       <p><strong>Difficulty:</strong> {problem.meta.difficulty}</p>
       <p><strong>Tags:</strong> {problem.meta.tags.join(', ')}</p>
       <p><strong>Authors:</strong> {problem.meta.authors.join(', ')}</p>
+      <Link to={`/problems/${problem_id}/submit`} style={{ display: 'inline-block', marginTop: '20px', padding: '10px 20px', backgroundColor: '#007bff', color: 'white', textDecoration: 'none', borderRadius: '5px' }}>
+        Submit Code
+      </Link>
       <hr />
       <div dangerouslySetInnerHTML={{ __html: problem.problem_statement }} />
     </div>

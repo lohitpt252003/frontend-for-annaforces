@@ -8,6 +8,7 @@ import ProblemDetail from './components/ProblemDetail';
 import Profile from './components/Profile';
 import UserSubmissions from './components/UserSubmissions';
 import SubmissionDetail from './components/SubmissionDetail';
+import CodeSubmission from './components/CodeSubmission';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
             <Route path="/welcome" element={<WelcomePage userName={userName} />} />
             <Route path="/problems" element={<Problems userId={userId} token={token} />} />
             <Route path="/problems/:problem_id" element={<ProblemDetail userId={userId} token={token} />} />
+            <Route path="/problems/:problemId/submit" element={<CodeSubmission token={token} />} />
             <Route path="/profile" element={<Profile userId={userId} token={token} />} />
             <Route path="/users/:userId/submissions" element={<UserSubmissions token={token} />} />
             <Route path="/submissions/:submissionId" element={<SubmissionDetail token={token} />} />
