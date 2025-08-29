@@ -12,7 +12,10 @@ function Header({ isLoggedIn, userName, onLogout }) {
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {isLoggedIn && (
-            <Link to="/problems" style={{ textDecoration: 'none', color: 'black', marginRight: '20px' }}>Problems</Link>
+            <>
+              <Link to="/problems" style={{ textDecoration: 'none', color: 'black', marginRight: '20px' }}>Problems</Link>
+              <Link to="/profile" style={{ textDecoration: 'none', color: 'black', marginRight: '20px' }}>Profile</Link>
+            </>
           )}
           {isLoggedIn ? (
             <>

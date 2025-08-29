@@ -5,6 +5,9 @@ import Login from './components/Login';
 import WelcomePage from './components/WelcomePage';
 import Problems from './components/Problems';
 import ProblemDetail from './components/ProblemDetail';
+import Profile from './components/Profile';
+import UserSubmissions from './components/UserSubmissions';
+import SubmissionDetail from './components/SubmissionDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -50,8 +53,11 @@ function App() {
           
           <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
             <Route path="/welcome" element={<WelcomePage userName={userName} />} />
-            <Route path="/problems" element={<Problems />} />
-            <Route path="/problems/:problem_id" element={<ProblemDetail />} />
+            <Route path="/problems" element={<Problems userId={userId} token={token} />} />
+            <Route path="/problems/:problem_id" element={<ProblemDetail userId={userId} token={token} />} />
+            <Route path="/profile" element={<Profile userId={userId} token={token} />} />
+            <Route path="/users/:userId/submissions" element={<UserSubmissions token={token} />} />
+            <Route path="/submissions/:submissionId" element={<SubmissionDetail token={token} />} />
           </Route>
 
           <Route path="/" element={isLoggedIn ? <Navigate to="/welcome" /> : <Navigate to="/login" />} />
