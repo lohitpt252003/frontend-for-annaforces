@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Problems() {
-  const [problems, setProblems] = useState({});
+  const [allProblems, setAllProblems] = useState({}); // Store all fetched problems
+  const [problems, setProblems] = useState({}); // Problems to display after filtering/searching
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterDifficulty, setFilterDifficulty] = useState('');
+  const [filterTag, setFilterTag] = useState('');
 
   useEffect(() => {
     const fetchProblems = async () => {
@@ -25,7 +29,8 @@ function Problems() {
         const data = await response.json();
 
         if (response.ok) {
-          setProblems(data);
+          setAllProblems(data); // Store all problems
+          setProblems(data);    // Initially display all problems
         } else {
           setError(data.error || 'Failed to fetch problems');
         }
@@ -40,6 +45,32 @@ function Problems() {
     fetchProblems();
   }, []);
 
+  useEffect(() => {
+    // Apply filters and search whenever allProblems, searchTerm, or filters change
+    let filtered = Object.entries(allProblems);
+
+    if (searchTerm) {
+      filtered = filtered.filter(([problemId, problemData]) =>
+        problemData.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        problemId.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    if (filterDifficulty) {
+      filtered = filtered.filter(([problemId, problemData]) =>
+        problemData.difficulty.toLowerCase() === filterDifficulty.toLowerCase()
+      );
+    }
+
+    if (filterTag) {
+      filtered = filtered.filter(([problemId, problemData]) =>
+        problemData.tags.some(tag => tag.toLowerCase() === filterTag.toLowerCase())
+      );
+    }
+
+    setProblems(Object.fromEntries(filtered));
+  }, [allProblems, searchTerm, filterDifficulty, filterTag]);
+
   if (loading) {
     return <div style={{ padding: '20px', textAlign: 'center' }}>Loading problems...</div>;
   }
@@ -48,9 +79,38 @@ function Problems() {
     return <div style={{ padding: '20px', textAlign: 'center', color: 'red' }}>Error: {error}</div>;
   }
 
+  // Extract unique difficulties and tags for filter options
+  const difficulties = [...new Set(Object.values(allProblems).map(p => p.difficulty))];
+  const tags = [...new Set(Object.values(allProblems).flatMap(p => p.tags))];
+
   return (
     <div style={{ padding: '20px' }}>
       <h2>Problems</h2>
+      <div style={{ marginBottom: '20px', display: 'flex', gap: '10px' }}>
+        <input
+          type="text"
+          placeholder="Search by title or ID..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc', flexGrow: 1 }}
+        />
+        <select
+          value={filterDifficulty}
+          onChange={(e) => setFilterDifficulty(e.target.value)}
+          style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
+        >
+          <option value="">All Difficulties</option>
+          {difficulties.map(d => <option key={d} value={d}>{d}</option>)}
+        </select>
+        <select
+          value={filterTag}
+          onChange={(e) => setFilterTag(e.target.value)}
+          style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
+        >
+          <option value="">All Tags</option>
+          {tags.map(t => <option key={t} value={t}>{t}</option>)}
+        </select>
+      </div>
       {Object.keys(problems).length === 0 ? (
         <p>No problems available.</p>
       ) : (
