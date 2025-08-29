@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../api/axios';
 
 const UserSubmissions = () => {
   const { user_id } = useParams();

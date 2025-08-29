@@ -11,7 +11,7 @@ The project follows a modular component structure. Each component is located in 
 *   **`Header`**: The main navigation bar of the application.
 *   **`ProblemList`**: Displays a list of all available problems.
 *   **`ProblemDetail`**: Displays the details of a specific problem.
-*   **`AddProblem`**: Provides a form to add a new problem.
+
 *   **`UserList`**: Displays a list of all users.
 *   **`UserSubmissions`**: Displays a list of submissions for a specific user.
 *   **`ProblemSubmissions`**: Displays a list of submissions for a specific problem.

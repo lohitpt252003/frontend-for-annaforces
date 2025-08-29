@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../api/axios';
 import SubmissionForm from '../SubmissionForm';
 
 const ProblemDetail = () => {
