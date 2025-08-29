@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import './index.css'; // Import the CSS file
 
 function SubmissionDetail({ token }) {
   const { submissionId } = useParams();
@@ -33,15 +34,15 @@ function SubmissionDetail({ token }) {
   }, [submissionId, token]);
 
   if (loading) {
-    return <div>Loading submission details...</div>;
+    return <div className="submission-detail-loading">Loading submission details...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div className="submission-detail-error">Error: {error.message}</div>;
   }
 
   if (!submissionData) {
-    return <div>No submission data found.</div>;
+    return <div className="submission-detail-no-data">No submission data found.</div>;
   }
 
   return (
@@ -54,15 +55,15 @@ function SubmissionDetail({ token }) {
       <p><strong>Timestamp:</strong> {new Date(submissionData.timestamp).toLocaleString()}</p>
 
       <h3>Code:</h3>
-      <pre style={{ backgroundColor: '#eee', padding: '10px', borderRadius: '5px', overflowX: 'auto' }}>
+      <pre className="submission-detail-code-block">
         <code>{submissionData.code}</code>
       </pre>
 
       <h3>Test Results:</h3>
       {submissionData.test_results && submissionData.test_results.length > 0 ? (
-        <ul>
+        <ul className="submission-detail-test-results-list">
           {submissionData.test_results.map((testResult, index) => (
-            <li key={index} style={{ marginBottom: '10px', border: '1px solid #ccc', padding: '10px' }}>
+            <li key={index} className="submission-detail-test-results-list-item">
               <p><strong>Test Case {testResult.test_case_number}:</strong> {testResult.status}</p>
               <p><strong>Message:</strong> {testResult.message}</p>
               <p><strong>Execution Time:</strong> {testResult.execution_time} s</p>
