@@ -25,7 +25,7 @@ The project follows a modular component structure. Each component is located in 
 
 To maintain consistency and readability, all CSS class names should follow the `component-name-classname` convention (e.g., `login-container`, `header-nav`). This ensures that class names are unique and clearly associated with the component they belong to.
 
-Currently, many components utilize inline styles for quick prototyping and development. The long-term goal is to refactor these inline styles into dedicated CSS files (e.g., `ComponentName.css`) and apply the `component-name-classname` convention to all elements.
+We have begun refactoring the frontend components to move inline styles into dedicated `index.css` files within each component's directory. This process also includes applying the `component-name-classname` convention to all elements and improving the overall aesthetic of the UI. Components that have been refactored include: `Header`, `Login`, `WelcomePage`, `Problems`, `ProblemDetail`, `ProblemSubmissions`, `CodeSubmission`, `UserSubmissions`, and `Credits`.
 
 ### Core Components
 

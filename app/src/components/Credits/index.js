@@ -25,7 +25,7 @@ function Credits() {
       github: 'https://github.com/MeenaPriyanshi',
       linkedin: 'http://linkedin.com/in/priyanshi-meena-779155335',
       photo: 'https://raw.githubusercontent.com/lohitpt252003/DATA/refs/heads/main/data/assets/images/priyanshi.png',
-      contribution: 'Problem API development and judge service integration'
+      contribution: 'judge service preparation, css styling'
     },
     {
       name: 'Sujal Kumar Sahani',
@@ -39,7 +39,7 @@ function Credits() {
       github: 'https://github.com/devyani345',
       linkedin: 'http://linkedin.com/in/devyani-dubey-756781317',
       photo: 'https://raw.githubusercontent.com/lohitpt252003/DATA/refs/heads/main/data/assets/images/devyani.png',
-      contribution: 'Documentation and project management'
+      contribution: 'css styling'
     },
   ];
 
