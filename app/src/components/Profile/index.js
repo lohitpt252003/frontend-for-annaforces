@@ -1,7 +1,11 @@
+
+
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
+import './index.css'; // Import the CSS file
 
 function Profile({ userId, token }) {
   const [userData, setUserData] = useState(null);
@@ -35,15 +39,15 @@ function Profile({ userId, token }) {
   }, [userId, token]);
 
   if (loading) {
-    return <div>Loading profile...</div>;
+    return <div className="profile-loading">Loading profile...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div className="profile-error">Error: {error.message}</div>;
   }
 
   if (!userData) {
-    return <div>No user data found.</div>;
+    return <div className="profile-no-data">No user data found.</div>;
   }
 
   return (
@@ -62,3 +66,6 @@ function Profile({ userId, token }) {
 }
 
 export default Profile;
+
+
+
