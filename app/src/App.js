@@ -1,18 +1,31 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import ProblemList from './components/ProblemList';
+import ProblemDetail from './components/ProblemDetail';
+import AddProblem from './components/AddProblem';
+import UserList from './components/UserList';
+import UserSubmissions from './components/UserSubmissions';
+import ProblemSubmissions from './components/ProblemSubmissions';
+import './App.css';
 
-
-/**
- * App Component
- * @description The main application component responsible for setting up routing and navigation.
- * @param {object} props - React component props. (No explicit props are used by this component).
- * @returns {JSX.Element} The JSX element representing the application's structure and routes.
- * @async false
- */
 function App() {
   return (
-    // Router wraps the entire application to enable routing.
+    <Router>
       <div className="App">
+        <Header />
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<ProblemList />} />
+            <Route path="/problems/:problem_id" element={<ProblemDetail />} />
+            <Route path="/add-problem" element={<AddProblem />} />
+            <Route path="/users" element={<UserList />} />
+            <Route path="/users/:user_id/submissions" element={<UserSubmissions />} />
+            <Route path="/problems/:problem_id/submissions" element={<ProblemSubmissions />} />
+          </Routes>
+        </div>
       </div>
+    </Router>
   );
 }
 
