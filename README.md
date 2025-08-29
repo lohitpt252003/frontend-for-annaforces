@@ -30,13 +30,16 @@ The project follows a modular component structure. Each component is located in 
 *   **`WelcomePage`**: A simple page displayed after successful user login.
 *   **`Problems`**: Fetches and displays a list of all available problems from the backend. Problem titles are clickable links to their detail pages.
 *   **`ProblemDetail`**: Displays the detailed information for a specific problem, fetched from the backend.
+*   **`Profile`**: Displays the logged-in user's profile information, fetched from the backend.
+*   **`UserSubmissions`**: Displays a list of all submissions for a specific user, fetched from the backend. Each submission is a clickable link to its detailed view.
+*   **`SubmissionDetail`**: Displays the detailed information for a specific submission, including code, language, status, and test results, fetched from the backend.
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
 
 ### Authentication Flow
 
 1.  Users are redirected to the `/login` page if not authenticated.
 2.  Upon successful login via the `Login` component, user data (ID, username, name, and JWT token) is stored in `localStorage`.
-3.  The application's state (`isLoggedIn`, `userName`, etc.) is updated, and the user is redirected to the `/welcome` page.
+3.  The application's state (`isLoggedIn`, `userName`, etc.) is updated, and the user is redirected to the `/welcome` page. This redirection is now explicitly handled to ensure immediate navigation after successful login.
 4.  Authenticated users can navigate to protected routes like `/problems`.
 5.  The JWT token is automatically included in API requests to protected backend endpoints.
 6.  Clicking the "Logout" button clears `localStorage` and redirects the user back to the `/login` page.
@@ -46,8 +49,11 @@ The project follows a modular component structure. Each component is located in 
 The application uses `react-router-dom` for navigation:
 
 *   `/`: Redirects to `/welcome` if logged in, or `/login` if not.
-*   `/login`: Displays the login form.
+*   `/login`: Displays the login form. If the user is already logged in, it redirects to `/welcome`.
 *   `/welcome`: Displays the welcome message for logged-in users.
 *   `/problems`: Displays a list of all problems (protected route).
 *   `/problems/:problem_id`: Displays details for a specific problem (protected route).
+*   `/profile`: Displays the logged-in user's profile information (protected route).
+*   `/users/:userId/submissions`: Displays a list of all submissions for a specific user (protected route).
+*   `/submissions/:submissionId`: Displays detailed information for a specific submission (protected route).
 *   Any other unmatched route redirects to `/login`.
