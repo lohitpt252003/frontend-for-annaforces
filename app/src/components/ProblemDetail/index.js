@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import './index.css'; // Import the CSS file
 
 function ProblemDetail() {
@@ -73,7 +74,9 @@ function ProblemDetail() {
         View All Submissions
       </Link>
       <hr className="problem-detail-separator" />
-      <div className="problem-detail-statement" dangerouslySetInnerHTML={{ __html: problem.problem_statement }} />
+      <div className="problem-detail-statement">
+        <ReactMarkdown>{problem.problem_statement}</ReactMarkdown>
+      </div>
     </div>
   );
 }
