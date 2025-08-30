@@ -12,6 +12,10 @@ import CodeSubmission from './components/CodeSubmission';
 import ProblemSubmissions from './components/ProblemSubmissions';
 import ProtectedRoute from './components/ProtectedRoute';
 import Credits from './components/Credits';
+import Footer from './components/Footer';
+import AboutUs from './components/AboutUs';
+import Contact from './components/Contact';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
@@ -66,10 +70,15 @@ function App() {
             <Route path="/credits" element={<Credits />} />
           </Route>
 
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+
           <Route path="/" element={isLoggedIn ? <Navigate to="/welcome" /> : <Navigate to="/login" />} />
           
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

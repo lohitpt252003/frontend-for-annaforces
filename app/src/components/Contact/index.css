@@ -1,0 +1,28 @@
+.contact-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.contact-title {
+  color: #333;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.contact-content {
+  color: #555;
+  font-size: 1.1em;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.contact-details p {
+  margin: 5px 0;
+  font-size: 1.05em;
+  color: #333;
+}
