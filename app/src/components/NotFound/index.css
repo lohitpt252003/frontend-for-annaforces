@@ -1,0 +1,40 @@
+.not-found-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.not-found-title {
+  color: #e74c3c;
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.not-found-message {
+  color: #555;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
+
+.not-found-redirect {
+  color: #777;
+  font-size: 1em;
+}
+
+.not-found-url {
+  font-weight: bold;
+  color: #333;
+}
+
+.not-found-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.not-found-link:hover {
+  text-decoration: underline;
+}

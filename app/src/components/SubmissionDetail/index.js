@@ -17,7 +17,11 @@ function SubmissionDetail({ token }) {
           }
         });
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          if (response.status === 404) {
+            setError(new Error("The submission is not there."));
+          } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
         }
         const data = await response.json();
         setSubmissionData(data);

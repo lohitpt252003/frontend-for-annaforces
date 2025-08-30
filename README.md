@@ -35,11 +35,11 @@ We have begun refactoring the frontend components to move inline styles into ded
 *   **`Logout`**: A component that triggers the logout process, clearing user data from `localStorage` and redirecting to the login page.
 *   **`WelcomePage`**: A simple page displayed after successful user login.
 *   **`Problems`**: Fetches and displays a list of all available problems from the backend. Includes search and filter functionalities (by title, ID, difficulty, and tags). Problem titles are clickable links to their detail pages.
-*   **`ProblemDetail`**: Displays the detailed information for a specific problem, fetched from the backend.
+*   **`ProblemDetail`**: Displays the detailed information for a specific problem, fetched from the backend. If the problem is not found, it displays a message indicating that the problem is not there.
 *   **`Profile`**: Displays the logged-in user's profile information, fetched from the backend.
 *   **`UserSubmissions`**: Displays a list of all submissions for a specific user, fetched from the backend. Includes filter functionalities (by problem ID, status, language, and timestamp). Each submission is a clickable link to its detailed view.
 *   **`ProblemSubmissions`**: Displays a list of all submissions for a specific problem, fetched from the backend. Includes filter functionalities (by user ID, status, and timestamp). Each submission is a clickable link to its detailed view.
-*   **`SubmissionDetail`**: Displays the detailed information for a specific submission, including code, language, status, and test results, fetched from the backend.
+*   **`SubmissionDetail`**: Displays the detailed information for a specific submission, including code, language, status, and test results, fetched from the backend. If the submission is not found, it displays a message indicating that the submission is not there.
 *   **`CodeSubmission`**: Provides a form for users to submit code for a specific problem, including language selection and code input.
 *   **`Credits`**: Displays credits for the project, including contributors and technologies used.
 *   **`Footer`**: Displays copyright information, links to About Us, Contact, and Privacy Policy pages.

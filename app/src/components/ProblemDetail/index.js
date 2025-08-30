@@ -27,11 +27,13 @@ function ProblemDetail() {
         const data = await response.json();
 
         if (response.ok) {
-          // console.log(data);
-          
           setProblem(data);
         } else {
-          setError(data.error || 'Failed to fetch problem details');
+          if (response.status === 404) {
+            setError("The problem is not there.");
+          } else {
+            setError(data.error || 'Failed to fetch problem details');
+          }
         }
       } catch (err) {
         setError('Network error or server is unreachable');

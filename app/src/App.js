@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import NotFound from './components/NotFound';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
@@ -76,7 +77,7 @@ function App() {
 
           <Route path="/" element={isLoggedIn ? <Navigate to="/welcome" /> : <Navigate to="/login" />} />
           
-          <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
       </div>
