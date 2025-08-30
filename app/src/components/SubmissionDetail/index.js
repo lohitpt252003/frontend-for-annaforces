@@ -9,6 +9,7 @@ function SubmissionDetail({ token }) {
   const [submissionData, setSubmissionData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [expandedTestCases, setExpandedTestCases] = useState({});
 
   useEffect(() => {
     const fetchSubmissionData = async () => {
@@ -27,6 +28,16 @@ function SubmissionDetail({ token }) {
         }
         const data = await response.json();
         setSubmissionData(data);
+
+        // Initialize all test cases to be expanded by default
+        const initialExpandedState = {};
+        if (data.test_results) {
+          data.test_results.forEach(tr => {
+            initialExpandedState[tr.test_case_number] = true;
+          });
+        }
+        setExpandedTestCases(initialExpandedState);
+
       } catch (error) {
         setError(error);
       } finally {
@@ -38,6 +49,13 @@ function SubmissionDetail({ token }) {
       fetchSubmissionData();
     }
   }, [submissionId, token]);
+
+  const toggleTestCase = (testCaseNumber) => {
+    setExpandedTestCases(prevState => ({
+      ...prevState,
+      [testCaseNumber]: !prevState[testCaseNumber]
+    }));
+  };
 
   if (loading) {
     return <div className="submission-detail-loading">Loading submission details...</div>;
@@ -70,12 +88,21 @@ function SubmissionDetail({ token }) {
         <ul className="submission-detail-test-results-list">
           {submissionData.test_results.map((testResult, index) => (
             <li key={index} className="submission-detail-test-results-list-item">
-              <p><strong>Test Case {testResult.test_case_number}:</strong> {testResult.status}</p>
-              <p><strong>Message:</strong> {testResult.message}</p>
-              <p><strong>Execution Time:</strong> {testResult.execution_time} s</p>
-              <p><strong>Memory Usage:</strong> {testResult.memory_usage} MB</p>
-              <p><strong>Expected Output:</strong> <pre>{testResult.expected_output}</pre></p>
-              <p><strong>Actual Output:</strong> <pre>{testResult.actual_output}</pre></p>
+              <div className="test-case-header">
+                <p><strong>Test Case {testResult.test_case_number}:</strong> {testResult.status}</p>
+                <button onClick={() => toggleTestCase(testResult.test_case_number)} className="test-case-toggle-button">
+                  {expandedTestCases[testResult.test_case_number] ? 'Collapse' : 'Expand'}
+                </button>
+              </div>
+              {expandedTestCases[testResult.test_case_number] && (
+                <div className="test-case-details">
+                  <p><strong>Message:</strong> {testResult.message}</p>
+                  <p><strong>Execution Time:</strong> {testResult.execution_time} s</p>
+                  <p><strong>Memory Usage:</strong> {testResult.memory_usage} MB</p>
+                  <p><strong>Expected Output:</strong> <pre>{testResult.expected_output}</pre></p>
+                  <p><strong>Actual Output:</strong> <pre>{testResult.actual_output}</pre></p>
+                </div>
+              )}
             </li>
           ))}
         </ul>

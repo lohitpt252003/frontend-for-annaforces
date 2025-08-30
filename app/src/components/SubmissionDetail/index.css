@@ -49,3 +49,35 @@
   white-space: pre-wrap; /* Ensures long lines wrap */
   word-wrap: break-word; /* Ensures long words break */
 }
+
+.test-case-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.test-case-header p {
+  margin: 0;
+}
+
+.test-case-toggle-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+.test-case-toggle-button:hover {
+  background-color: #0056b3;
+}
+
+.test-case-details {
+  margin-top: 10px;
+  padding-left: 15px;
+  border-left: 2px solid #eee;
+}

@@ -30,3 +30,16 @@
 .dark-theme .submission-detail-test-results-list-item pre {
   background-color: #3A3A3A;
 }
+
+.dark-theme .test-case-toggle-button {
+  background-color: #59C2FF;
+  color: #1E1E1E;
+}
+
+.dark-theme .test-case-toggle-button:hover {
+  background-color: #3A9CD6;
+}
+
+.dark-theme .test-case-details {
+  border-left: 2px solid #444;
+}

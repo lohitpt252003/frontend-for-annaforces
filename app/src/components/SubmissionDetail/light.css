@@ -30,3 +30,16 @@
 .light-theme .submission-detail-test-results-list-item pre {
   background-color: #E9E9E9;
 }
+
+.light-theme .test-case-toggle-button {
+  background-color: #4A90E2;
+  color: #FFFFFF;
+}
+
+.light-theme .test-case-toggle-button:hover {
+  background-color: #357ABD;
+}
+
+.light-theme .test-case-details {
+  border-left: 2px solid #eee;
+}
