@@ -11,11 +11,13 @@ function Login({ onLogin }) {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // New state for loading
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true); // Set loading to true on submission
 
     try {
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, {
@@ -42,6 +44,8 @@ function Login({ onLogin }) {
     } catch (err) {
       setError('Network error or server is unreachable');
       console.error('Login error:', err);
+    } finally {
+      setIsLoading(false); // Set loading to false after fetch completes
     }
   };
 
@@ -71,7 +75,9 @@ function Login({ onLogin }) {
             required
           />
         </div>
-        <button type="submit" className="login-button">Login</button>
+        <button type="submit" className="login-button" disabled={isLoading}>
+          {isLoading ? 'Logging in...' : 'Login'}
+        </button>
         {error && <p className="login-error">{error}</p>}
       </form>
     </div>

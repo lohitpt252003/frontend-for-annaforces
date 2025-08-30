@@ -44,7 +44,7 @@ We have begun refactoring the frontend components to move inline styles into ded
 
 *   **`App.js`**: The main application component, handling global state (like authentication status) and routing.
 *   **`Header`**: The application's navigation bar, displaying a logo, links, and user status (welcome message/logout button).
-*   **`Login`**: Provides a form for user authentication against the backend API. Stores user credentials and token in `localStorage` upon successful login.
+*   **`Login`**: Provides a form for user authentication against the backend API. Displays a loading indicator during submission. Stores user credentials and token in `localStorage` upon successful login.
 *   **`Logout`**: A component that triggers the logout process, clearing user data from `localStorage` and redirecting to the login page.
 *   **`WelcomePage`**: A simple page displayed after successful user login.
 *   **`Problems`**: Fetches and displays a list of all available problems from the backend. Includes search and filter functionalities (by title, ID, difficulty, and tags). Problem titles are clickable links to their detail pages.
