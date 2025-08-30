@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './index.css'; // Import the CSS file
+import './light.css';
+import './dark.css';
 
 function SubmissionDetail({ token }) {
   const { submissionId } = useParams();

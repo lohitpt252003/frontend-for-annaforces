@@ -1,0 +1,32 @@
+.light-theme .submission-detail-container {
+  background-color: #FFFFFF;
+}
+
+.light-theme .submission-detail-error {
+  color: #E74C3C;
+}
+
+.light-theme .submission-detail-container h2 {
+  color: #2C3E50;
+}
+
+.light-theme .submission-detail-container p {
+  color: #7F8C8D;
+}
+
+.light-theme .submission-detail-container strong {
+  color: #2C3E50;
+}
+
+.light-theme .submission-detail-code-block {
+  background-color: #F0F0F0;
+}
+
+.light-theme .submission-detail-test-results-list-item {
+  border: 1px solid #ccc;
+  background-color: #FFFFFF;
+}
+
+.light-theme .submission-detail-test-results-list-item pre {
+  background-color: #E9E9E9;
+}

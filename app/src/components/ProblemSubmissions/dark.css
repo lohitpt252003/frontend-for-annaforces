@@ -1,0 +1,15 @@
+.dark-theme .problem-submissions-error {
+  color: #FF6B6B;
+}
+
+.dark-theme .problem-submissions-filter-input,
+.dark-theme .problem-submissions-filter-select {
+  border: 1px solid #555;
+  background-color: #333;
+  color: #D4D4D4;
+}
+
+.dark-theme .problem-submissions-list-item {
+  border: 1px solid #444;
+  background-color: #252525;
+}

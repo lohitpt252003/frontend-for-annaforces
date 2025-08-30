@@ -1,5 +1,7 @@
 import React from 'react';
 import './index.css';
+import './light.css';
+import './dark.css';
 
 function Contact() {
   return (

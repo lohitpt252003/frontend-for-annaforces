@@ -1,0 +1,27 @@
+.dark-theme .problems-error {
+  color: #FF6B6B;
+}
+
+.dark-theme .problems-filter-input,
+.dark-theme .problems-filter-select {
+  border: 1px solid #555;
+  background-color: #333;
+  color: #D4D4D4;
+}
+
+.dark-theme .problems-list-item {
+  border: 1px solid #444;
+  background-color: #252525;
+}
+
+.dark-theme .problems-list-item-link {
+  color: #59C2FF;
+}
+
+.dark-theme .problems-view-submissions-link {
+  color: #2ECC71;
+}
+
+.dark-theme .problems-no-problems {
+  color: #858585;
+}

@@ -2,8 +2,10 @@ import React from 'react';
 import Logout from '../Logout';
 import { Link } from 'react-router-dom';
 import './index.css'; // Import the CSS file
+import './light.css';
+import './dark.css';
 
-function Header({ isLoggedIn, userName, onLogout }) {
+function Header({ isLoggedIn, userName, onLogout, toggleTheme, currentTheme }) {
   return (
     <header>
       <nav className="header-nav">
@@ -19,6 +21,9 @@ function Header({ isLoggedIn, userName, onLogout }) {
               <Link to="/credits" className="header-nav-link">Credits</Link>
             </>
           )}
+          <button onClick={toggleTheme} className="theme-toggle-button">
+            {currentTheme === 'light' ? 'Dark Mode' : 'Light Mode'}
+          </button>
           {isLoggedIn ? (
             <>
               <Logout onLogout={onLogout} />

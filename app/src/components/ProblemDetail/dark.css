@@ -1,0 +1,47 @@
+.dark-theme .problem-detail-error {
+  color: #FF6B6B;
+}
+
+.dark-theme .problem-detail-submit-button {
+  background-color: #59C2FF;
+  color: #1E1E1E;
+}
+
+.dark-theme .problem-detail-submit-button:hover {
+  background-color: #3A9CD6;
+}
+
+.dark-theme .problem-detail-view-submissions-button {
+  background-color: #2ECC71;
+}
+
+.dark-theme .problem-detail-view-submissions-button:hover {
+  background-color: #25A25A;
+}
+
+.dark-theme .problem-detail-separator {
+  border-top: 1px solid #444;
+}
+
+.dark-theme .problem-detail-statement {
+  color: #D4D4D4;
+}
+
+.dark-theme .problem-detail-statement h1,
+.dark-theme .problem-detail-statement h2,
+.dark-theme .problem-detail-statement h3,
+.dark-theme .problem-detail-statement h4,
+.dark-theme .problem-detail-statement h5,
+.dark-theme .problem-detail-statement h6 {
+  color: #D4D4D4;
+}
+
+.dark-theme .problem-detail-statement pre {
+  background-color: #333333;
+  border: 1px solid #555555;
+  border-left: 3px solid #59C2FF;
+}
+
+.dark-theme .problem-detail-statement code {
+  background-color: #444444;
+}

@@ -1,0 +1,11 @@
+.dark-theme .welcome-container {
+  background-color: #1E1E1E;
+}
+
+.dark-theme .welcome-heading {
+  color: #D4D4D4;
+}
+
+.dark-theme .welcome-message {
+  color: #858585;
+}

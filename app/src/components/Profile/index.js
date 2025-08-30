@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 import './index.css'; // Import the CSS file
+import './light.css';
+import './dark.css';
 
 function Profile({ userId, token }) {
   const [userData, setUserData] = useState(null);

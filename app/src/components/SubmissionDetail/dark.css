@@ -1,0 +1,32 @@
+.dark-theme .submission-detail-container {
+  background-color: #252525;
+}
+
+.dark-theme .submission-detail-error {
+  color: #FF6B6B;
+}
+
+.dark-theme .submission-detail-container h2 {
+  color: #D4D4D4;
+}
+
+.dark-theme .submission-detail-container p {
+  color: #858585;
+}
+
+.dark-theme .submission-detail-container strong {
+  color: #D4D4D4;
+}
+
+.dark-theme .submission-detail-code-block {
+  background-color: #333333;
+}
+
+.dark-theme .submission-detail-test-results-list-item {
+  border: 1px solid #444;
+  background-color: #2F2F2F;
+}
+
+.dark-theme .submission-detail-test-results-list-item pre {
+  background-color: #3A3A3A;
+}

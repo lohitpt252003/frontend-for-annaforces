@@ -1,0 +1,25 @@
+.light-theme .problems-error {
+  color: #E74C3C;
+}
+
+.light-theme .problems-filter-input,
+.light-theme .problems-filter-select {
+  border: 1px solid #ccc;
+}
+
+.light-theme .problems-list-item {
+  border: 1px solid #eee;
+  background-color: #FFFFFF;
+}
+
+.light-theme .problems-list-item-link {
+  color: #4A90E2;
+}
+
+.light-theme .problems-view-submissions-link {
+  color: #27AE60;
+}
+
+.light-theme .problems-no-problems {
+  color: #7F8C8D;
+}

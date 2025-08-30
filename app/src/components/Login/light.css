@@ -1,0 +1,28 @@
+.light-theme .login-container {
+  background-color: #FFFFFF;
+}
+
+.light-theme .login-title {
+  color: #2C3E50;
+}
+
+.light-theme .login-label {
+  color: #7F8C8D;
+}
+
+.light-theme .login-input {
+  border: 1px solid #ccc;
+}
+
+.light-theme .login-button {
+  background-color: #4A90E2;
+  color: #FFFFFF;
+}
+
+.light-theme .login-button:hover {
+  background-color: #357ABD;
+}
+
+.light-theme .login-error {
+  color: #E74C3C;
+}

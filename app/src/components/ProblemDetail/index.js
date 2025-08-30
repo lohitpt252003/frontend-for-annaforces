@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import './index.css'; // Import the CSS file
+import './light.css';
+import './dark.css';
 
 function ProblemDetail() {
   const { problem_id } = useParams();
@@ -67,15 +69,17 @@ function ProblemDetail() {
         <p><strong>Tags:</strong> {problem.meta.tags.join(', ')}</p>
         <p><strong>Authors:</strong> {problem.meta.authors.join(', ')}</p>
       </div>
-      <Link to={`/problems/${problem_id}/submit`} className="problem-detail-link-button problem-detail-submit-button">
-        Submit Code
-      </Link>
-      <Link to={`/problems/${problem_id}/submissions`} className="problem-detail-link-button problem-detail-view-submissions-button">
-        View All Submissions
-      </Link>
       <hr className="problem-detail-separator" />
       <div className="problem-detail-statement">
         <ReactMarkdown>{problem.problem_statement}</ReactMarkdown>
+      </div>
+      <div className="problem-detail-actions">
+        <Link to={`/problems/${problem_id}/submit`} className="problem-detail-link-button problem-detail-submit-button">
+          Submit Code
+        </Link>
+        <Link to={`/problems/${problem_id}/submissions`} className="problem-detail-link-button problem-detail-view-submissions-button">
+          View All Submissions
+        </Link>
       </div>
     </div>
   );

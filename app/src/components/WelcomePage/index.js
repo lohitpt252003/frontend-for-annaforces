@@ -1,5 +1,7 @@
 import React from 'react';
 import './index.css'; // Import the CSS file
+import './light.css';
+import './dark.css';
 
 function WelcomePage({ userName }) {
   return (

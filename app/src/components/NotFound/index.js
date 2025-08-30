@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './index.css';
+import './light.css';
+import './dark.css';
 
 function NotFound() {
   const location = useLocation();

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './index.css'; // Import the CSS file
+import './light.css';
+import './dark.css';
 
 function CodeSubmission({ token }) {
   const { problemId } = useParams();

@@ -4,6 +4,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.css'; // Import the CSS file
+import './light.css';
+import './dark.css';
 
 function Login({ onLogin }) {
   const [userId, setUserId] = useState('');

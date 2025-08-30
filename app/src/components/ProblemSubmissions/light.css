@@ -1,0 +1,13 @@
+.light-theme .problem-submissions-error {
+  color: #E74C3C;
+}
+
+.light-theme .problem-submissions-filter-input,
+.light-theme .problem-submissions-filter-select {
+  border: 1px solid #ccc;
+}
+
+.light-theme .problem-submissions-list-item {
+  border: 1px solid #eee;
+  background-color: #FFFFFF;
+}

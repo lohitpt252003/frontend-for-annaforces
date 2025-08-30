@@ -1,0 +1,28 @@
+.light-theme .profile-container {
+  background-color: #FFFFFF;
+}
+
+.light-theme .profile-container h2 {
+  color: #2C3E50;
+}
+
+.light-theme .profile-container p {
+  color: #7F8C8D;
+}
+
+.light-theme .profile-container strong {
+  color: #2C3E50;
+}
+
+.light-theme .profile-container a {
+  background-color: #4A90E2;
+  color: #FFFFFF;
+}
+
+.light-theme .profile-container a:hover {
+  background-color: #357ABD;
+}
+
+.light-theme .profile-error {
+  color: #E74C3C;
+}

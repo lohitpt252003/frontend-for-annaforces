@@ -25,6 +25,12 @@ The project follows a modular component structure. Each component is located in 
 
 To maintain consistency and readability, all CSS class names should follow the `component-name-classname` convention (e.g., `login-container`, `header-nav`). This ensures that class names are unique and clearly associated with the component they belong to.
 
+### Theme Switching (Light/Dark Mode)
+
+The application supports light and dark themes, allowing users to switch between them. The theme is initially determined by the user's device preference (`prefers-color-scheme`). If the user manually changes the theme using the toggle button, this preference is saved in `localStorage` and persists across sessions.
+
+Each component has its own `light.css` and `dark.css` files, which contain theme-specific styles. These styles are applied based on a `light-theme` or `dark-theme` class added to the `<body>` element, ensuring that only the relevant theme styles are active at any given time.
+
 We have begun refactoring the frontend components to move inline styles into dedicated `index.css` files within each component's directory. This process also includes applying the `component-name-classname` convention to all elements and improving the overall aesthetic of the UI. Components that have been refactored include: `Header`, `Login`, `WelcomePage`, `Problems`, `ProblemDetail`, `ProblemSubmissions`, `CodeSubmission`, `UserSubmissions`, and `Credits`.
 
 ### Core Components

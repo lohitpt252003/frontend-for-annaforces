@@ -1,0 +1,30 @@
+.dark-theme .login-container {
+  background-color: #252525;
+}
+
+.dark-theme .login-title {
+  color: #D4D4D4;
+}
+
+.dark-theme .login-label {
+  color: #858585;
+}
+
+.dark-theme .login-input {
+  border: 1px solid #444;
+  background-color: #333;
+  color: #D4D4D4;
+}
+
+.dark-theme .login-button {
+  background-color: #59C2FF;
+  color: #1E1E1E;
+}
+
+.dark-theme .login-button:hover {
+  background-color: #3A9CD6;
+}
+
+.dark-theme .login-error {
+  color: #FF6B6B;
+}

@@ -17,12 +17,25 @@ import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import NotFound from './components/NotFound';
+import themeData from './assets/theme.json';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState('');
   const [token, setToken] = useState('');
+  const [theme, setTheme] = useState(() => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      return storedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
+
+  useEffect(() => {
+    document.body.className = theme + '-theme';
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('user_id');
@@ -52,10 +65,14 @@ function App() {
     setToken('');
   };
 
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
   return (
     <Router>
       <div>
-        <Header isLoggedIn={isLoggedIn} userName={userName} onLogout={handleLogout} />
+        <Header isLoggedIn={isLoggedIn} userName={userName} onLogout={handleLogout} toggleTheme={toggleTheme} currentTheme={theme} />
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLoginSuccess} />} />
           

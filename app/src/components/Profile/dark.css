@@ -1,0 +1,28 @@
+.dark-theme .profile-container {
+  background-color: #252525;
+}
+
+.dark-theme .profile-container h2 {
+  color: #D4D4D4;
+}
+
+.dark-theme .profile-container p {
+  color: #858585;
+}
+
+.dark-theme .profile-container strong {
+  color: #D4D4D4;
+}
+
+.dark-theme .profile-container a {
+  background-color: #59C2FF;
+  color: #1E1E1E;
+}
+
+.dark-theme .profile-container a:hover {
+  background-color: #3A9CD6;
+}
+
+.dark-theme .profile-error {
+  color: #FF6B6B;
+}

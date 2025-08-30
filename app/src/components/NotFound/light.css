@@ -1,0 +1,23 @@
+.light-theme .not-found-container {
+  background-color: #FFFFFF;
+}
+
+.light-theme .not-found-title {
+  color: #E74C3C;
+}
+
+.light-theme .not-found-message {
+  color: #7F8C8D;
+}
+
+.light-theme .not-found-redirect {
+  color: #7F8C8D;
+}
+
+.light-theme .not-found-url {
+  color: #2C3E50;
+}
+
+.light-theme .not-found-link {
+  color: #4A90E2;
+}
