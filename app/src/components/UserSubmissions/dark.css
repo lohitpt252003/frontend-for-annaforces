@@ -1,15 +1,15 @@
 .dark-theme .user-submissions-error {
-  color: #FF6B6B;
+  color: #FF8A80;
 }
 
 .dark-theme .user-submissions-filter-input,
 .dark-theme .user-submissions-filter-select {
-  border: 1px solid #555;
-  background-color: #333;
-  color: #D4D4D4;
+  border: 1px solid #2D333B;
+  background-color: #1E1E1E;
+  color: #FFFFFF;
 }
 
 .dark-theme .user-submissions-list-item {
-  border: 1px solid #444;
-  background-color: #252525;
+  border: 1px solid #2D333B;
+  background-color: #121212;
 }

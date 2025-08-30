@@ -1,30 +1,31 @@
 .dark-theme .problem-detail-error {
-  color: #FF6B6B;
+  color: #FF8A80;
 }
 
 .dark-theme .problem-detail-submit-button {
-  background-color: #59C2FF;
-  color: #1E1E1E;
+  background-color: #5B57FF;
+  color: #FFFFFF;
 }
 
 .dark-theme .problem-detail-submit-button:hover {
-  background-color: #3A9CD6;
+  background-color: #2E2BB2;
 }
 
 .dark-theme .problem-detail-view-submissions-button {
-  background-color: #2ECC71;
+  background-color: #7AD39B;
+  color: #121212;
 }
 
 .dark-theme .problem-detail-view-submissions-button:hover {
-  background-color: #25A25A;
+  background-color: #1B2B24;
 }
 
 .dark-theme .problem-detail-separator {
-  border-top: 1px solid #444;
+  border-top: 1px solid #2D333B;
 }
 
 .dark-theme .problem-detail-statement {
-  color: #D4D4D4;
+  color: #FFFFFF;
 }
 
 .dark-theme .problem-detail-statement h1,
@@ -33,15 +34,15 @@
 .dark-theme .problem-detail-statement h4,
 .dark-theme .problem-detail-statement h5,
 .dark-theme .problem-detail-statement h6 {
-  color: #D4D4D4;
+  color: #FFFFFF;
 }
 
 .dark-theme .problem-detail-statement pre {
-  background-color: #333333;
-  border: 1px solid #555555;
-  border-left: 3px solid #59C2FF;
+  background-color: #121212;
+  border: 1px solid #2D333B;
+  border-left: 3px solid #5B57FF;
 }
 
 .dark-theme .problem-detail-statement code {
-  background-color: #444444;
+  background-color: #24243A;
 }

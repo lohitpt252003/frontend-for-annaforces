@@ -1,29 +1,29 @@
 .light-theme .header-nav {
   background-color: #FFFFFF;
-  color: #2C3E50;
+  color: #1A1A1A;
 }
 
 .light-theme .header-link-brand {
-  color: #2C3E50;
+  color: #1A1A1A;
 }
 
 .light-theme .header-nav-link {
-  color: #2C3E50;
+  color: #1A1A1A;
 }
 
 .light-theme .header-nav-link:hover {
-  color: #4A90E2;
+  color: #2A28B0;
 }
 
 .light-theme .header-welcome-text {
-  color: #2C3E50;
+  color: #1A1A1A;
 }
 
 .light-theme .theme-toggle-button {
-  background-color: #4A90E2;
+  background-color: #4B47FF;
   color: #FFFFFF;
 }
 
 .light-theme .theme-toggle-button:hover {
-  background-color: #357ABD;
+  background-color: #2A28B0;
 }

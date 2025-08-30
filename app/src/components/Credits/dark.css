@@ -1,20 +1,20 @@
 .dark-theme .credits-section-title {
-  border-bottom: 2px solid #444;
+  border-bottom: 2px solid #2D333B;
 }
 
 .dark-theme .credits-contributor-card {
-  border: 1px solid #555;
-  background-color: #252525;
+  border: 1px solid #2D333B;
+  background-color: #1E1E1E;
 }
 
 .dark-theme .credits-contributor-contribution {
-  color: #858585;
+  color: #CCCCCC;
 }
 
 .dark-theme .credits-contributor-link-github {
-  color: #59C2FF;
+  color: #1E88E5;
 }
 
 .dark-theme .credits-contributor-link-linkedin {
-  color: #00BFFF;
+  color: #1E88E5;
 }

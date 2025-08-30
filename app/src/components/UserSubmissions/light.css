@@ -1,13 +1,13 @@
 .light-theme .user-submissions-error {
-  color: #E74C3C;
+  color: #D32F2F;
 }
 
 .light-theme .user-submissions-filter-input,
 .light-theme .user-submissions-filter-select {
-  border: 1px solid #ccc;
+  border: 1px solid #D0D7DE;
 }
 
 .light-theme .user-submissions-list-item {
-  border: 1px solid #eee;
+  border: 1px solid #E6EBF1;
   background-color: #FFFFFF;
 }

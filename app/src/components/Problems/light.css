@@ -1,25 +1,25 @@
 .light-theme .problems-error {
-  color: #E74C3C;
+  color: #D32F2F;
 }
 
 .light-theme .problems-filter-input,
 .light-theme .problems-filter-select {
-  border: 1px solid #ccc;
+  border: 1px solid #D0D7DE;
 }
 
 .light-theme .problems-list-item {
-  border: 1px solid #eee;
+  border: 1px solid #E6EBF1;
   background-color: #FFFFFF;
 }
 
 .light-theme .problems-list-item-link {
-  color: #4A90E2;
+  color: #4B47FF;
 }
 
 .light-theme .problems-view-submissions-link {
-  color: #27AE60;
+  color: #2E7D32;
 }
 
 .light-theme .problems-no-problems {
-  color: #7F8C8D;
+  color: #555555;
 }

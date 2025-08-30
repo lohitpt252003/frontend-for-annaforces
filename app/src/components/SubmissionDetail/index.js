@@ -14,7 +14,7 @@ function SubmissionDetail({ token }) {
   useEffect(() => {
     const fetchSubmissionData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/submissions/${submissionId}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/submissions/${submissionId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

@@ -11,7 +11,12 @@ To run the frontend application:
     ```bash
     npm install
     ```
-3.  Start the development server:
+3.  **Configure API Base URL:**
+    Create a `.env` file in the `frontend-for-annaforces/app` directory and add the following line, replacing `YOUR_BACKEND_API_BASE_URL` with the actual URL of your backend API (e.g., `https://backend-for-annaforces.onrender.com`):
+    ```
+    REACT_APP_API_BASE_URL=YOUR_BACKEND_API_BASE_URL
+    ```
+4.  Start the development server:
     ```bash
     npm start
     ```
@@ -28,6 +33,8 @@ To maintain consistency and readability, all CSS class names should follow the `
 ### Theme Switching (Light/Dark Mode)
 
 The application supports light and dark themes, allowing users to switch between them. The theme is initially determined by the user's device preference (`prefers-color-scheme`). If the user manually changes the theme using the toggle button, this preference is saved in `localStorage` and persists across sessions.
+
+Theme colors are sourced from `src/assets/gpt.json`.
 
 Each component has its own `light.css` and `dark.css` files, which contain theme-specific styles. These styles are applied based on a `light-theme` or `dark-theme` class added to the `<body>` element, ensuring that only the relevant theme styles are active at any given time.
 
@@ -52,6 +59,7 @@ We have begun refactoring the frontend components to move inline styles into ded
 *   **`AboutUs`**: Provides information about the Annaforces platform.
 *   **`Contact`**: Provides contact details for Annaforces support.
 *   **`PrivacyPolicy`**: Outlines the privacy policy of the Annaforces platform.
+*   **`NotFound`**: Displays a 404 "Page Not Found" message, including the incorrect URL, and provides a link to the Welcome Page.
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
 
 ### Authentication Flow

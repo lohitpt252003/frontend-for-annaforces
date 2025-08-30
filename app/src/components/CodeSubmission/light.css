@@ -3,37 +3,37 @@
 }
 
 .light-theme .code-submission-container h2 {
-  color: #2C3E50;
+  color: #1A1A1A;
 }
 
 .light-theme .code-submission-form label {
-  color: #7F8C8D;
+  color: #555555;
 }
 
 .light-theme .code-submission-form select,
 .light-theme .code-submission-form textarea {
-  border: 1px solid #ccc;
+  border: 1px solid #D0D7DE;
   background-color: #FFFFFF;
-  color: #2C3E50;
+  color: #1A1A1A;
 }
 
 .light-theme .code-submission-form button {
-  background-color: #4A90E2;
+  background-color: #4B47FF;
   color: #FFFFFF;
 }
 
 .light-theme .code-submission-form button:hover {
-  background-color: #357ABD;
+  background-color: #2A28B0;
 }
 
 .light-theme .code-submission-message.success {
-  color: #27AE60;
-  background-color: #E6FFE6;
-  border: 1px solid #27AE60;
+  color: #2E7D32;
+  background-color: #E6F4EA;
+  border: 1px solid #A5D6A7;
 }
 
 .light-theme .code-submission-message.error {
-  color: #E74C3C;
-  background-color: #FFE6E6;
-  border: 1px solid #E74C3C;
+  color: #D32F2F;
+  background-color: #FDECEA;
+  border: 1px solid #F5C2C7;
 }

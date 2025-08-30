@@ -1,0 +1,929 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/format",
+  "meta": {
+    "name": "ANNAFORCES Theme Tokens",
+    "version": "1.0.0",
+    "generated": "2025-08-30",
+    "standard": "W3C Design Tokens Community Group (draft)",
+    "sources": [
+      "https://www.w3.org/TR/WCAG21/",
+      "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html",
+      "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html",
+      "https://webaim.org/resources/contrastchecker/",
+      "https://webaim.org/blog/contrast-how-hard-can-it-be/",
+      "https://das.osu.edu/webaim-link-contrast-checker",
+      "https://www.designtokens.org/tr/drafts/format/",
+      "https://m3.material.io/styles/color/roles",
+      "https://code.visualstudio.com/api/references/theme-color",
+      "https://code.visualstudio.com/docs/configure/themes",
+      "https://colorbrewer2.org/",
+      "https://sronpersonalpages.nl/~pault/"
+    ],
+    "wcag_target": "2.1 AA (text 4.5:1, large text 3:1; non-text 3:1)"
+  },
+  "modes": {
+    "light": {
+      "color": {
+        "brand": {
+          "primary": {
+            "main": {
+              "$value": "#4B47FF",
+              "$type": "color"
+            },
+            "light": {
+              "$value": "#6C63FF",
+              "$type": "color"
+            },
+            "dark": {
+              "$value": "#2A28B0",
+              "$type": "color"
+            },
+            "onMain": {
+              "$value": "#FFFFFF",
+              "$type": "color"
+            },
+            "container": {
+              "$value": "#DDE0FF",
+              "$type": "color"
+            },
+            "onContainer": {
+              "$value": "#00115A",
+              "$type": "color"
+            }
+          },
+          "secondary": {
+            "main": {
+              "$value": "#FF4D94",
+              "$type": "color"
+            },
+            "light": {
+              "$value": "#FF79C6",
+              "$type": "color"
+            },
+            "dark": {
+              "$value": "#B31257",
+              "$type": "color"
+            },
+            "onMain": {
+              "$value": "#000000",
+              "$type": "color"
+            },
+            "container": {
+              "$value": "#FFD1E3",
+              "$type": "color"
+            },
+            "onContainer": {
+              "$value": "#620025",
+              "$type": "color"
+            }
+          }
+        },
+        "surface": {
+          "background": {
+            "$value": "#F8F9FD",
+            "$type": "color"
+          },
+          "paper": {
+            "$value": "#FFFFFF",
+            "$type": "color"
+          },
+          "variant": {
+            "$value": "#F3F3FF",
+            "$type": "color"
+          },
+          "inverse": {
+            "$value": "#121212",
+            "$type": "color"
+          }
+        },
+        "text": {
+          "primary": {
+            "$value": "#1A1A1A",
+            "$type": "color"
+          },
+          "secondary": {
+            "$value": "#555555",
+            "$type": "color"
+          },
+          "muted": {
+            "$value": "#6E7781",
+            "$type": "color"
+          },
+          "disabled": {
+            "$value": "#9E9E9E",
+            "$type": "color"
+          },
+          "inverse": {
+            "$value": "#FFFFFF",
+            "$type": "color"
+          }
+        },
+        "link": {
+          "default": {
+            "$value": "#4B47FF",
+            "$type": "color"
+          },
+          "hover": {
+            "$value": "#2A28B0",
+            "$type": "color"
+          },
+          "visited": {
+            "$value": "#3D3BFF",
+            "$type": "color"
+          },
+          "requireUnderline": {
+            "$value": true,
+            "$type": "other"
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "#D0D7DE",
+            "$type": "color"
+          },
+          "subtle": {
+            "$value": "#E6EBF1",
+            "$type": "color"
+          },
+          "strong": {
+            "$value": "#8B949E",
+            "$type": "color"
+          },
+          "focus": {
+            "$value": "#4B47FF",
+            "$type": "color"
+          }
+        },
+        "state": {
+          "success": {
+            "bg": {
+              "$value": "#E6F4EA",
+              "$type": "color"
+            },
+            "border": {
+              "$value": "#A5D6A7",
+              "$type": "color"
+            },
+            "on": {
+              "$value": "#1B5E20",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#2E7D32",
+              "$type": "color"
+            }
+          },
+          "error": {
+            "bg": {
+              "$value": "#FDECEA",
+              "$type": "color"
+            },
+            "border": {
+              "$value": "#F5C2C7",
+              "$type": "color"
+            },
+            "on": {
+              "$value": "#B71C1C",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#D32F2F",
+              "$type": "color"
+            }
+          },
+          "warning": {
+            "bg": {
+              "$value": "#FFF8E1",
+              "$type": "color"
+            },
+            "border": {
+              "$value": "#FFE082",
+              "$type": "color"
+            },
+            "on": {
+              "$value": "#6A4E00",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#996F00",
+              "$type": "color"
+            }
+          },
+          "info": {
+            "bg": {
+              "$value": "#E3F2FD",
+              "$type": "color"
+            },
+            "border": {
+              "$value": "#90CAF9",
+              "$type": "color"
+            },
+            "on": {
+              "$value": "#0D47A1",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#1976D2",
+              "$type": "color"
+            }
+          }
+        },
+        "submission": {
+          "accepted": {
+            "$value": "{color.state.success}",
+            "$type": "alias"
+          },
+          "wrongAnswer": {
+            "$value": "{color.state.error}",
+            "$type": "alias"
+          },
+          "timeLimit": {
+            "$value": "{color.state.warning}",
+            "$type": "alias"
+          },
+          "runtimeError": {
+            "bg": {
+              "$value": "#F3E5F5",
+              "$type": "color"
+            },
+            "border": {
+              "$value": "#CE93D8",
+              "$type": "color"
+            },
+            "on": {
+              "$value": "#4A148C",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#6A1B9A",
+              "$type": "color"
+            }
+          },
+          "compilationError": {
+            "bg": {
+              "$value": "#FFF3E0",
+              "$type": "color"
+            },
+            "border": {
+              "$value": "#FFCC80",
+              "$type": "color"
+            },
+            "on": {
+              "$value": "#A84300",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#BF360C",
+              "$type": "color"
+            }
+          },
+          "memoryLimit": {
+            "bg": {
+              "$value": "#E0F2F1",
+              "$type": "color"
+            },
+            "border": {
+              "$value": "#80CBC4",
+              "$type": "color"
+            },
+            "on": {
+              "$value": "#003D33",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#00695C",
+              "$type": "color"
+            }
+          },
+          "partialAccepted": {
+            "bg": {
+              "$value": "#ECEFF1",
+              "$type": "color"
+            },
+            "border": {
+              "$value": "#B0BEC5",
+              "$type": "color"
+            },
+            "on": {
+              "$value": "#263238",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#455A64",
+              "$type": "color"
+            }
+          }
+        },
+        "difficulty": {
+          "easy": {
+            "chipBg": {
+              "$value": "#E8F5E9",
+              "$type": "color"
+            },
+            "chipFg": {
+              "$value": "#1B5E20",
+              "$type": "color"
+            }
+          },
+          "medium": {
+            "chipBg": {
+              "$value": "#FFF8E1",
+              "$type": "color"
+            },
+            "chipFg": {
+              "$value": "#6A4E00",
+              "$type": "color"
+            }
+          },
+          "hard": {
+            "chipBg": {
+              "$value": "#FFEBEE",
+              "$type": "color"
+            },
+            "chipFg": {
+              "$value": "#B71C1C",
+              "$type": "color"
+            }
+          },
+          "expert": {
+            "chipBg": {
+              "$value": "#F3E5F5",
+              "$type": "color"
+            },
+            "chipFg": {
+              "$value": "#4A148C",
+              "$type": "color"
+            }
+          }
+        },
+        "table": {
+          "headerBg": {
+            "$value": "#F3F6FC",
+            "$type": "color"
+          },
+          "headerFg": {
+            "$value": "#1A1A1A",
+            "$type": "color"
+          },
+          "rowHoverBg": {
+            "$value": "#EEF2FF",
+            "$type": "color"
+          },
+          "border": {
+            "$value": "#E6EBF1",
+            "$type": "color"
+          }
+        },
+        "profile": {
+          "avatarRing": {
+            "$value": "#4B47FF",
+            "$type": "color"
+          },
+          "badgeBg": {
+            "$value": "#E6F4EA",
+            "$type": "color"
+          },
+          "badgeFg": {
+            "$value": "#1B5E20",
+            "$type": "color"
+          },
+          "tabsActive": {
+            "$value": "#4B47FF",
+            "$type": "color"
+          },
+          "tabsInactive": {
+            "$value": "#6E7781",
+            "$type": "color"
+          }
+        },
+        "editor": {
+          "background": {
+            "$value": "#FFFFFF",
+            "$type": "color"
+          },
+          "lineHighlight": {
+            "$value": "#F3F6FC",
+            "$type": "color"
+          },
+          "selection": {
+            "$value": "#DDE0FF",
+            "$type": "color"
+          },
+          "caret": {
+            "$value": "#4B47FF",
+            "$type": "color"
+          },
+          "syntax": {
+            "keyword": {
+              "$value": "#A700FF",
+              "$type": "color"
+            },
+            "function": {
+              "$value": "#007ACC",
+              "$type": "color"
+            },
+            "string": {
+              "$value": "#2E7D32",
+              "$type": "color"
+            },
+            "variable": {
+              "$value": "#D81B60",
+              "$type": "color"
+            },
+            "comment": {
+              "$value": "#5D6A72",
+              "$type": "color"
+            },
+            "number": {
+              "$value": "#8E24AA",
+              "$type": "color"
+            },
+            "operator": {
+              "$value": "#1A1A1A",
+              "$type": "color"
+            },
+            "type": {
+              "$value": "#0D47A1",
+              "$type": "color"
+            },
+            "constant": {
+              "$value": "#B71C1C",
+              "$type": "color"
+            }
+          }
+        },
+        "chart": {
+          "qualitative": {
+            "palette": {
+              "$value": [
+                "#4477AA",
+                "#EE6677",
+                "#228833",
+                "#CCBB44",
+                "#66CCEE",
+                "#AA3377",
+                "#BBBBBB",
+                "#009988"
+              ],
+              "$type": "color[]"
+            }
+          }
+        }
+      }
+    },
+    "dark": {
+      "color": {
+        "brand": {
+          "primary": {
+            "main": {
+              "$value": "#5B57FF",
+              "$type": "color"
+            },
+            "light": {
+              "$value": "#7A77FF",
+              "$type": "color"
+            },
+            "dark": {
+              "$value": "#2E2BB2",
+              "$type": "color"
+            },
+            "onMain": {
+              "$value": "#FFFFFF",
+              "$type": "color"
+            },
+            "container": {
+              "$value": "#2A2B3F",
+              "$type": "color"
+            },
+            "onContainer": {
+              "$value": "#C6C6FF",
+              "$type": "color"
+            }
+          },
+          "secondary": {
+            "main": {
+              "$value": "#FF5CA8",
+              "$type": "color"
+            },
+            "light": {
+              "$value": "#FF85BF",
+              "$type": "color"
+            },
+            "dark": {
+              "$value": "#B81A6E",
+              "$type": "color"
+            },
+            "onMain": {
+              "$value": "#000000",
+              "$type": "color"
+            },
+            "container": {
+              "$value": "#412035",
+              "$type": "color"
+            },
+            "onContainer": {
+              "$value": "#FFD1E3",
+              "$type": "color"
+            }
+          }
+        },
+        "surface": {
+          "background": {
+            "$value": "#121212",
+            "$type": "color"
+          },
+          "paper": {
+            "$value": "#1E1E1E",
+            "$type": "color"
+          },
+          "variant": {
+            "$value": "#24243A",
+            "$type": "color"
+          },
+          "inverse": {
+            "$value": "#FFFFFF",
+            "$type": "color"
+          }
+        },
+        "text": {
+          "primary": {
+            "$value": "#FFFFFF",
+            "$type": "color"
+          },
+          "secondary": {
+            "$value": "#CCCCCC",
+            "$type": "color"
+          },
+          "muted": {
+            "$value": "#9AA3AB",
+            "$type": "color"
+          },
+          "disabled": {
+            "$value": "#777777",
+            "$type": "color"
+          },
+          "inverse": {
+            "$value": "#121212",
+            "$type": "color"
+          }
+        },
+        "link": {
+          "default": {
+            "$value": "#1E88E5",
+            "$type": "color"
+          },
+          "hover": {
+            "$value": "#2196F3",
+            "$type": "color"
+          },
+          "visited": {
+            "$value": "#90CAF9",
+            "$type": "color"
+          },
+          "requireUnderline": {
+            "$value": true,
+            "$type": "other"
+          }
+        },
+        "border": {
+          "default": {
+            "$value": "#2D333B",
+            "$type": "color"
+          },
+          "subtle": {
+            "$value": "#23262C",
+            "$type": "color"
+          },
+          "strong": {
+            "$value": "#3D444D",
+            "$type": "color"
+          },
+          "focus": {
+            "$value": "#5B57FF",
+            "$type": "color"
+          }
+        },
+        "state": {
+          "success": {
+            "container": {
+              "$value": "#1B2B24",
+              "$type": "color"
+            },
+            "onContainer": {
+              "$value": "#B9E4C9",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#7AD39B",
+              "$type": "color"
+            }
+          },
+          "error": {
+            "container": {
+              "$value": "#3B1210",
+              "$type": "color"
+            },
+            "onContainer": {
+              "$value": "#F2B8B5",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#FF8A80",
+              "$type": "color"
+            }
+          },
+          "warning": {
+            "container": {
+              "$value": "#3A2A00",
+              "$type": "color"
+            },
+            "onContainer": {
+              "$value": "#FFE1A6",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#FFD54F",
+              "$type": "color"
+            }
+          },
+          "info": {
+            "container": {
+              "$value": "#0A2430",
+              "$type": "color"
+            },
+            "onContainer": {
+              "$value": "#B3E5FC",
+              "$type": "color"
+            },
+            "fg": {
+              "$value": "#64B5F6",
+              "$type": "color"
+            }
+          }
+        },
+        "submission": {
+          "accepted": {
+            "$value": "{color.state.success}",
+            "$type": "alias"
+          },
+          "wrongAnswer": {
+            "$value": "{color.state.error}",
+            "$type": "alias"
+          },
+          "timeLimit": {
+            "$value": "{color.state.warning}",
+            "$type": "alias"
+          },
+          "runtimeError": {
+            "$value": {
+              "container": "#2B1C33",
+              "onContainer": "#E1BEE7",
+              "fg": "#CE93D8"
+            },
+            "$type": "object"
+          },
+          "compilationError": {
+            "$value": {
+              "container": "#3A1F00",
+              "onContainer": "#FFCC80",
+              "fg": "#FFB74D"
+            },
+            "$type": "object"
+          },
+          "memoryLimit": {
+            "$value": {
+              "container": "#002B27",
+              "onContainer": "#80CBC4",
+              "fg": "#4DB6AC"
+            },
+            "$type": "object"
+          },
+          "partialAccepted": {
+            "$value": {
+              "container": "#1D2326",
+              "onContainer": "#B0BEC5",
+              "fg": "#90A4AE"
+            },
+            "$type": "object"
+          }
+        },
+        "difficulty": {
+          "easy": {
+            "chipBg": {
+              "$value": "#10381F",
+              "$type": "color"
+            },
+            "chipFg": {
+              "$value": "#B9E4C9",
+              "$type": "color"
+            }
+          },
+          "medium": {
+            "chipBg": {
+              "$value": "#2C2300",
+              "$type": "color"
+            },
+            "chipFg": {
+              "$value": "#FFE1A6",
+              "$type": "color"
+            }
+          },
+          "hard": {
+            "chipBg": {
+              "$value": "#2D1212",
+              "$type": "color"
+            },
+            "chipFg": {
+              "$value": "#F2B8B5",
+              "$type": "color"
+            }
+          },
+          "expert": {
+            "chipBg": {
+              "$value": "#261235",
+              "$type": "color"
+            },
+            "chipFg": {
+              "$value": "#E1BEE7",
+              "$type": "color"
+            }
+          }
+        },
+        "table": {
+          "headerBg": {
+            "$value": "#1B1F2A",
+            "$type": "color"
+          },
+          "headerFg": {
+            "$value": "#FFFFFF",
+            "$type": "color"
+          },
+          "rowHoverBg": {
+            "$value": "#1A2233",
+            "$type": "color"
+          },
+          "border": {
+            "$value": "#2D333B",
+            "$type": "color"
+          }
+        },
+        "profile": {
+          "avatarRing": {
+            "$value": "#5B57FF",
+            "$type": "color"
+          },
+          "badgeBg": {
+            "$value": "#1B2B24",
+            "$type": "color"
+          },
+          "badgeFg": {
+            "$value": "#B9E4C9",
+            "$type": "color"
+          },
+          "tabsActive": {
+            "$value": "#5B57FF",
+            "$type": "color"
+          },
+          "tabsInactive": {
+            "$value": "#9AA3AB",
+            "$type": "color"
+          }
+        },
+        "editor": {
+          "background": {
+            "$value": "#0B0B0B",
+            "$type": "color"
+          },
+          "lineHighlight": {
+            "$value": "#1E1E1E",
+            "$type": "color"
+          },
+          "selection": {
+            "$value": "#2A2B3F",
+            "$type": "color"
+          },
+          "caret": {
+            "$value": "#5B57FF",
+            "$type": "color"
+          },
+          "syntax": {
+            "keyword": {
+              "$value": "#C792EA",
+              "$type": "color"
+            },
+            "function": {
+              "$value": "#82AAFF",
+              "$type": "color"
+            },
+            "string": {
+              "$value": "#C3E88D",
+              "$type": "color"
+            },
+            "variable": {
+              "$value": "#F07178",
+              "$type": "color"
+            },
+            "comment": {
+              "$value": "#8B949E",
+              "$type": "color"
+            },
+            "number": {
+              "$value": "#F78C6C",
+              "$type": "color"
+            },
+            "operator": {
+              "$value": "#FFFFFF",
+              "$type": "color"
+            },
+            "type": {
+              "$value": "#80CBC4",
+              "$type": "color"
+            },
+            "constant": {
+              "$value": "#FFCB6B",
+              "$type": "color"
+            }
+          }
+        },
+        "chart": {
+          "qualitative": {
+            "palette": {
+              "$value": [
+                "#4477AA",
+                "#EE6677",
+                "#228833",
+                "#CCBB44",
+                "#66CCEE",
+                "#AA3377",
+                "#BBBBBB",
+                "#009988"
+              ],
+              "$type": "color[]"
+            }
+          }
+        }
+      }
+    }
+  },
+  "a11y": {
+    "notes": "Pairs below meet or exceed WCAG 2.1 AA contrast where applicable; non-text UI strokes/rings meet 3:1.",
+    "pairs": [
+      {
+        "pair": "light:text.primary on light:surface.background",
+        "ratio": 16.54,
+        "AA": true
+      },
+      {
+        "pair": "light:onPrimary on light:brand.primary.main",
+        "ratio": 5.76,
+        "AA": true
+      },
+      {
+        "pair": "light:onSecondary on light:brand.secondary.main",
+        "ratio": 6.74,
+        "AA": true
+      },
+      {
+        "pair": "light:link.default on light:surface.paper",
+        "ratio": 5.76,
+        "AA": true
+      },
+      {
+        "pair": "light:state.success.fg on light:surface.paper",
+        "ratio": 5.13,
+        "AA": true
+      },
+      {
+        "pair": "light:state.warning.fg on light:surface.paper",
+        "ratio": 4.54,
+        "AA": true
+      },
+      {
+        "pair": "dark:text.primary on dark:surface.background",
+        "ratio": 18.73,
+        "AA": true
+      },
+      {
+        "pair": "dark:onPrimary on dark:brand.primary.main",
+        "ratio": 4.94,
+        "AA": true
+      },
+      {
+        "pair": "dark:link.default vs dark:text.primary (link contrast)",
+        "ratio": 3.68,
+        "note": ">=3:1 vs body text for non-underlined link; underline enforced",
+        "ok": true
+      },
+      {
+        "pair": "non-text focus ring (light)",
+        "ratio": 5.48,
+        "SC1.4.11": true
+      },
+      {
+        "pair": "non-text focus ring (dark)",
+        "ratio": 3.79,
+        "SC1.4.11": true
+      }
+    ]
+  }
+}

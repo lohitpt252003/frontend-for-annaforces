@@ -1,23 +1,23 @@
 .dark-theme .not-found-container {
-  background-color: #252525;
+  background-color: #1E1E1E;
 }
 
 .dark-theme .not-found-title {
-  color: #FF6B6B;
+  color: #FF8A80;
 }
 
 .dark-theme .not-found-message {
-  color: #858585;
+  color: #CCCCCC;
 }
 
 .dark-theme .not-found-redirect {
-  color: #858585;
+  color: #CCCCCC;
 }
 
 .dark-theme .not-found-url {
-  color: #D4D4D4;
+  color: #FFFFFF;
 }
 
 .dark-theme .not-found-link {
-  color: #59C2FF;
+  color: #1E88E5;
 }

@@ -17,7 +17,7 @@ function Profile({ userId, token }) {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

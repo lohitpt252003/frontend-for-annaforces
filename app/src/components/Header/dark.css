@@ -1,29 +1,29 @@
 .dark-theme .header-nav {
-  background-color: #252525;
-  color: #D4D4D4;
+  background-color: #1E1E1E;
+  color: #FFFFFF;
 }
 
 .dark-theme .header-link-brand {
-  color: #D4D4D4;
+  color: #FFFFFF;
 }
 
 .dark-theme .header-nav-link {
-  color: #D4D4D4;
+  color: #FFFFFF;
 }
 
 .dark-theme .header-nav-link:hover {
-  color: #59C2FF;
+  color: #1E88E5;
 }
 
 .dark-theme .header-welcome-text {
-  color: #D4D4D4;
+  color: #FFFFFF;
 }
 
 .dark-theme .theme-toggle-button {
-  background-color: #59C2FF;
-  color: #1E1E1E;
+  background-color: #5B57FF;
+  color: #121212;
 }
 
 .dark-theme .theme-toggle-button:hover {
-  background-color: #3A9CD6;
+  background-color: #2E2BB2;
 }

@@ -1,20 +1,20 @@
 .light-theme .credits-section-title {
-  border-bottom: 2px solid #eee;
+  border-bottom: 2px solid #E6EBF1;
 }
 
 .light-theme .credits-contributor-card {
-  border: 1px solid #ddd;
+  border: 1px solid #D0D7DE;
   background-color: #FFFFFF;
 }
 
 .light-theme .credits-contributor-contribution {
-  color: #7F8C8D;
+  color: #555555;
 }
 
 .light-theme .credits-contributor-link-github {
-  color: #4A90E2;
+  color: #4B47FF;
 }
 
 .light-theme .credits-contributor-link-linkedin {
-  color: #0077B5;
+  color: #4B47FF;
 }

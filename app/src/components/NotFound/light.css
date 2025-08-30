@@ -3,21 +3,21 @@
 }
 
 .light-theme .not-found-title {
-  color: #E74C3C;
+  color: #D32F2F;
 }
 
 .light-theme .not-found-message {
-  color: #7F8C8D;
+  color: #555555;
 }
 
 .light-theme .not-found-redirect {
-  color: #7F8C8D;
+  color: #555555;
 }
 
 .light-theme .not-found-url {
-  color: #2C3E50;
+  color: #1A1A1A;
 }
 
 .light-theme .not-found-link {
-  color: #4A90E2;
+  color: #4B47FF;
 }

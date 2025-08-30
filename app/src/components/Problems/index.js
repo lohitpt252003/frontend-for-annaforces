@@ -26,7 +26,7 @@ function Problems() {
       }
 
       try {
-        const response = await fetch('http://localhost:5000/api/problems/', {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },

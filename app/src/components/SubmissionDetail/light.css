@@ -3,43 +3,43 @@
 }
 
 .light-theme .submission-detail-error {
-  color: #E74C3C;
+  color: #D32F2F;
 }
 
 .light-theme .submission-detail-container h2 {
-  color: #2C3E50;
+  color: #1A1A1A;
 }
 
 .light-theme .submission-detail-container p {
-  color: #7F8C8D;
+  color: #555555;
 }
 
 .light-theme .submission-detail-container strong {
-  color: #2C3E50;
+  color: #1A1A1A;
 }
 
 .light-theme .submission-detail-code-block {
-  background-color: #F0F0F0;
+  background-color: #FFFFFF;
 }
 
 .light-theme .submission-detail-test-results-list-item {
-  border: 1px solid #ccc;
+  border: 1px solid #D0D7DE;
   background-color: #FFFFFF;
 }
 
 .light-theme .submission-detail-test-results-list-item pre {
-  background-color: #E9E9E9;
+  background-color: #F3F6FC;
 }
 
 .light-theme .test-case-toggle-button {
-  background-color: #4A90E2;
+  background-color: #4B47FF;
   color: #FFFFFF;
 }
 
 .light-theme .test-case-toggle-button:hover {
-  background-color: #357ABD;
+  background-color: #2A28B0;
 }
 
 .light-theme .test-case-details {
-  border-left: 2px solid #eee;
+  border-left: 2px solid #E6EBF1;
 }

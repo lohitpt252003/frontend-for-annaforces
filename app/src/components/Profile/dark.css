@@ -1,28 +1,28 @@
 .dark-theme .profile-container {
-  background-color: #252525;
+  background-color: #1E1E1E;
 }
 
 .dark-theme .profile-container h2 {
-  color: #D4D4D4;
+  color: #FFFFFF;
 }
 
 .dark-theme .profile-container p {
-  color: #858585;
+  color: #CCCCCC;
 }
 
 .dark-theme .profile-container strong {
-  color: #D4D4D4;
+  color: #FFFFFF;
 }
 
 .dark-theme .profile-container a {
-  background-color: #59C2FF;
-  color: #1E1E1E;
+  background-color: #5B57FF;
+  color: #121212;
 }
 
 .dark-theme .profile-container a:hover {
-  background-color: #3A9CD6;
+  background-color: #2E2BB2;
 }
 
 .dark-theme .profile-error {
-  color: #FF6B6B;
+  color: #FF8A80;
 }

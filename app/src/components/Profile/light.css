@@ -3,26 +3,26 @@
 }
 
 .light-theme .profile-container h2 {
-  color: #2C3E50;
+  color: #1A1A1A;
 }
 
 .light-theme .profile-container p {
-  color: #7F8C8D;
+  color: #555555;
 }
 
 .light-theme .profile-container strong {
-  color: #2C3E50;
+  color: #1A1A1A;
 }
 
 .light-theme .profile-container a {
-  background-color: #4A90E2;
+  background-color: #4B47FF;
   color: #FFFFFF;
 }
 
 .light-theme .profile-container a:hover {
-  background-color: #357ABD;
+  background-color: #2A28B0;
 }
 
 .light-theme .profile-error {
-  color: #E74C3C;
+  color: #D32F2F;
 }

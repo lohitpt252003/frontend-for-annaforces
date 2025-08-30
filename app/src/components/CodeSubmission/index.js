@@ -18,7 +18,7 @@ function CodeSubmission({ token }) {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/problems/${problemId}/submit`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
