@@ -17,7 +17,7 @@ function Credits() {
       name: 'Adarsh Mishra',
       github: 'https://github.com/adarshmishra121',
       linkedin: 'http://linkedin.com/in/adarsh-mishra-461a05269',
-      photo: 'https://via.placeholder.com/100?text=C2',
+      photo: 'https://raw.githubusercontent.com/lohitpt252003/DATA/refs/heads/main/data/assets/images/adarsh.png',
       contribution: 'Frontend UI/UX design and implementation'
     },
     {
@@ -41,6 +41,13 @@ function Credits() {
       photo: 'https://raw.githubusercontent.com/lohitpt252003/DATA/refs/heads/main/data/assets/images/devyani.png',
       contribution: 'css styling'
     },
+    {
+      name: 'Sumit Choudhary',
+      github: 'https://github.com/sumit-610',
+      linkedin: 'https://www.linkedin.com/in/sumit-choudhary-433655261',
+      photo: 'https://raw.githubusercontent.com/lohitpt252003/DATA/refs/heads/main/data/assets/images/sumit.png',
+      contribution: 'css styling'
+    },
   ];
 
   return (
@@ -49,7 +56,7 @@ function Credits() {
 
       <section className="credits-section">
         <h3 className="credits-section-title">Developers</h3>
-        <p>This project was primarily developed by [Your Name/Team Name]. We are passionate about creating robust and efficient solutions.</p>
+        <p>This project was primarily developed by Lohit P Talavar/TEAM-ANNA . We are passionate about creating robust and efficient solutions.</p>
         {/* You can add more details about the core development team here */}
       </section>
 
