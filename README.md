@@ -42,6 +42,10 @@ We have begun refactoring the frontend components to move inline styles into ded
 *   **`SubmissionDetail`**: Displays the detailed information for a specific submission, including code, language, status, and test results, fetched from the backend.
 *   **`CodeSubmission`**: Provides a form for users to submit code for a specific problem, including language selection and code input.
 *   **`Credits`**: Displays credits for the project, including contributors and technologies used.
+*   **`Footer`**: Displays copyright information, links to About Us, Contact, and Privacy Policy pages.
+*   **`AboutUs`**: Provides information about the Annaforces platform.
+*   **`Contact`**: Provides contact details for Annaforces support.
+*   **`PrivacyPolicy`**: Outlines the privacy policy of the Annaforces platform.
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
 
 ### Authentication Flow
@@ -68,4 +72,7 @@ The application uses `react-router-dom` for navigation:
 *   `/users/:userId/submissions`: Displays a list of all submissions for a specific user (protected route).
 *   `/submissions/:submissionId`: Displays detailed information for a specific submission (protected route).
 *   `/credits`: Displays the credits page (protected route).
+*   `/about`: Displays information about the platform.
+*   `/contact`: Displays contact information.
+*   `/privacy`: Displays the privacy policy.
 *   Any other unmatched route redirects to `/login`.
