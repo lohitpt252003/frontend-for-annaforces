@@ -7,6 +7,7 @@ import './index.css'; // Import the CSS file
 
 function Login({ onLogin }) {
   const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ function Login({ onLogin }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_id: userId }),
+        body: JSON.stringify({ user_id: userId, password: password }),
       });
 
       const data = await response.json();
@@ -53,6 +54,17 @@ function Login({ onLogin }) {
             id="userId"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
+            className="login-input"
+            required
+          />
+        </div>
+        <div className="login-form-group">
+          <label htmlFor="password" className="login-label">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="login-input"
             required
           />
