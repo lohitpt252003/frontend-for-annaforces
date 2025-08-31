@@ -4,15 +4,15 @@ import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
 
-function SubmissionDetail({ token }) {
+function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   const { submissionId } = useParams();
   const [submissionData, setSubmissionData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedTestCases, setExpandedTestCases] = useState({});
 
   useEffect(() => {
     const fetchSubmissionData = async () => {
+      setIsLoading(true); // Use global loading
       try {
         const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/submissions/${submissionId}`, {
           headers: {
@@ -41,13 +41,14 @@ function SubmissionDetail({ token }) {
       } catch (error) {
         setError(error);
       } finally {
-        setLoading(false);
+        setIsLoading(false); // Use global loading
       }
     };
 
     if (submissionId && token) {
       fetchSubmissionData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submissionId, token]);
 
   const toggleTestCase = (testCaseNumber) => {
@@ -56,10 +57,6 @@ function SubmissionDetail({ token }) {
       [testCaseNumber]: !prevState[testCaseNumber]
     }));
   };
-
-  if (loading) {
-    return <div className="submission-detail-loading">Loading submission details...</div>;
-  }
 
   if (error) {
     return <div className="submission-detail-error">Error: {error.message}</div>;

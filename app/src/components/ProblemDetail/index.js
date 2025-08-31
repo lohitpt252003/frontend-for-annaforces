@@ -5,10 +5,9 @@ import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
 
-function ProblemDetail() {
+function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
   const { problem_id } = useParams();
   const [problem, setProblem] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -16,9 +15,10 @@ function ProblemDetail() {
       const token = localStorage.getItem('token');
       if (!token) {
         setError('No token found. Please log in.');
-        setLoading(false);
         return;
       }
+
+      setIsLoading(true); // Use global loading
 
       try {
         const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}`, {
@@ -42,16 +42,13 @@ function ProblemDetail() {
         setError('Network error or server is unreachable');
         console.error('Fetch problem error:', err);
       } finally {
-        setLoading(false);
+        setIsLoading(false); // Use global loading
       }
     };
 
     fetchProblem();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [problem_id]);
-
-  if (loading) {
-    return <div className="problem-detail-loading">Loading problem details...</div>;
-  }
 
   if (error) {
     return <div className="problem-detail-error">Error: {error}</div>;

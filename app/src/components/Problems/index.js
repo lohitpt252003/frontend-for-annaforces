@@ -1,16 +1,12 @@
-
-
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
 
-function Problems() {
+function Problems({ setIsLoading }) { // Accept setIsLoading prop
   const [allProblems, setAllProblems] = useState({}); // Store all fetched problems
   const [problems, setProblems] = useState({}); // Problems to display after filtering/searching
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterDifficulty, setFilterDifficulty] = useState('');
@@ -21,9 +17,10 @@ function Problems() {
       const token = localStorage.getItem('token');
       if (!token) {
         setError('No token found. Please log in.');
-        setLoading(false);
         return;
       }
+
+      setIsLoading(true); // Use global loading
 
       try {
         const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/`, {
@@ -44,11 +41,12 @@ function Problems() {
         setError('Network error or server is unreachable');
         console.error('Fetch problems error:', err);
       } finally {
-        setLoading(false);
+        setIsLoading(false); // Use global loading
       }
     };
 
     fetchProblems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -76,10 +74,6 @@ function Problems() {
 
     setProblems(Object.fromEntries(filtered));
   }, [allProblems, searchTerm, filterDifficulty, filterTag]);
-
-  if (loading) {
-    return <div className="problems-loading">Loading problems...</div>;
-  }
 
   if (error) {
     return <div className="problems-error">Error: {error}</div>;
@@ -141,5 +135,3 @@ function Problems() {
 }
 
 export default Problems;
-
-

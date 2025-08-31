@@ -1,26 +1,25 @@
-
-
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
 
-function UserSubmissions({ token }) {
+function UserSubmissions({ token, setIsLoading }) { // Accept setIsLoading prop
   const { userId } = useParams();
   const [allSubmissions, setAllSubmissions] = useState([]); // Store all fetched submissions
   const [submissions, setSubmissions] = useState([]); // Submissions to display after filtering
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filterProblemId, setFilterProblemId] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [filterLanguage, setFilterLanguage] = useState('');
   const [filterStartDate, setFilterStartDate] = useState('');
   const [filterEndDate, setFilterEndDate] = useState('');
+  const [sortKey, setSortKey] = useState('submission_id');
+  const [sortOrder, setSortOrder] = useState('desc');
 
   useEffect(() => {
     const fetchSubmissions = async () => {
+      setIsLoading(true); // Use global loading
       try {
         const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/submissions`, {
           headers: {
@@ -36,13 +35,14 @@ function UserSubmissions({ token }) {
       } catch (error) {
         setError(error);
       } finally {
-        setLoading(false);
+        setIsLoading(false); // Use global loading
       }
     };
 
     if (userId && token) {
       fetchSubmissions();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, token]);
 
   useEffect(() => {
@@ -83,9 +83,37 @@ function UserSubmissions({ token }) {
     setSubmissions(filtered);
   }, [allSubmissions, filterProblemId, filterStatus, filterLanguage, filterStartDate, filterEndDate]);
 
-  if (loading) {
-    return <div className="user-submissions-loading">Loading submissions...</div>;
-  }
+  const handleSort = (key) => {
+    if (sortKey === key) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortKey(key);
+      setSortOrder('desc');
+    }
+  };
+
+  const sortedSubmissions = useMemo(() => {
+    return [...submissions].sort((a, b) => {
+      if (sortKey === 'submission_id') {
+        const aId = parseInt(a.submission_id.substring(1), 10);
+        const bId = parseInt(b.submission_id.substring(1), 10);
+        if (sortOrder === 'asc') {
+          return aId - bId;
+        } else {
+          return bId - aId;
+        }
+      } else {
+        // Default string comparison for other columns
+        const aValue = a[sortKey] ? a[sortKey].toString() : '';
+        const bValue = b[sortKey] ? b[sortKey].toString() : '';
+        if (sortOrder === 'asc') {
+          return aValue.localeCompare(bValue);
+        } else {
+          return bValue.localeCompare(aValue);
+        }
+      }
+    });
+  }, [submissions, sortKey, sortOrder]);
 
   if (error) {
     return <div className="user-submissions-error">Error: {error.message}</div>;
@@ -109,11 +137,9 @@ function UserSubmissions({ token }) {
         />
         <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="user-submissions-filter-select">
           <option value="">All Statuses</option>
-          <option value="Accepted">Accepted</option>
-          <option value="Wrong Answer">Wrong Answer</option>
-          <option value="Time Limit Exceeded">Time Limit Exceeded</option>
-          <option value="Runtime Error">Runtime Error</option>
-          <option value="Compilation Error">Compilation Error</option>
+          {[...new Set(allSubmissions.map(s => s.status))].map(status => (
+            <option key={status} value={status}>{status}</option>
+          ))}
         </select>
         <select value={filterLanguage} onChange={(e) => setFilterLanguage(e.target.value)} className="user-submissions-filter-select">
           <option value="">All Languages</option>
@@ -137,30 +163,42 @@ function UserSubmissions({ token }) {
         />
       </div>
 
-      <ul className="user-submissions-list">
-        {submissions.map(submission => (
-          <li key={submission.submission_id} className="user-submissions-list-item">
-            <Link to={`/submissions/${submission.submission_id}`}>
-              <p><strong>Submission ID:</strong> {submission.submission_id}</p>
-              <p><strong>Problem ID:</strong> {submission.problem_id}</p>
-              <p><strong>Status:</strong> {submission.status}</p>
-              <p><strong>Language:</strong> {submission.language}</p>
-              <p><strong>Timestamp:</strong> {new Date(submission.timestamp).toLocaleString()}</p>
-              {submission.test_results && (
-                <p>
-                  <strong>Test Results:</strong> {submission.test_results.filter(tr => tr.status === 'passed').length} / {submission.test_results.length} passed
-                </p>
-              )}
-              {/* Add more submission details as needed */}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <table className="user-submissions-table">
+        <thead>
+          <tr>
+            <th onClick={() => handleSort('submission_id')}>
+              Submission ID {sortKey === 'submission_id' && (sortOrder === 'asc' ? '▲' : '▼')}
+            </th>
+            <th onClick={() => handleSort('problem_id')}>
+              Problem ID {sortKey === 'problem_id' && (sortOrder === 'asc' ? '▲' : '▼')}
+            </th>
+            <th onClick={() => handleSort('status')}>
+              Status {sortKey === 'status' && (sortOrder === 'asc' ? '▲' : '▼')}
+            </th>
+            <th onClick={() => handleSort('language')}>
+              Language {sortKey === 'language' && (sortOrder === 'asc' ? '▲' : '▼')}
+            </th>
+            <th onClick={() => handleSort('timestamp')}>
+              Timestamp {sortKey === 'timestamp' && (sortOrder === 'asc' ? '▲' : '▼')}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedSubmissions.map(submission => (
+            <tr key={submission.submission_id}>
+              <td>
+                <Link to={`/submissions/${submission.submission_id}`}>{submission.submission_id}</Link>
+              </td>
+              <td>{submission.problem_id}</td>
+              <td>{submission.status}</td>
+              <td>{submission.language}</td>
+              <td>{new Date(submission.timestamp).toLocaleString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
 
 export default UserSubmissions;
-
-
-

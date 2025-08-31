@@ -1,21 +1,17 @@
-
-
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
 import { Link } from 'react-router-dom';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
 
-function Profile({ userId, token }) {
+function Profile({ userId, token, setIsLoading }) { // Accept setIsLoading prop
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
+      setIsLoading(true); // Use global loading
       try {
         const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, {
           headers: {
@@ -31,18 +27,15 @@ function Profile({ userId, token }) {
       } catch (error) {
         setError(error);
       } finally {
-        setLoading(false);
+        setIsLoading(false); // Use global loading
       }
     };
 
     if (userId && token) {
       fetchUserData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, token]);
-
-  if (loading) {
-    return <div className="profile-loading">Loading profile...</div>;
-  }
 
   if (error) {
     return <div className="profile-error">Error: {error.message}</div>;
@@ -68,6 +61,3 @@ function Profile({ userId, token }) {
 }
 
 export default Profile;
-
-
-

@@ -17,6 +17,7 @@ import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import NotFound from './components/NotFound';
+import LoadingSpinner from './components/LoadingSpinner'; // Import LoadingSpinner
 import themeData from './assets/theme.json';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState('');
   const [token, setToken] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // New state for global loading
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
@@ -74,17 +76,17 @@ function App() {
       <div>
         <Header isLoggedIn={isLoggedIn} userName={userName} onLogout={handleLogout} toggleTheme={toggleTheme} currentTheme={theme} />
         <Routes>
-          <Route path="/login" element={<Login onLogin={handleLoginSuccess} />} />
+          <Route path="/login" element={<Login onLogin={handleLoginSuccess} setIsLoading={setIsLoading} />} />
           
           <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
             <Route path="/welcome" element={<WelcomePage userName={userName} />} />
-            <Route path="/problems" element={<Problems userId={userId} token={token} />} />
-            <Route path="/problems/:problem_id" element={<ProblemDetail userId={userId} token={token} />} />
-            <Route path="/problems/:problemId/submit" element={<CodeSubmission token={token} />} />
-            <Route path="/problems/:problemId/submissions" element={<ProblemSubmissions token={token} />} />
-            <Route path="/profile" element={<Profile userId={userId} token={token} />} />
-            <Route path="/users/:userId/submissions" element={<UserSubmissions token={token} />} />
-            <Route path="/submissions/:submissionId" element={<SubmissionDetail token={token} />} />
+            <Route path="/problems" element={<Problems userId={userId} token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/problems/:problem_id" element={<ProblemDetail userId={userId} token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/problems/:problemId/submit" element={<CodeSubmission token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/problems/:problemId/submissions" element={<ProblemSubmissions token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/profile" element={<Profile userId={userId} token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/users/:userId/submissions" element={<UserSubmissions token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/submissions/:submissionId" element={<SubmissionDetail token={token} setIsLoading={setIsLoading} />} />
             <Route path="/credits" element={<Credits />} />
           </Route>
 
@@ -97,6 +99,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
+        <LoadingSpinner loading={isLoading} /> {/* Render LoadingSpinner */}
       </div>
     </Router>
   );

@@ -40,6 +40,14 @@ Each component has its own `light.css` and `dark.css` files, which contain theme
 
 We have begun refactoring the frontend components to move inline styles into dedicated `index.css` files within each component's directory. This process also includes applying the `component-name-classname` convention to all elements and improving the overall aesthetic of the UI. Components that have been refactored include: `Header`, `Login`, `WelcomePage`, `Problems`, `ProblemDetail`, `ProblemSubmissions`, `CodeSubmission`, `UserSubmissions`, and `Credits`.
 
+### Global Loading Indicator
+
+The application now includes a global loading indicator (spinner) that is displayed during API calls. This is implemented using the `react-spinners` package.
+
+-   **`LoadingSpinner`**: A reusable component that renders a spinner.
+-   **`App.js`**: Manages a global `isLoading` state and passes a `setGlobalLoading` function to components that make API calls. It conditionally renders the `LoadingSpinner` based on the `isLoading` state.
+-   **API-calling Components**: Components like `Login`, `Problems`, `ProblemDetail`, `CodeSubmission`, `ProblemSubmissions`, `Profile`, and `UserSubmissions` now accept `setGlobalLoading` as a prop. They call `setGlobalLoading(true)` before initiating an API request and `setGlobalLoading(false)` in the `finally` block of the API call to hide the spinner.
+
 ### Core Components
 
 *   **`App.js`**: The main application component, handling global state (like authentication status) and routing.
@@ -50,7 +58,7 @@ We have begun refactoring the frontend components to move inline styles into ded
 *   **`Problems`**: Fetches and displays a list of all available problems from the backend. Includes search and filter functionalities (by title, ID, difficulty, and tags). Problem titles are clickable links to their detail pages.
 *   **`ProblemDetail`**: Displays the detailed information for a specific problem, fetched from the backend. If the problem is not found, it displays a message indicating that the problem is not there.
 *   **`Profile`**: Displays the logged-in user's profile information, fetched from the backend.
-*   **`UserSubmissions`**: Displays a list of all submissions for a specific user, fetched from the backend. Includes filter functionalities (by problem ID, status, language, and timestamp). Each submission is a clickable link to its detailed view.
+*   **`UserSubmissions`**: Displays a sortable table of all submissions for a specific user, fetched from the backend. Includes robust filter functionalities (by problem ID, status, language, and timestamp) with dynamically generated status options to ensure accuracy. Each submission ID is a clickable link to its detailed view.
 *   **`ProblemSubmissions`**: Displays a list of all submissions for a specific problem, fetched from the backend. Includes filter functionalities (by user ID, status, and timestamp). Each submission is a clickable link to its detailed view.
 *   **`SubmissionDetail`**: Displays the detailed information for a specific submission, including code, language, status, and test results, fetched from the backend. If the submission is not found, it displays a message indicating that the submission is not there.
 *   **`CodeSubmission`**: Provides a form for users to submit code for a specific problem, including language selection and code input.

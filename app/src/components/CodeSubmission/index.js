@@ -4,7 +4,7 @@ import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
 
-function CodeSubmission({ token }) {
+function CodeSubmission({ token, setIsLoading }) { // Accept setIsLoading prop
   const { problemId } = useParams();
   const navigate = useNavigate();
   const [code, setCode] = useState('');
@@ -16,6 +16,7 @@ function CodeSubmission({ token }) {
     e.preventDefault();
     setMessage('');
     setError('');
+    setIsLoading(true); // Use global loading
 
     try {
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submit`, {
@@ -40,6 +41,8 @@ function CodeSubmission({ token }) {
       }
     } catch (err) {
       setError(err.message);
+    } finally {
+      setIsLoading(false); // Use global loading
     }
   };
 

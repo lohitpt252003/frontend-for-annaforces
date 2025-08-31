@@ -32,8 +32,8 @@ function Credits() {
     {
       name: 'Sujal Kumar Sahani',
       github: 'https://github.com/contributor4',
-      linkedin: 'https://www.linkedin.com/in/contributor4/',
-      photo: 'https://via.placeholder.com/100?text=C4',
+      linkedin: 'http://linkedin.com/in/sujal-sahani-585a4231a',
+      photo: 'https://raw.githubusercontent.com/lohitpt252003/DATA/refs/heads/main/data/assets/images/sujal.png',
       contribution: 'Testing, bug fixing, and deployment'
     },
     {
