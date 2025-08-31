@@ -1,5 +1,10 @@
 .user-submissions-container {
-  padding: 20px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1200px; /* Adjust as needed */
 }
 
 .user-submissions-loading,
@@ -18,33 +23,88 @@
 
 .user-submissions-filter-input,
 .user-submissions-filter-select {
-  padding: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
   border-radius: 5px;
+  font-size: 1em;
   flex: 1; /* Allow inputs/selects to grow and shrink */
   min-width: 150px; /* Minimum width for filter elements */
+}
+
+.user-submissions-filters button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.user-submissions-filters button:hover {
+  background-color: #0056b3;
 }
 
 .user-submissions-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  border-radius: 8px; /* Rounded corners for the table */
+  overflow: hidden; /* Ensures rounded corners are visible */
 }
 
 .user-submissions-table th, .user-submissions-table td {
-  border: 1px solid #ddd;
-  padding: 12px;
+  padding: 15px;
   text-align: left;
+  border-bottom: 1px solid #eee; /* Only horizontal borders */
 }
 
 .user-submissions-table th {
-  background-color: #f2f2f2;
+  background-color: #eef; /* Lighter background for header */
+  color: #333; /* Darker text for header */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   cursor: pointer;
 }
 
 .user-submissions-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; /* Subtle stripe */
 }
 
 .user-submissions-table tr:hover {
-  background-color: #f1f1f1;
+  background-color: #e0e0e0; /* More pronounced hover */
+}
+
+.user-submissions-table td a {
+  text-decoration: none;
+  color: #007bff; /* Standard blue for links */
+}
+
+.user-submissions-table td a:hover {
+  text-decoration: underline;
+}
+
+/* Status-based coloring */
+.status-accepted {
+  color: green;
+  font-weight: bold;
+}
+
+.status-wrong-answer {
+  color: red;
+  font-weight: bold;
+}
+
+.status-time-limit-exceeded,
+.status-memory-limit-exceeded,
+.status-runtime-error,
+.status-pending {
+  color: orange;
+  font-weight: bold;
+}
+
+/* Compilation error will have default text color */
+.status-compilation-error {
+  font-weight: bold;
 }

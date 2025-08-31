@@ -47,14 +47,14 @@ function Profile({ userId, token, setIsLoading }) { // Accept setIsLoading prop
 
   return (
     <div className="profile-container">
-      <h2>User Profile</h2>
-      <p><strong>User ID:</strong> {userId}</p>
-      <p><strong>Username:</strong> {userData.username}</p>
-      <p><strong>Name:</strong> {userData.name}</p>
-      <p><strong>Bio:</strong> {userData.bio}</p>
-      <p><strong>Joined:</strong> {userData.joined}</p>
-      <p><strong>Number of Submissions:</strong> {userData.number_of_submissions}</p>
-      <p><Link to={`/users/${userId}/submissions`}>View Submissions</Link></p>
+      <h2>User Profile 👤</h2>
+      <p><strong>User ID:</strong> 🆔 {userId}</p>
+      <p><strong>Username:</strong> 🧑‍💻 {userData.username}</p>
+      <p><strong>Name:</strong> 📛 {userData.name}</p>
+      <p><strong>Bio:</strong> 📖 {userData.bio}</p>
+      <p><strong>Joined:</strong> 📅 {userData.joined}</p>
+      <p><strong>Number of Submissions:</strong> 📋 {userData.number_of_submissions}</p>
+      <p><Link to={`/users/${userId}/submissions`}>View Submissions 📋</Link></p>
       {/* Add more profile details as needed */}
     </div>
   );

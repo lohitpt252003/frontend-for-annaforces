@@ -1,32 +1,64 @@
 .profile-container {
-  padding: 20px;
-  max-width: 600px;
-  margin: 20px auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 40px; /* Increased padding */
+  max-width: 700px; /* Slightly wider */
+  margin: 40px auto; /* More margin */
+  background-color: #fff;
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+  color: #333;
 }
 
 .profile-container h2 {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 30px; /* More space below title */
+  color: #2c3e50; /* Darker heading color */
+  font-size: 2.2em; /* Larger title */
+  font-weight: 600;
 }
 
 .profile-container p {
-  margin-bottom: 10px;
+  margin-bottom: 15px; /* More space between paragraphs */
+  font-size: 1.1em; /* Slightly larger text */
+  line-height: 1.6;
+}
+
+.profile-container p strong {
+  color: #555; /* Slightly darker bold text */
+  min-width: 150px; /* Align strong tags */
+  display: inline-block;
 }
 
 .profile-container a {
   display: inline-block;
-  margin-top: 15px;
-  padding: 10px 15px;
+  margin-top: 25px; /* More space above link */
+  padding: 12px 25px; /* Larger button */
   text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  background-color: #007bff; /* Primary blue */
+  color: white;
+  border-radius: 8px; /* Rounded button */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 500;
+  font-size: 1.05em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container a:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .profile-loading,
 .profile-error,
 .profile-no-data {
-  padding: 20px;
+  padding: 30px;
   text-align: center;
+  font-size: 1.3em;
+  color: #e74c3c; /* Error color */
+  font-weight: bold;
+}
+
+.profile-no-data {
+  color: #3498db; /* Info color */
 }

@@ -117,11 +117,11 @@ function ProblemSubmissions({ token, setIsLoading }) { // Accept setIsLoading pr
 
   return (
     <div className="problem-submissions-container">
-      <h2>Submissions for Problem: {problemId}</h2>
+      <h2>Submissions for Problem: {problemId} 📋</h2>
       <div className="problem-submissions-filters">
         <input
           type="text"
-          placeholder="Filter by User ID..."
+          placeholder="Filter by User ID... 👤"
           value={filterUserId}
           onChange={(e) => setFilterUserId(e.target.value)}
           className="problem-submissions-filter-input"
@@ -131,7 +131,7 @@ function ProblemSubmissions({ token, setIsLoading }) { // Accept setIsLoading pr
           onChange={(e) => setFilterStatus(e.target.value)}
           className="problem-submissions-filter-select"
         >
-          <option value="">All Statuses</option>
+          <option value="">All Statuses 📊</option>
           {statuses.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
         <input
@@ -139,14 +139,14 @@ function ProblemSubmissions({ token, setIsLoading }) { // Accept setIsLoading pr
           value={filterStartDate}
           onChange={(e) => setFilterStartDate(e.target.value)}
           className="problem-submissions-filter-input"
-          title="Filter by Start Date"
+          title="Filter by Start Date 📅"
         />
         <input
           type="date"
           value={filterEndDate}
           onChange={(e) => setFilterEndDate(e.target.value)}
           className="problem-submissions-filter-input"
-          title="Filter by End Date"
+          title="Filter by End Date 📅"
         />
       </div>
       {submissions.length === 0 ? (
@@ -156,19 +156,19 @@ function ProblemSubmissions({ token, setIsLoading }) { // Accept setIsLoading pr
           <thead>
             <tr>
               <th onClick={() => handleSort('submission_id')}>
-                Submission ID {sortKey === 'submission_id' && (sortOrder === 'asc' ? '▲' : '▼')}
+                Submission ID 📄 {sortKey === 'submission_id' && (sortOrder === 'asc' ? '▲' : '▼')}
               </th>
               <th onClick={() => handleSort('user_id')}>
-                User ID {sortKey === 'user_id' && (sortOrder === 'asc' ? '▲' : '▼')}
+                User ID 👤 {sortKey === 'user_id' && (sortOrder === 'asc' ? '▲' : '▼')}
               </th>
               <th onClick={() => handleSort('status')}>
-                Status {sortKey === 'status' && (sortOrder === 'asc' ? '▲' : '▼')}
+                Status 📊 {sortKey === 'status' && (sortOrder === 'asc' ? '▲' : '▼')}
               </th>
               <th onClick={() => handleSort('language')}>
-                Language {sortKey === 'language' && (sortOrder === 'asc' ? '▲' : '▼')}
+                Language 🌐 {sortKey === 'language' && (sortOrder === 'asc' ? '▲' : '▼')}
               </th>
               <th onClick={() => handleSort('timestamp')}>
-                Timestamp {sortKey === 'timestamp' && (sortOrder === 'asc' ? '▲' : '▼')}
+                Timestamp ⏰ {sortKey === 'timestamp' && (sortOrder === 'asc' ? '▲' : '▼')}
               </th>
             </tr>
           </thead>
@@ -179,7 +179,10 @@ function ProblemSubmissions({ token, setIsLoading }) { // Accept setIsLoading pr
                   <Link to={`/submissions/${submission.submission_id}`}>{submission.submission_id}</Link>
                 </td>
                 <td>{submission.user_id}</td>
-                <td>{submission.status}</td>
+                <td className={`status-${submission.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
+                  {console.log('Submission Status:', submission.status)}
+                  {submission.status}
+                </td>
                 <td>{submission.language}</td>
                 <td>{new Date(submission.timestamp).toLocaleString()}</td>
               </tr>

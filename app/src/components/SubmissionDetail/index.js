@@ -72,7 +72,10 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
       <p><strong>Problem ID:</strong> {submissionData.problem_id}</p>
       <p><strong>User ID:</strong> {submissionData.user_id}</p>
       <p><strong>Language:</strong> {submissionData.language}</p>
-      <p><strong>Status:</strong> {submissionData.status}</p>
+      <p><strong>Status:</strong> <span className={`status-${submissionData.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
+        {console.log('Submission Status:', submissionData.status)}
+        {submissionData.status}
+      </span></p>
       <p><strong>Timestamp:</strong> {new Date(submissionData.timestamp).toLocaleString()}</p>
 
       <h3>Code:</h3>

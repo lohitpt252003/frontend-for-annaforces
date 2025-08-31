@@ -47,7 +47,7 @@ function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
 
   return (
     <div className="login-container">
-      <h2 className="login-title">Login</h2>
+      <h2 className="login-title">Login 🔑</h2>
       <form onSubmit={handleSubmit}>
         <div className="login-form-group">
           <label htmlFor="userId" className="login-label">User ID:</label>
@@ -72,7 +72,7 @@ function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
           />
         </div>
         <button type="submit" className="login-button" disabled={false}> {/* Remove disabled based on local isLoading */}
-          Login
+          Login ▶️
         </button>
         {error && <p className="login-error">{error}</p>}
       </form>

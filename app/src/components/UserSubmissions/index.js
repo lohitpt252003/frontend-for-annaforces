@@ -125,38 +125,38 @@ function UserSubmissions({ token, setIsLoading }) { // Accept setIsLoading prop
 
   return (
     <div className="user-submissions-container">
-      <h2>Submissions for User: {userId}</h2>
+      <h2>Submissions for User: {userId} 📋</h2>
 
       <div className="user-submissions-filters">
         <input
           type="text"
-          placeholder="Filter by Problem ID"
+          placeholder="Filter by Problem ID 🧩"
           value={filterProblemId}
           onChange={(e) => setFilterProblemId(e.target.value)}
           className="user-submissions-filter-input"
         />
         <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="user-submissions-filter-select">
-          <option value="">All Statuses</option>
+          <option value="">All Statuses 📊</option>
           {[...new Set(allSubmissions.map(s => s.status))].map(status => (
             <option key={status} value={status}>{status}</option>
           ))}
         </select>
         <select value={filterLanguage} onChange={(e) => setFilterLanguage(e.target.value)} className="user-submissions-filter-select">
-          <option value="">All Languages</option>
+          <option value="">All Languages 🌐</option>
           <option value="c">C</option>
           <option value="cpp">C++</option>
           <option value="python">Python</option>
         </select>
         <input
           type="date"
-          placeholder="Start Date"
+          placeholder="Start Date 📅"
           value={filterStartDate}
           onChange={(e) => setFilterStartDate(e.target.value)}
           className="user-submissions-filter-input"
         />
         <input
           type="date"
-          placeholder="End Date"
+          placeholder="End Date 📅"
           value={filterEndDate}
           onChange={(e) => setFilterEndDate(e.target.value)}
           className="user-submissions-filter-input"
@@ -167,19 +167,19 @@ function UserSubmissions({ token, setIsLoading }) { // Accept setIsLoading prop
         <thead>
           <tr>
             <th onClick={() => handleSort('submission_id')}>
-              Submission ID {sortKey === 'submission_id' && (sortOrder === 'asc' ? '▲' : '▼')}
+              Submission ID 📄 {sortKey === 'submission_id' && (sortOrder === 'asc' ? '▲' : '▼')}
             </th>
             <th onClick={() => handleSort('problem_id')}>
-              Problem ID {sortKey === 'problem_id' && (sortOrder === 'asc' ? '▲' : '▼')}
+              Problem ID 🧩 {sortKey === 'problem_id' && (sortOrder === 'asc' ? '▲' : '▼')}
             </th>
             <th onClick={() => handleSort('status')}>
-              Status {sortKey === 'status' && (sortOrder === 'asc' ? '▲' : '▼')}
+              Status 📊 {sortKey === 'status' && (sortOrder === 'asc' ? '▲' : '▼')}
             </th>
             <th onClick={() => handleSort('language')}>
-              Language {sortKey === 'language' && (sortOrder === 'asc' ? '▲' : '▼')}
+              Language 🌐 {sortKey === 'language' && (sortOrder === 'asc' ? '▲' : '▼')}
             </th>
             <th onClick={() => handleSort('timestamp')}>
-              Timestamp {sortKey === 'timestamp' && (sortOrder === 'asc' ? '▲' : '▼')}
+              Timestamp ⏰ {sortKey === 'timestamp' && (sortOrder === 'asc' ? '▲' : '▼')}
             </th>
           </tr>
         </thead>
@@ -190,7 +190,10 @@ function UserSubmissions({ token, setIsLoading }) { // Accept setIsLoading prop
                 <Link to={`/submissions/${submission.submission_id}`}>{submission.submission_id}</Link>
               </td>
               <td>{submission.problem_id}</td>
-              <td>{submission.status}</td>
+              <td className={`status-${submission.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
+                {console.log('Submission Status:', submission.status)}
+                {submission.status}
+              </td>
               <td>{submission.language}</td>
               <td>{new Date(submission.timestamp).toLocaleString()}</td>
             </tr>

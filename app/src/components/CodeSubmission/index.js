@@ -48,10 +48,10 @@ function CodeSubmission({ token, setIsLoading }) { // Accept setIsLoading prop
 
   return (
     <div className="code-submission-container">
-      <h2>Submit Code for Problem: {problemId}</h2>
+      <h2>Submit Code for Problem: {problemId} ⌨️</h2>
       <form onSubmit={handleSubmit} className="code-submission-form">
         <div className="code-submission-form-group">
-          <label htmlFor="language" className="code-submission-label">Language:</label>
+          <label htmlFor="language" className="code-submission-label">Language: 🌐</label>
           <select id="language" value={language} onChange={(e) => setLanguage(e.target.value)} className="code-submission-select">
             <option value="python">Python</option>
             <option value="c">C</option>
@@ -59,7 +59,7 @@ function CodeSubmission({ token, setIsLoading }) { // Accept setIsLoading prop
           </select>
         </div>
         <div className="code-submission-form-group">
-          <label htmlFor="code" className="code-submission-label">Code:</label>
+          <label htmlFor="code" className="code-submission-label">Code: 💻</label>
           <textarea
             id="code"
             value={code}
@@ -70,7 +70,7 @@ function CodeSubmission({ token, setIsLoading }) { // Accept setIsLoading prop
             className="code-submission-textarea"
           ></textarea>
         </div>
-        <button type="submit" className="code-submission-button">Submit</button>
+        <button type="submit" className="code-submission-button">Submit 🚀</button>
       </form>
 
       {message && <p className="code-submission-message success">{message}</p>}

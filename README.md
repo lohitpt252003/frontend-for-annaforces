@@ -48,6 +48,14 @@ The application now includes a global loading indicator (spinner) that is displa
 -   **`App.js`**: Manages a global `isLoading` state and passes a `setGlobalLoading` function to components that make API calls. It conditionally renders the `LoadingSpinner` based on the `isLoading` state.
 -   **API-calling Components**: Components like `Login`, `Problems`, `ProblemDetail`, `CodeSubmission`, `ProblemSubmissions`, `Profile`, and `UserSubmissions` now accept `setGlobalLoading` as a prop. They call `setGlobalLoading(true)` before initiating an API request and `setGlobalLoading(false)` in the `finally` block of the API call to hide the spinner.
 
+### Visual Enhancements
+
+Significant effort has been made to improve the visual appeal and user experience across the application:
+
+-   **Enhanced Styling**: The `SubmissionDetail` and `Credits` pages have received comprehensive styling updates, including modern layouts, improved typography, better spacing, and refined element designs.
+-   **Icons in Credits**: The `Credits` page now features relevant icons (e.g., GitHub, LinkedIn) for contributor links, enhancing visual clarity and engagement.
+-   **Emojis Across Pages**: Emojis have been strategically added to various pages and components throughout the application, including titles, labels, buttons, and list items, to provide a more friendly and intuitive user interface.
+
 ### Core Components
 
 *   **`App.js`**: The main application component, handling global state (like authentication status) and routing.

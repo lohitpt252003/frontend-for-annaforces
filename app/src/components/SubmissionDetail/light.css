@@ -1,5 +1,7 @@
+
 .light-theme .submission-detail-container {
   background-color: #FFFFFF;
+  color: #333333;
 }
 
 .light-theme .submission-detail-error {
@@ -8,6 +10,11 @@
 
 .light-theme .submission-detail-container h2 {
   color: #1A1A1A;
+}
+
+.light-theme .submission-detail-container h3 {
+  color: #1A1A1A;
+  border-bottom-color: #E0E0E0;
 }
 
 .light-theme .submission-detail-container p {
@@ -19,27 +26,29 @@
 }
 
 .light-theme .submission-detail-code-block {
-  background-color: #FFFFFF;
+  background-color: #F5F5F5;
+  border-color: #E0E0E0;
 }
 
 .light-theme .submission-detail-test-results-list-item {
-  border: 1px solid #D0D7DE;
+  border: 1px solid #E0E0E0;
   background-color: #FFFFFF;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .light-theme .submission-detail-test-results-list-item pre {
-  background-color: #F3F6FC;
+  background-color: #EEEEEE;
 }
 
 .light-theme .test-case-toggle-button {
-  background-color: #4B47FF;
+  background-color: #007bff;
   color: #FFFFFF;
 }
 
 .light-theme .test-case-toggle-button:hover {
-  background-color: #2A28B0;
+  background-color: #0056b3;
 }
 
 .light-theme .test-case-details {
-  border-left: 2px solid #E6EBF1;
+  border-left: 2px solid #CCCCCC;
 }

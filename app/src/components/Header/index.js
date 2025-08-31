@@ -16,13 +16,13 @@ function Header({ isLoggedIn, userName, onLogout, toggleTheme, currentTheme }) {
         <div className="header-nav-links">
           {isLoggedIn && (
             <>
-              <Link to="/problems" className="header-nav-link">Problems</Link>
-              <Link to="/profile" className="header-nav-link">Profile</Link>
-              <Link to="/credits" className="header-nav-link">Credits</Link>
+              <Link to="/problems" className="header-nav-link">Problems 🧩</Link>
+              <Link to="/profile" className="header-nav-link">Profile 👤</Link>
+              <Link to="/credits" className="header-nav-link">Credits 🏆</Link>
             </>
           )}
           <button onClick={toggleTheme} className="theme-toggle-button">
-            {currentTheme === 'light' ? 'Dark Mode' : 'Light Mode'}
+            {currentTheme === 'light' ? 'Dark Mode 🌙' : 'Light Mode ☀️'}
           </button>
           {isLoggedIn ? (
             <>

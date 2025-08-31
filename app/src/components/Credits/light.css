@@ -1,20 +1,64 @@
+
+.light-theme .credits-container {
+  background-color: #F8F9FA;
+  color: #343A40;
+}
+
+.light-theme .credits-title {
+  color: #212529;
+}
+
 .light-theme .credits-section-title {
-  border-bottom: 2px solid #E6EBF1;
+  color: #212529;
+  border-bottom-color: #DEE2E6;
+}
+
+.light-theme .credits-section p {
+  color: #495057;
+}
+
+.light-theme .credits-tech-list li {
+  background-color: #E9ECEF;
+  color: #495057;
+}
+
+.light-theme .credits-tech-list li:hover {
+  background-color: #DEE2E6;
 }
 
 .light-theme .credits-contributor-card {
-  border: 1px solid #D0D7DE;
   background-color: #FFFFFF;
+  border: 1px solid #E9ECEF;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.light-theme .credits-contributor-card:hover {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.light-theme .credits-contributor-photo {
+  border-color: #007BFF;
+}
+
+.light-theme .credits-contributor-name {
+  color: #212529;
 }
 
 .light-theme .credits-contributor-contribution {
-  color: #555555;
+  color: #6C757D;
 }
 
-.light-theme .credits-contributor-link-github {
-  color: #4B47FF;
-}
-
+.light-theme .credits-contributor-link-github,
 .light-theme .credits-contributor-link-linkedin {
-  color: #4B47FF;
+  background-color: #007BFF;
+  color: #FFFFFF;
+}
+
+.light-theme .credits-contributor-link-github:hover,
+.light-theme .credits-contributor-link-linkedin:hover {
+  background-color: #0056B3;
+}
+
+.light-theme .credits-special-thanks-list li {
+  color: #495057;
 }

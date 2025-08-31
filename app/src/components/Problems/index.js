@@ -85,11 +85,11 @@ function Problems({ setIsLoading }) { // Accept setIsLoading prop
 
   return (
     <div className="problems-container">
-      <h2>Problems</h2>
+      <h2>Problems 📋</h2>
       <div className="problems-filters">
         <input
           type="text"
-          placeholder="Search by title or ID..."
+          placeholder="Search by title or ID... 🔍"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="problems-filter-input"
@@ -99,7 +99,7 @@ function Problems({ setIsLoading }) { // Accept setIsLoading prop
           onChange={(e) => setFilterDifficulty(e.target.value)}
           className="problems-filter-select"
         >
-          <option value="">All Difficulties</option>
+          <option value="">All Difficulties 📈</option>
           {difficulties.map(d => <option key={d} value={d}>{d}</option>)}
         </select>
         <select
@@ -107,7 +107,7 @@ function Problems({ setIsLoading }) { // Accept setIsLoading prop
           onChange={(e) => setFilterTag(e.target.value)}
           className="problems-filter-select"
         >
-          <option value="">All Tags</option>
+          <option value="">All Tags 🏷️</option>
           {tags.map(t => <option key={t} value={t}>{t}</option>)}
         </select>
       </div>
@@ -123,9 +123,9 @@ function Problems({ setIsLoading }) { // Accept setIsLoading prop
               <Link to={`/problems/${problemId}/submissions`} className="problems-view-submissions-link">
                 View Submissions
               </Link>
-              <p><strong>Difficulty:</strong> {problemData.difficulty}</p>
-              <p><strong>Tags:</strong> {problemData.tags.join(', ')}</p>
-              <p><strong>Authors:</strong> {problemData.authors.join(', ')}</p>
+              <p><strong>Difficulty:</strong> ⭐ {problemData.difficulty}</p>
+              <p><strong>Tags:</strong> 🏷️ {problemData.tags.join(', ')}</p>
+              <p><strong>Authors:</strong> ✍️ {problemData.authors.join(', ')}</p>
             </li>
           ))}
         </ul>
