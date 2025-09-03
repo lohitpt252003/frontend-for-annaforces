@@ -1,0 +1,155 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown'; // Import ReactMarkdown
+import './index.css'; // For component-specific styles
+import './light.css'; // For component-specific styles
+import './dark.css'; // For component-specific styles
+
+const SolutionDetail = ({ setGlobalLoading }) => {
+  const { problemId } = useParams();
+  const [solutionData, setSolutionData] = useState(null);
+  const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [selectedLanguage, setSelectedLanguage] = useState('python'); // State to control selected language in modal
+
+  useEffect(() => {
+    const fetchSolution = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('No token found. Please log in.');
+        if (setGlobalLoading) setGlobalLoading(false);
+        return;
+      }
+
+      if (setGlobalLoading) setGlobalLoading(true);
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/solution`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to fetch solution');
+        }
+
+        const data = await response.json();
+        setSolutionData(data);
+
+        // Set default selected language if available
+        if (data.python) {
+          setSelectedLanguage('python');
+        } else if (data.cpp) {
+          setSelectedLanguage('cpp');
+        } else if (data.c) {
+          setSelectedLanguage('c');
+        }
+
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching solution:', err);
+      } finally {
+        if (setGlobalLoading) setGlobalLoading(false);
+      }
+    };
+
+    if (problemId) {
+      fetchSolution();
+    }
+  }, [problemId, setGlobalLoading]);
+
+  const handleViewSolutionClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const renderCodeBlock = (language) => {
+    const code = solutionData[language];
+    if (!code) return <p>No {language} solution available.</p>;
+
+    return (
+      <pre><code className={`language-${language}`}>{ 
+        code.endsWith('\n') ? code.slice(0, -1) : code
+      }</code></pre>
+    );
+  };
+
+  if (error) {
+    return <div className="solution-detail-error">Error: {error}</div>;
+  }
+
+  if (!solutionData) {
+    return <div className="solution-detail-loading">Loading solution...</div>;
+  }
+
+  return (
+    <div className="solution-detail-container">
+      <h2 className="solution-detail-title">Solution for Problem {problemId}</h2>
+      
+      <div className="solution-detail-section">
+        <h3 className="solution-detail-subtitle">Explanation (solution.md)</h3>
+        {solutionData.markdown ? (
+          <ReactMarkdown>{solutionData.markdown}</ReactMarkdown>
+        ) : (
+          <p>No markdown explanation available.</p>
+        )}
+      </div>
+
+      <div className="solution-detail-actions">
+        <button onClick={handleViewSolutionClick} className="solution-detail-view-solution-button">
+          View Author's Solution 💡
+        </button>
+      </div>
+
+      {showModal && (
+        <div className="solution-modal-overlay">
+          <div className="solution-modal-content">
+            <div className="solution-modal-header">
+              <h3>Author's Solution for Problem {problemId}</h3>
+              <button onClick={handleCloseModal} className="solution-modal-close-button">×</button>
+            </div>
+            <div className="solution-modal-tabs">
+              {solutionData.python && (
+                <button 
+                  className={`solution-modal-tab ${selectedLanguage === 'python' ? 'active' : ''}`}
+                  onClick={() => setSelectedLanguage('python')}
+                >
+                  Python
+                </button>
+              )}
+              {solutionData.cpp && (
+                <button 
+                  className={`solution-modal-tab ${selectedLanguage === 'cpp' ? 'active' : ''}`}
+                  onClick={() => setSelectedLanguage('cpp')}
+                >
+                  C++
+                </button>
+              )}
+              {solutionData.c && (
+                <button 
+                  className={`solution-modal-tab ${selectedLanguage === 'c' ? 'active' : ''}`}
+                  onClick={() => setSelectedLanguage('c')}
+                >
+                  C
+                </button>
+              )}
+            </div>
+            <div className="solution-modal-code-display">
+              {selectedLanguage === 'python' && renderCodeBlock('python')}
+              {selectedLanguage === 'cpp' && renderCodeBlock('cpp')}
+              {selectedLanguage === 'c' && renderCodeBlock('c')}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <Link to={`/problems/${problemId}`} className="solution-detail-back-link">Back to Problem</Link>
+    </div>
+  );
+};
+
+export default SolutionDetail;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
@@ -35,12 +36,14 @@ function CodeSubmission({ token, setIsLoading }) { // Accept setIsLoading prop
       }
 
       setMessage(data.message || 'Submission successful!');
+      toast.success(data.message || 'Submission successful!');
       // Optionally navigate to submission details or user submissions page
       if (data.submission_id) {
         navigate(`/submissions/${data.submission_id}`);
       }
     } catch (err) {
       setError(err.message);
+      toast.error(err.message);
     } finally {
       setIsLoading(false); // Use global loading
     }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
@@ -33,12 +34,15 @@ function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
         localStorage.setItem('token', data.token);
 
         onLogin(data.user_id, data.username, data.name, data.token);
+        toast.success('Login successful!');
         navigate('/welcome');
       } else {
         setError(data.error || 'Login failed');
+        toast.error(data.error || 'Login failed');
       }
     } catch (err) {
       setError('Network error or server is unreachable');
+      toast.error('Network error or server is unreachable');
       console.error('Login error:', err);
     } finally {
       setIsLoading(false); // Use global loading

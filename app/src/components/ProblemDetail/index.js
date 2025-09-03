@@ -77,6 +77,9 @@ function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
         <Link to={`/problems/${problem_id}/submissions`} className="problem-detail-link-button problem-detail-view-submissions-button">
           View All Submissions 📋
         </Link>
+        <Link to={`/problems/${problem_id}/solution`} className="problem-detail-link-button problem-detail-view-solution-button">
+          View Solution 💡
+        </Link>
       </div>
     </div>
   );

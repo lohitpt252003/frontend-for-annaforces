@@ -1,70 +1,115 @@
-# Getting Started with Create React App
+# frontend-for-annaforces
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend for the Annaforces project, built with React.
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+To run the frontend application:
 
-### `npm start`
+1.  Navigate to the `frontend-for-annaforces/app` directory in your terminal.
+2.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+3.  **Configure API Base URL:**
+    Create a `.env` file in the `frontend-for-annaforces/app` directory and add the following line, replacing `YOUR_BACKEND_API_BASE_URL` with the actual URL of your backend API (e.g., `https://backend-for-annaforces.onrender.com`):
+    ```
+    REACT_APP_API_BASE_URL=YOUR_BACKEND_API_BASE_URL
+    ```
+4.  Start the development server:
+    ```bash
+    npm start
+    ```
+    The application will typically open in your browser at `http://localhost:3000`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Component Structure and Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The project follows a modular component structure. Each component is located in its own directory inside `src/components`.
 
-### `npm test`
+## Styling and Class Naming Convention
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To maintain consistency and readability, all CSS class names should follow the `component-name-classname` convention (e.g., `login-container`, `header-nav`). This ensures that class names are unique and clearly associated with the component they belong to.
 
-### `npm run build`
+### Theme Switching (Light/Dark Mode)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The application supports light and dark themes, allowing users to switch between them. The theme is initially determined by the user's device preference (`prefers-color-scheme`). If the user manually changes the theme using the toggle button, this preference is saved in `localStorage` and persists across sessions.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Theme colors are sourced from `src/assets/gpt.json`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Each component has its own `light.css` and `dark.css` files, which contain theme-specific styles. These styles are applied based on a `light-theme` or `dark-theme` class added to the `<body>` element, ensuring that only the relevant theme styles are active at any given time.
 
-### `npm run eject`
+We have begun refactoring the frontend components to move inline styles into dedicated `index.css` files within each component's directory. This process also includes applying the `component-name-classname` convention to all elements and improving the overall aesthetic of the UI. Components that have been refactored include: `Header`, `Login`, `WelcomePage`, `Problems`, `ProblemDetail`, `ProblemSubmissions`, `CodeSubmission`, `UserSubmissions`, `Credits`, and `SolutionDetail`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Global Loading Indicator
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The application now includes a global loading indicator (spinner) that is displayed during API calls. This is implemented using the `react-spinners` package.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+-   **`LoadingSpinner`**: A reusable component that renders a spinner.
+-   **`App.js`**: Manages a global `isLoading` state and passes a `setGlobalLoading` function to components that make API calls. It conditionally renders the `LoadingSpinner` based on the `isLoading` state.
+-   **API-calling Components**: Components like `Login`, `Problems`, `ProblemDetail`, `CodeSubmission`, `ProblemSubmissions`, `Profile`, and `UserSubmissions` now accept `setGlobalLoading` as a prop. They call `setGlobalLoading(true)` before initiating an API request and `setGlobalLoading(false)` in the `finally` block of the API call to hide the spinner.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Toast Notifications
 
-## Learn More
+The application uses `react-toastify` to display success and error messages to the user. The `ToastContainer` is included in `App.js`, and individual components use the `toast` function to trigger notifications.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Visual Enhancements
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Significant effort has been made to improve the visual appeal and user experience across the application:
 
-### Code Splitting
+-   **Enhanced Styling**: The `SubmissionDetail` and `Credits` pages have received comprehensive styling updates, including modern layouts, improved typography, better spacing, and refined element designs.
+-   **Icons in Credits**: The `Credits` page now features relevant icons (e.g., GitHub, LinkedIn) for contributor links, enhancing visual clarity and engagement.
+-   **Emojis Across Pages**: Emojis have been strategically added to various pages and components throughout the application, including titles, labels, buttons, and list items, to provide a more friendly and intuitive user interface.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Core Components
 
-### Analyzing the Bundle Size
+*   **`App.js`**: The main application component, handling global state (like authentication status) and routing.
+*   **`Header`**: The application's navigation bar, displaying a logo, links, and user status (welcome message/logout button).
+*   **`Login`**: Provides a form for user authentication against the backend API. Displays a loading indicator during submission. Stores user credentials and token in `localStorage` upon successful login.
+*   **`Logout`**: A component that triggers the logout process, clearing user data from `localStorage` and redirecting to the login page.
+*   **`WelcomePage`**: A simple page displayed after successful user login.
+*   **`Problems`**: Fetches and displays a list of all available problems from the backend. Includes search and filter functionalities (by title, ID, difficulty, and tags). Problem titles are clickable links to their detail pages.
+*   **`ProblemDetail`**: Displays the detailed information for a specific problem, fetched from the backend. If the problem is not found, it displays a message indicating that the problem is not there.
+*   **`SolutionDetail`**: Displays the solution code (Python, C++, C) and explanation (`solution.md`) for a specific problem, fetched from the backend. Handles loading states and errors.
+*   **`Profile`**: Displays the logged-in user's profile information, fetched from the backend.
+*   **`UserSubmissions`**: Displays a sortable table of all submissions for a specific user, fetched from the backend. Includes robust filter functionalities (by problem ID, status, language, and timestamp) with dynamically generated status options to ensure accuracy. Each submission ID is a clickable link to its detailed view.
+*   **`ProblemSubmissions`**: Displays a list of all submissions for a specific problem, fetched from the backend. Includes filter functionalities (by user ID, status, and timestamp). Each submission is a clickable link to its detailed view.
+*   **`SubmissionDetail`**: Displays the detailed information for a specific submission, including code, language, status, and test results, fetched from the backend. If the submission is not found, it displays a message indicating that the submission is not there.
+*   **`CodeSubmission`**: Provides a form for users to submit code for a specific problem, including language selection and code input.
+*   **`Credits`**: Displays credits for the project, including contributors and technologies used.
+*   **`Footer`**: Displays copyright information, links to About Us, Contact, and Privacy Policy pages.
+*   **`AboutUs`**: Provides information about the Annaforces platform.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+*   **`Contact`**: Provides contact details for Annaforces support.
+*   **`PrivacyPolicy`**: Outlines the privacy policy of the Annaforces platform.
+*   **`NotFound`**: Displays a 404 "Page Not Found" message, including the incorrect URL, and provides a link to the Welcome Page.
+*   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
 
-### Making a Progressive Web App
+### Authentication Flow
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1.  Users are redirected to the `/login` page if not authenticated.
+2.  Upon successful login via the `Login` component, user data (ID, username, name, and JWT token) is stored in `localStorage`.
+3.  The application's state (`isLoggedIn`, `userName`, etc.) is updated, and the user is redirected to the `/welcome` page. This redirection is now explicitly handled to ensure immediate navigation after successful login.
+4.  Authenticated users can navigate to protected routes like `/problems`.
+5.  The JWT token is automatically included in API requests to protected backend endpoints.
+6.  Clicking the "Logout" button clears `localStorage` and redirects the user back to the `/login` page.
 
-### Advanced Configuration
+### Routing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The application uses `react-router-dom` for navigation:
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+*   `/`: Redirects to `/welcome` if logged in, or `/login` if not.
+*   `/login`: Displays the login form. If the user is already logged in, it redirects to `/welcome`.
+*   `/welcome`: Displays the welcome message for logged-in users.
+*   `/problems`: Displays a list of all problems (protected route).
+*   `/problems/:problem_id`: Displays details for a specific problem (protected route).
+*   `/problems/:problemId/submit`: Provides a form for submitting code to a specific problem (protected route).
+*   `/problems/:problemId/submissions`: Displays a list of all submissions for a specific problem (protected route).
+*   `/problems/:problemId/solution`: Displays the solution code and explanation for a specific problem (protected route).
+*   `/profile`: Displays the logged-in user's profile information (protected route).
+*   `/users/:userId/submissions`: Displays a list of all submissions for a specific user (protected route).
+*   `/submissions/:submissionId`: Displays detailed information for a specific submission (protected route).
+*   `/credits`: Displays the credits page (protected route).
+*   `/about`: Displays information about the platform.
+*   `/contact`: Displays contact information.
+*   `/privacy`: Outlines the privacy policy of the Annaforces platform.
+*   Any other unmatched route redirects to `/login`.

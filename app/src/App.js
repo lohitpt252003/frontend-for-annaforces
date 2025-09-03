@@ -10,6 +10,7 @@ import UserSubmissions from './components/UserSubmissions';
 import SubmissionDetail from './components/SubmissionDetail';
 import CodeSubmission from './components/CodeSubmission';
 import ProblemSubmissions from './components/ProblemSubmissions';
+import SolutionDetail from './components/SolutionDetail';
 import ProtectedRoute from './components/ProtectedRoute';
 import Credits from './components/Credits';
 import Footer from './components/Footer';
@@ -18,6 +19,8 @@ import Contact from './components/Contact';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import NotFound from './components/NotFound';
 import LoadingSpinner from './components/LoadingSpinner'; // Import LoadingSpinner
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import themeData from './assets/theme.json';
 
 function App() {
@@ -65,6 +68,7 @@ function App() {
     setUserName('');
     setUserId('');
     setToken('');
+    toast.success('Logged out successfully!');
   };
 
   const toggleTheme = () => {
@@ -84,6 +88,7 @@ function App() {
             <Route path="/problems/:problem_id" element={<ProblemDetail userId={userId} token={token} setIsLoading={setIsLoading} />} />
             <Route path="/problems/:problemId/submit" element={<CodeSubmission token={token} setIsLoading={setIsLoading} />} />
             <Route path="/problems/:problemId/submissions" element={<ProblemSubmissions token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/problems/:problemId/solution" element={<SolutionDetail setGlobalLoading={setIsLoading} />} />
             <Route path="/profile" element={<Profile userId={userId} token={token} setIsLoading={setIsLoading} />} />
             <Route path="/users/:userId/submissions" element={<UserSubmissions token={token} setIsLoading={setIsLoading} />} />
             <Route path="/submissions/:submissionId" element={<SubmissionDetail token={token} setIsLoading={setIsLoading} />} />
@@ -98,6 +103,7 @@ function App() {
           
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <ToastContainer />
         <Footer />
         <LoadingSpinner loading={isLoading} /> {/* Render LoadingSpinner */}
       </div>

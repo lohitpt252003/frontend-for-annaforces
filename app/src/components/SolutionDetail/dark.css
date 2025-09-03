@@ -1,0 +1,16 @@
+.dark-theme {
+    --background-color-secondary: #1E1E1E;
+    --text-color: #FFFFFF;
+    --primary-color: #5B57FF;
+    --background-color-tertiary: #121212;
+    --secondary-color: #CCCCCC;
+    --border-color: #2D333B;
+    --box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    --code-background-color: #0B0B0B;
+    --code-text-color: #FFFFFF;
+    --primary-color-dark: #2E2BB2;
+    --error-color: #FF8A80;
+    --tab-background-color: #24243A;
+    --tab-text-color: #FFFFFF;
+    --tab-background-color-hover: #1E1E1E;
+}
