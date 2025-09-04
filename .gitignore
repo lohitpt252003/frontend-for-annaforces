@@ -7,8 +7,9 @@
 /coverage
 
 # Production build
-/build
-
+/app/build
+/app/.firebaserc
+/app/.firebase
 # Misc
 .DS_Store
 .env.local
