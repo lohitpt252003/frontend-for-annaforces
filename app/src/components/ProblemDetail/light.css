@@ -20,6 +20,15 @@
   background-color: #1B5E20;
 }
 
+.light-theme .problem-detail-view-solution-button {
+  background-color: #FFC107; /* Yellow for solution */
+  color: #333;
+}
+
+.light-theme .problem-detail-view-solution-button:hover {
+  background-color: #806000;
+}
+
 .light-theme .problem-detail-separator {
   border-top: 1px solid #E6EBF1;
 }

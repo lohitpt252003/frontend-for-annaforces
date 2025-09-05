@@ -123,6 +123,9 @@ function Problems({ setIsLoading }) { // Accept setIsLoading prop
               <Link to={`/problems/${problemId}/submissions`} className="problems-view-submissions-link">
                 View Submissions
               </Link>
+              <Link to={`/problems/${problemId}/solution`} className="problems-view-solution-link">
+                View Solution
+              </Link>
               <p><strong>Difficulty:</strong> ⭐ {problemData.difficulty}</p>
               <p><strong>Tags:</strong> 🏷️ {problemData.tags.join(', ')}</p>
               <p><strong>Authors:</strong> ✍️ {problemData.authors.join(', ')}</p>

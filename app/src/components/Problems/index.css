@@ -1,10 +1,9 @@
 .problems-container {
   padding: 30px;
-  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px auto;
-  max-width: 900px; /* Adjust as needed for problem cards */
+  max-width: 1200px; /* Increased max-width for wider layout */
 }
 
 .problems-loading,
@@ -17,58 +16,56 @@
 }
 
 .problems-filters {
-  margin-bottom: 30px; /* More space below filters */
+  margin-bottom: 30px;
   display: flex;
-  gap: 15px; /* Increased gap */
+  gap: 15px;
   flex-wrap: wrap;
-  justify-content: center; /* Center filters */
+  justify-content: center;
+  align-items: center; /* Align items vertically */
 }
 
 .problems-filter-input,
 .problems-filter-select {
-  padding: 10px; /* Increased padding */
+  padding: 12px; /* Slightly increased padding */
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1em;
-  flex: 1; /* Allow inputs/selects to grow and shrink */
-  min-width: 180px; /* Minimum width for filter elements */
+  flex: 1;
+  min-width: 200px; /* Increased min-width for better input size */
+  max-width: 250px; /* Added max-width */
 }
 
 .problems-list {
   list-style-type: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
-  gap: 20px; /* Gap between cards */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px; /* Increased gap between cards */
 }
 
 .problems-list-item {
-  background-color: #fdfdfd;
-  border: 1px solid #eee;
-  border-radius: 10px; /* More rounded corners for cards */
+  border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Slightly more prominent shadow */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Push content apart */
+  justify-content: space-between;
 }
 
 .problems-list-item:hover {
-  transform: translateY(-5px); /* Lift effect on hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .problems-list-item h3 {
   margin-top: 0;
-  margin-bottom: 15px; /* More space below title */
-  font-size: 1.3em;
-  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.4em; /* Slightly larger title */
 }
 
 .problems-list-item-link {
   text-decoration: none;
-  color: #007bff; /* Standard blue for links */
   font-weight: bold;
 }
 
@@ -79,26 +76,30 @@
 .problems-view-submissions-link {
   display: inline-block;
   margin-top: 15px;
-  padding: 8px 15px;
-  background-color: #6c757d; /* Gray button */
-  color: white;
+  padding: 10px 18px; /* Increased padding */
   border-radius: 5px;
   text-decoration: none;
-  font-size: 0.9em;
+  font-size: 0.95em; /* Slightly larger font */
   align-self: flex-start;
   transition: background-color 0.2s ease-in-out;
 }
 
-.problems-view-submissions-link:hover {
-  background-color: #5a6268;
+.problems-view-solution-link {
+  display: inline-block;
+  margin-top: 10px; /* Slightly less margin to be closer to submissions link */
+  padding: 10px 18px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.95em;
+  align-self: flex-start;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .problems-list-item p {
   margin: 8px 0;
-  color: #666;
-  font-size: 0.95em;
+  font-size: 0.98em; /* Slightly larger font */
 }
 
 .problems-list-item strong {
-  color: #444;
+  font-weight: 600; /* Slightly bolder */
 }

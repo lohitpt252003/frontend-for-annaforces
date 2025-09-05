@@ -28,3 +28,13 @@
 .dark-theme .login-error {
   color: #FF8A80;
 }
+
+.dark-theme .login-signup-link a,
+.dark-theme .login-forgot-password-link a {
+  color: #5B57FF;
+}
+
+.dark-theme .login-signup-link a:hover,
+.dark-theme .login-forgot-password-link a:hover {
+  color: #2E2BB2;
+}

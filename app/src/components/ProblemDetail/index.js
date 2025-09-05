@@ -61,25 +61,27 @@ function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
   return (
     <div className="problem-detail-container">
       <h2 className="problem-detail-title">{problem.meta.title} ({problem_id}) 📄</h2>
-      <div className="problem-detail-info">
-        <p><strong>Difficulty:</strong> ⭐ {problem.meta.difficulty}</p>
-        <p><strong>Tags:</strong> 🏷️ {problem.meta.tags.join(', ')}</p>
-        <p><strong>Authors:</strong> ✍️ {problem.meta.authors.join(', ')}</p>
+      <div className="problem-detail-header-content">
+        <div className="problem-detail-info">
+          <p><strong>Difficulty:</strong> ⭐ {problem.meta.difficulty}</p>
+          <p><strong>Tags:</strong> 🏷️ {problem.meta.tags.join(', ')}</p>
+          <p><strong>Authors:</strong> ✍️ {problem.meta.authors.join(', ')}</p>
+        </div>
+        <div className="problem-detail-actions">
+          <Link to={`/problems/${problem_id}/submit`} className="problem-detail-link-button problem-detail-submit-button">
+            Submit Code ✏️
+          </Link>
+          <Link to={`/problems/${problem_id}/submissions`} className="problem-detail-link-button problem-detail-view-submissions-button">
+            View All Submissions 📋
+          </Link>
+          <Link to={`/problems/${problem_id}/solution`} className="problem-detail-link-button problem-detail-view-solution-button">
+            View Solution 💡
+          </Link>
+        </div>
       </div>
       <hr className="problem-detail-separator" />
       <div className="problem-detail-statement">
         <ReactMarkdown>{problem.problem_statement}</ReactMarkdown>
-      </div>
-      <div className="problem-detail-actions">
-        <Link to={`/problems/${problem_id}/submit`} className="problem-detail-link-button problem-detail-submit-button">
-          Submit Code ✏️
-        </Link>
-        <Link to={`/problems/${problem_id}/submissions`} className="problem-detail-link-button problem-detail-view-submissions-button">
-          View All Submissions 📋
-        </Link>
-        <Link to={`/problems/${problem_id}/solution`} className="problem-detail-link-button problem-detail-view-solution-button">
-          View Solution 💡
-        </Link>
       </div>
     </div>
   );

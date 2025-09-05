@@ -87,10 +87,7 @@ function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
         Don't have an account? <Link to="/signup">Sign Up</Link>
       </p>
       <p className="login-forgot-password-link">
-        <Link to="/forgot-password">Forgot User ID?</Link>
-      </p>
-      <p className="login-forgot-password-link">
-        <Link to={{ pathname: "/forgot-password", state: { mode: "password" } }}>Forgot Password?</Link>
+        <Link to="/forgot-password">Forgot User ID / Password?</Link>
       </p>
     </div>
   );

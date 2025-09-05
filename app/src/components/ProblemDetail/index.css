@@ -13,21 +13,40 @@
   margin-bottom: 10px;
 }
 
+.problem-detail-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the top */
+  margin-bottom: 20px; /* Space below the header content */
+}
+
 .problem-detail-info p {
   margin-bottom: 5px;
 }
 
+.problem-detail-actions {
+  display: flex; /* Use flexbox for buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap */
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Space between buttons */
+  margin-top: 0; /* Remove top margin as it's handled by parent flex */
+}
+
 .problem-detail-link-button {
   display: inline-block;
-  margin-top: 20px;
+  /* Removed margin-top as it's handled by parent flex */
   padding: 10px 20px;
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
-.problem-detail-view-submissions-button {
-  margin-left: 10px;
+/* Remove individual button margins as gap handles it */
+.problem-detail-submit-button,
+.problem-detail-view-submissions-button,
+.problem-detail-view-solution-button {
+  margin-right: 0; 
+  margin-left: 0;
 }
 
 .problem-detail-separator {
@@ -37,7 +56,9 @@
 }
 
 .problem-detail-statement {
-  /* Styles for the problem statement content */
+  max-width: 800px; /* Set a max-width for readability */
+  margin: 0 auto; /* Center the block */
+  padding: 20px; /* Add some padding around the statement */
   line-height: 1.6;
 }
 

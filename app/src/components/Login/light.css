@@ -26,3 +26,13 @@
 .light-theme .login-error {
   color: #D32F2F;
 }
+
+.light-theme .login-signup-link a,
+.light-theme .login-forgot-password-link a {
+  color: #4B47FF;
+}
+
+.light-theme .login-signup-link a:hover,
+.light-theme .login-forgot-password-link a:hover {
+  color: #2A28B0;
+}
