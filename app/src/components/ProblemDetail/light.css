@@ -55,3 +55,52 @@
 .light-theme .problem-detail-statement code {
   background-color: #F3F3FF;
 }
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .problem-detail-error {
+    color: #D32F2F;
+  }
+
+  .light-theme .problem-detail-submit-button {
+    background-color: #4B47FF;
+    color: #FFFFFF;
+  }
+
+  .light-theme .problem-detail-view-submissions-button {
+    background-color: #2E7D32;
+    color: #FFFFFF;
+  }
+
+  .light-theme .problem-detail-view-solution-button {
+    background-color: #FFC107;
+    color: #333;
+  }
+
+  .light-theme .problem-detail-separator {
+    border-top: 1px solid #E6EBF1;
+  }
+
+  .light-theme .problem-detail-statement {
+    color: #1A1A1A;
+  }
+
+  .light-theme .problem-detail-statement h1,
+  .light-theme .problem-detail-statement h2,
+  .light-theme .problem-detail-statement h3,
+  .light-theme .problem-detail-statement h4,
+  .light-theme .problem-detail-statement h5,
+  .light-theme .problem-detail-statement h6 {
+    color: #1A1A1A;
+  }
+
+  .light-theme .problem-detail-statement pre {
+    background-color: #F8F9FD;
+    border: 1px solid #D0D7DE;
+    border-left: 3px solid #4B47FF;
+  }
+
+  .light-theme .problem-detail-statement code {
+    background-color: #F3F3FF;
+  }
+}

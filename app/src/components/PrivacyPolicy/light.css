@@ -13,3 +13,22 @@
 .light-theme .privacy-policy-content {
   color: #555555;
 }
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .privacy-policy-container {
+    background-color: #FFFFFF;
+  }
+
+  .light-theme .privacy-policy-title {
+    color: #1A1A1A;
+  }
+
+  .light-theme .privacy-policy-container h3 {
+    color: #1A1A1A;
+  }
+
+  .light-theme .privacy-policy-content {
+    color: #555555;
+  }
+}

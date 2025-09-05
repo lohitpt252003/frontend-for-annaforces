@@ -18,3 +18,19 @@
   font-size: 1.2em; /* Slightly larger message */
   line-height: 1.6;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .welcome-container {
+    padding: 30px 15px; /* Adjust padding for smaller screens */
+    min-height: calc(100vh - 50px); /* Adjust based on header height */
+  }
+
+  .welcome-heading {
+    font-size: 2em; /* Smaller heading for mobile */
+  }
+
+  .welcome-message {
+    font-size: 1em; /* Smaller message for mobile */
+  }
+}

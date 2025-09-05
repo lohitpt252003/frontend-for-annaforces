@@ -22,3 +22,26 @@
   margin: 5px 0;
   font-size: 1.05em;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 95%; /* Adjust max-width for smaller screens */
+  }
+
+  .contact-title {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+
+  .contact-content {
+    font-size: 1em;
+    line-height: 1.5;
+  }
+
+  .contact-details p {
+    font-size: 1em;
+  }
+}

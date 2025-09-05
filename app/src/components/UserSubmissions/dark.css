@@ -13,3 +13,22 @@
   border: 1px solid #2D333B;
   background-color: #121212;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .dark-theme .user-submissions-error {
+    color: #FF8A80;
+  }
+
+  .dark-theme .user-submissions-filter-input,
+  .dark-theme .user-submissions-filter-select {
+    border: 1px solid #2D333B;
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+  }
+
+  .dark-theme .user-submissions-list-item {
+    border: 1px solid #2D333B;
+    background-color: #121212;
+  }
+}

@@ -27,3 +27,35 @@
 .light-theme .theme-toggle-button:hover {
   background-color: #2A28B0;
 }
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .header-nav {
+    background-color: #FFFFFF; /* Ensure background color is applied */
+  }
+
+  .light-theme .header-link-brand {
+    color: #1A1A1A; /* Ensure text color is applied */
+  }
+
+  .light-theme .header-nav-link {
+    color: #1A1A1A; /* Ensure text color is applied */
+  }
+
+  .light-theme .header-welcome-text {
+    color: #1A1A1A; /* Ensure text color is applied */
+  }
+
+  .light-theme .theme-toggle-button {
+    background-color: #4B47FF; /* Ensure background color is applied */
+    color: #FFFFFF; /* Ensure text color is applied */
+  }
+
+  .light-theme .hamburger-menu-button {
+    color: #1A1A1A; /* Color for hamburger icon in light theme */
+  }
+
+  .light-theme .header-nav-links.open {
+    background-color: #FFFFFF; /* Background for open mobile menu in light theme */
+  }
+}

@@ -69,3 +69,49 @@
     cursor: pointer;
     text-decoration: underline;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .forgot-password-container {
+    padding: 15px;
+    min-height: calc(100vh - 100px); /* Adjust for smaller header/footer */
+  }
+
+  .forgot-password-title {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+
+  .forgot-password-message {
+    font-size: 1em;
+    margin-bottom: 20px;
+    max-width: 95%;
+  }
+
+  .forgot-password-form-group {
+    max-width: 95%;
+  }
+
+  .forgot-password-label {
+    font-size: 0.9em;
+  }
+
+  .forgot-password-input {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .forgot-password-button {
+    max-width: 95%;
+    padding: 10px 15px;
+    font-size: 1em;
+  }
+
+  .forgot-password-error {
+    font-size: 0.85em;
+  }
+
+  .forgot-password-toggle-mode {
+    font-size: 0.9em;
+  }
+}

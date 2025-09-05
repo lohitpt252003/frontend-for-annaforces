@@ -125,3 +125,72 @@
   font-size: 1.1em;
   margin-bottom: 10px;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .credits-container {
+    padding: 20px 10px;
+  }
+
+  .credits-title {
+    font-size: 2.2em;
+    margin-bottom: 30px;
+  }
+
+  .credits-section-title {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+  }
+
+  .credits-section p {
+    font-size: 1em;
+  }
+
+  .credits-tech-list {
+    gap: 10px;
+  }
+
+  .credits-tech-list li {
+    font-size: 1em;
+    padding: 8px 12px;
+  }
+
+  .credits-contributions-grid {
+    grid-template-columns: 1fr; /* Single column for contributors */
+    gap: 20px;
+  }
+
+  .credits-contributor-card {
+    padding: 20px;
+  }
+
+  .credits-contributor-photo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+
+  .credits-contributor-name {
+    font-size: 1.3em;
+  }
+
+  .credits-contributor-contribution {
+    font-size: 0.9em;
+    margin-bottom: 15px;
+  }
+
+  .credits-contributor-links {
+    flex-direction: column; /* Stack links vertically */
+    gap: 10px;
+  }
+
+  .credits-contributor-link-github,
+  .credits-contributor-link-linkedin {
+    padding: 6px 10px;
+    font-size: 0.9em;
+  }
+
+  .credits-special-thanks-list li {
+    font-size: 1em;
+  }
+}

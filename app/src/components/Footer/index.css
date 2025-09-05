@@ -19,3 +19,20 @@
 .footer-link:hover {
   text-decoration: underline;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 15px;
+    font-size: 0.8em;
+  }
+
+  .footer-links {
+    flex-direction: column; /* Stack links vertically */
+    gap: 5px; /* Space between stacked links */
+  }
+
+  .footer-link {
+    margin: 0; /* Remove horizontal margin when stacked */
+  }
+}

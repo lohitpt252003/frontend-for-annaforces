@@ -13,3 +13,22 @@
 .light-theme .contact-details p {
   color: #1A1A1A;
 }
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .contact-container {
+    background-color: #FFFFFF;
+  }
+
+  .light-theme .contact-title {
+    color: #1A1A1A;
+  }
+
+  .light-theme .contact-content {
+    color: #555555;
+  }
+
+  .light-theme .contact-details p {
+    color: #1A1A1A;
+  }
+}

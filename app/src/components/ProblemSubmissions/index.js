@@ -180,7 +180,7 @@ function ProblemSubmissions({ token, setIsLoading }) { // Accept setIsLoading pr
                 </td>
                 <td><Link to={`/users/${submission.user_id}`}>{submission.user_id}</Link></td>
                 <td className={`status-${submission.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
-                  {console.log('Submission Status:', submission.status)}
+                  {/*console.log('Submission Status:', submission.status)*/}
                   {submission.status}
                 </td>
                 <td>{submission.language}</td>

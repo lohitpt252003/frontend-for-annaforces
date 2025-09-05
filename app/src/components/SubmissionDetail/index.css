@@ -144,3 +144,60 @@
   color: #6c757d; /* Gray */
   font-weight: bold;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .submission-detail-container {
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 95%; /* Adjust max-width for smaller screens */
+  }
+
+  .submission-detail-container h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+
+  .submission-detail-container h3 {
+    font-size: 1.4em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .submission-detail-container p {
+    font-size: 1em;
+  }
+
+  .submission-detail-code-block {
+    padding: 15px;
+    font-size: 0.9em;
+  }
+
+  .submission-detail-test-results-list-item {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  .test-case-header p {
+    font-size: 1.1em;
+  }
+
+  .test-case-toggle-button {
+    padding: 6px 10px;
+    font-size: 0.85em;
+  }
+
+  .test-case-details {
+    padding-left: 10px;
+    margin-top: 10px;
+  }
+
+  .test-case-details p {
+    font-size: 0.9em;
+  }
+
+  .test-case-details pre {
+    padding: 10px;
+    font-size: 0.85em;
+  }
+}

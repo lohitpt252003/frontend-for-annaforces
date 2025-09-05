@@ -24,3 +24,28 @@
   margin-bottom: 15px;
   text-align: justify;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .privacy-policy-container {
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 95%; /* Adjust max-width for smaller screens */
+  }
+
+  .privacy-policy-title {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+
+  .privacy-policy-container h3 {
+    font-size: 1.3em;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+
+  .privacy-policy-content {
+    font-size: 1em;
+    line-height: 1.5;
+  }
+}

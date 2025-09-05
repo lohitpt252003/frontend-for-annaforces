@@ -103,3 +103,51 @@
 .problems-list-item strong {
   font-weight: 600; /* Slightly bolder */
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .problems-container {
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 100%; /* Allow full width on smaller screens */
+  }
+
+  .problems-filters {
+    flex-direction: column; /* Stack filters vertically */
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .problems-filter-input,
+  .problems-filter-select {
+    width: 100%; /* Full width for inputs */
+    max-width: none; /* Remove max-width constraint */
+    min-width: unset; /* Remove min-width constraint */
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .problems-list {
+    grid-template-columns: 1fr; /* Single column for problems on small screens */
+    gap: 15px;
+  }
+
+  .problems-list-item {
+    padding: 15px;
+  }
+
+  .problems-list-item h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  .problems-list-item p {
+    font-size: 0.9em;
+  }
+
+  .problems-view-submissions-link,
+  .problems-view-solution-link {
+    padding: 8px 12px;
+    font-size: 0.85em;
+  }
+}

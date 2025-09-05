@@ -21,3 +21,30 @@
 .dark-theme .not-found-link {
   color: #1E88E5;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .dark-theme .not-found-container {
+    background-color: #1E1E1E;
+  }
+
+  .dark-theme .not-found-title {
+    color: #FF8A80;
+  }
+
+  .dark-theme .not-found-message {
+    color: #CCCCCC;
+  }
+
+  .dark-theme .not-found-redirect {
+    color: #CCCCCC;
+  }
+
+  .dark-theme .not-found-url {
+    color: #FFFFFF;
+  }
+
+  .dark-theme .not-found-link {
+    color: #1E88E5;
+  }
+}

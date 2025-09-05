@@ -62,3 +62,57 @@
 .dark-theme .credits-special-thanks-list li {
   color: #CED4DA;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .dark-theme .credits-container {
+    background-color: #212529;
+    color: #DEE2E6;
+  }
+
+  .dark-theme .credits-title {
+    color: #F8F9FA;
+  }
+
+  .dark-theme .credits-section-title {
+    color: #F8F9FA;
+    border-bottom-color: #495057;
+  }
+
+  .dark-theme .credits-section p {
+    color: #CED4DA;
+  }
+
+  .dark-theme .credits-tech-list li {
+    background-color: #343A40;
+    color: #ADB5BD;
+  }
+
+  .dark-theme .credits-contributor-card {
+    background-color: #2C3034;
+    border: 1px solid #343A40;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .dark-theme .credits-contributor-photo {
+    border-color: #61DAFB;
+  }
+
+  .dark-theme .credits-contributor-name {
+    color: #F8F9FA;
+  }
+
+  .dark-theme .credits-contributor-contribution {
+    color: #ADB5BD;
+  }
+
+  .dark-theme .credits-contributor-link-github,
+  .dark-theme .credits-contributor-link-linkedin {
+    background-color: #61DAFB;
+    color: #212529;
+  }
+
+  .dark-theme .credits-special-thanks-list li {
+    color: #CED4DA;
+  }
+}

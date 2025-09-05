@@ -56,3 +56,39 @@
   text-decoration: none;
   font-weight: bold;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .signup-container {
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 95%; /* Adjust max-width for smaller screens */
+  }
+
+  .signup-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+  }
+
+  .signup-label {
+    font-size: 0.9em;
+  }
+
+  .signup-input {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .signup-button {
+    padding: 10px;
+    font-size: 1em;
+  }
+
+  .signup-error {
+    font-size: 0.8em;
+  }
+
+  .signup-login-link {
+    font-size: 0.85em;
+  }
+}

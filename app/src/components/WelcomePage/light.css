@@ -9,3 +9,18 @@
 .light-theme .welcome-message {
   color: #555555;
 }
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .welcome-container {
+    background-color: #F8F9FD;
+  }
+
+  .light-theme .welcome-heading {
+    color: #1A1A1A;
+  }
+
+  .light-theme .welcome-message {
+    color: #555555;
+  }
+}

@@ -9,3 +9,18 @@
 .light-theme .about-us-content {
   color: #555555;
 }
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .about-us-container {
+    background-color: #FFFFFF;
+  }
+
+  .light-theme .about-us-title {
+    color: #1A1A1A;
+  }
+
+  .light-theme .about-us-content {
+    color: #555555;
+  }
+}

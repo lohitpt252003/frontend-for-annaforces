@@ -37,3 +37,42 @@
   background-color: #3B1210;
   border: 1px solid #F2B8B5;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .dark-theme .code-submission-container {
+    background-color: #1E1E1E;
+  }
+
+  .dark-theme .code-submission-container h2 {
+    color: #FFFFFF;
+  }
+
+  .dark-theme .code-submission-form label {
+    color: #CCCCCC;
+  }
+
+  .dark-theme .code-submission-form select,
+  .dark-theme .code-submission-form textarea {
+    border: 1px solid #2D333B;
+    background-color: #121212;
+    color: #FFFFFF;
+  }
+
+  .dark-theme .code-submission-form button {
+    background-color: #5B57FF;
+    color: #121212;
+  }
+
+  .dark-theme .code-submission-message.success {
+    color: #7AD39B;
+    background-color: #1B2B24;
+    border: 1px solid #B9E4C9;
+  }
+
+  .dark-theme .code-submission-message.error {
+    color: #FF8A80;
+    background-color: #3B1210;
+    border: 1px solid #F2B8B5;
+  }
+}

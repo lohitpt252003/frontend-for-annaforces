@@ -37,3 +37,38 @@
 .signup-login-link a:hover {
   color: #8855bb;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .signup-container {
+    background-color: #333333;
+    color: #f0f0f0;
+  }
+
+  .signup-title {
+    color: #ffffff;
+  }
+
+  .signup-label {
+    color: #cccccc;
+  }
+
+  .signup-input {
+    border: 1px solid #555555;
+    background-color: #444444;
+    color: #f0f0f0;
+  }
+
+  .signup-button {
+    background-color: #663399;
+    color: #ffffff;
+  }
+
+  .signup-error {
+    color: #ff6666;
+  }
+
+  .signup-login-link a {
+    color: #9966cc;
+  }
+}

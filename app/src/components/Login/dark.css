@@ -38,3 +38,38 @@
 .dark-theme .login-forgot-password-link a:hover {
   color: #2E2BB2;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .dark-theme .login-container {
+    background-color: #1E1E1E;
+  }
+
+  .dark-theme .login-title {
+    color: #FFFFFF;
+  }
+
+  .dark-theme .login-label {
+    color: #CCCCCC;
+  }
+
+  .dark-theme .login-input {
+    border: 1px solid #2D333B;
+    background-color: #121212;
+    color: #FFFFFF;
+  }
+
+  .dark-theme .login-button {
+    background-color: #5B57FF;
+    color: #121212;
+  }
+
+  .dark-theme .login-error {
+    color: #FF8A80;
+  }
+
+  .dark-theme .login-signup-link a,
+  .dark-theme .login-forgot-password-link a {
+    color: #5B57FF;
+  }
+}

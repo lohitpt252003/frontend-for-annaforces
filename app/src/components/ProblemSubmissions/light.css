@@ -7,7 +7,63 @@
   border: 1px solid #D0D7DE;
 }
 
+.light-theme {
+  --problem-submissions-table-header-bg: #eef;
+  --problem-submissions-table-header-text: #333;
+  --problem-submissions-table-row-even-bg: #f9f9f9;
+  --problem-submissions-table-row-hover-bg: #e0e0e0;
+  --problem-submissions-table-link-color: #007bff;
+  --problem-submissions-table-border-color: #eee;
+}
+
+.light-theme .problem-submissions-error {
+  color: #D32F2F;
+}
+
+.light-theme .problem-submissions-filter-input,
+.light-theme .problem-submissions-filter-select {
+  border: 1px solid #D0D7DE;
+}
+
 .light-theme .problem-submissions-list-item {
   border: 1px solid #E6EBF1;
   background-color: #FFFFFF;
+}
+
+.light-theme .problem-submissions-table th {
+  background-color: var(--problem-submissions-table-header-bg);
+  color: var(--problem-submissions-table-header-text);
+}
+
+.light-theme .problem-submissions-table tr:nth-child(even) {
+  background-color: var(--problem-submissions-table-row-even-bg);
+}
+
+.light-theme .problem-submissions-table tr:hover {
+  background-color: var(--problem-submissions-table-row-hover-bg);
+}
+
+.light-theme .problem-submissions-table td a {
+  color: var(--problem-submissions-table-link-color);
+}
+
+.light-theme .problem-submissions-table th, .light-theme .problem-submissions-table td {
+  border-bottom: 1px solid var(--problem-submissions-table-border-color);
+}
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .problem-submissions-error {
+    color: #D32F2F;
+  }
+
+  .light-theme .problem-submissions-filter-input,
+  .light-theme .problem-submissions-filter-select {
+    border: 1px solid #D0D7DE;
+  }
+
+  .light-theme .problem-submissions-list-item {
+    border: 1px solid #E6EBF1;
+    background-color: #FFFFFF;
+  }
 }

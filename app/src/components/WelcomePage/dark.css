@@ -9,3 +9,18 @@
 .dark-theme .welcome-message {
   color: #CCCCCC;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .dark-theme .welcome-container {
+    background-color: #121212;
+  }
+
+  .dark-theme .welcome-heading {
+    color: #FFFFFF;
+  }
+
+  .dark-theme .welcome-message {
+    color: #CCCCCC;
+  }
+}

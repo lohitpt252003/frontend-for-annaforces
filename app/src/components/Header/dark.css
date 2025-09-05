@@ -27,3 +27,35 @@
 .dark-theme .theme-toggle-button:hover {
   background-color: #2E2BB2;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .dark-theme .header-nav {
+    background-color: #1E1E1E; /* Ensure background color is applied */
+  }
+
+  .dark-theme .header-link-brand {
+    color: #FFFFFF; /* Ensure text color is applied */
+  }
+
+  .dark-theme .header-nav-link {
+    color: #FFFFFF; /* Ensure text color is applied */
+  }
+
+  .dark-theme .header-welcome-text {
+    color: #FFFFFF; /* Ensure text color is applied */
+  }
+
+  .dark-theme .theme-toggle-button {
+    background-color: #5B57FF; /* Ensure background color is applied */
+    color: #121212; /* Ensure text color is applied */
+  }
+
+  .dark-theme .hamburger-menu-button {
+    color: #FFFFFF; /* Color for hamburger icon in dark theme */
+  }
+
+  .dark-theme .header-nav-links.open {
+    background-color: #1E1E1E; /* Background for open mobile menu in dark theme */
+  }
+}

@@ -29,3 +29,34 @@
 .otp-verification-error {
   color: #dc3545;
 }
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .otp-verification-container {
+    background-color: #ffffff;
+    color: #333333;
+  }
+
+  .otp-verification-title {
+    color: #333333;
+  }
+
+  .otp-verification-label {
+    color: #555555;
+  }
+
+  .otp-verification-input {
+    border: 1px solid #cccccc;
+    background-color: #f9f9f9;
+    color: #333333;
+  }
+
+  .otp-verification-button {
+    background-color: #28a745;
+    color: #ffffff;
+  }
+
+  .otp-verification-error {
+    color: #dc3545;
+  }
+}

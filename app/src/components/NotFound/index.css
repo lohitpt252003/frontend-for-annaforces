@@ -32,3 +32,26 @@
 .not-found-link:hover {
   text-decoration: underline;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .not-found-container {
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 95%; /* Adjust max-width for smaller screens */
+  }
+
+  .not-found-title {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+  }
+
+  .not-found-message {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+  }
+
+  .not-found-redirect {
+    font-size: 0.9em;
+  }
+}

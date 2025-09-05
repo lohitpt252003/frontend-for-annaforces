@@ -29,3 +29,30 @@
 .dark-theme .forgot-password-toggle-link:hover {
     color: #21a1f1;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .dark-theme .forgot-password-container {
+      background-color: #282c34;
+      color: #e0e0e0;
+  }
+
+  .dark-theme .forgot-password-title {
+      color: #61dafb;
+  }
+
+  .dark-theme .forgot-password-input {
+      background-color: #3a3f47;
+      color: #e0e0e0;
+      border: 1px solid #555;
+  }
+
+  .dark-theme .forgot-password-button {
+      background-color: #61dafb;
+      color: #282c34;
+  }
+
+  .dark-theme .forgot-password-toggle-link {
+      color: #61dafb;
+  }
+}

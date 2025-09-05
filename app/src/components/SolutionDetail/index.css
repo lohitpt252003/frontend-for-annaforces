@@ -188,3 +188,70 @@
 .solution-detail-back-link:hover {
     background-color: var(--primary-color-dark);
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .solution-detail-container {
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 95%; /* Adjust max-width for smaller screens */
+  }
+
+  .solution-detail-title {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+
+  .solution-detail-section {
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .solution-detail-subtitle {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+  }
+
+  .solution-detail-markdown-content {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .solution-detail-view-solution-button {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+
+  .solution-modal-content {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .solution-modal-header h3 {
+    font-size: 1.5em;
+  }
+
+  .solution-modal-close-button {
+    font-size: 1.5em;
+  }
+
+  .solution-modal-tab {
+    padding: 8px 12px;
+    font-size: 0.9em;
+  }
+
+  .solution-modal-code-display code {
+    font-size: 0.85em;
+  }
+
+  .solution-detail-error,
+  .solution-detail-loading {
+    font-size: 1em;
+    padding: 15px;
+  }
+
+  .solution-detail-back-link {
+    padding: 8px 15px;
+    font-size: 0.9em;
+  }
+}

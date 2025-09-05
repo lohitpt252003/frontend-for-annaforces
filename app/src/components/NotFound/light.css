@@ -21,3 +21,30 @@
 .light-theme .not-found-link {
   color: #4B47FF;
 }
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .not-found-container {
+    background-color: #FFFFFF;
+  }
+
+  .light-theme .not-found-title {
+    color: #D32F2F;
+  }
+
+  .light-theme .not-found-message {
+    color: #555555;
+  }
+
+  .light-theme .not-found-redirect {
+    color: #555555;
+  }
+
+  .light-theme .not-found-url {
+    color: #1A1A1A;
+  }
+
+  .light-theme .not-found-link {
+    color: #4B47FF;
+  }
+}

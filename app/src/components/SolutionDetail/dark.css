@@ -14,3 +14,9 @@
     --tab-text-color: #FFFFFF;
     --tab-background-color-hover: #1E1E1E;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  /* No specific color changes for responsive design in dark theme */
+}
+

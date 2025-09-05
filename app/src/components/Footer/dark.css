@@ -6,3 +6,15 @@
 .dark-theme .footer-link {
   color: #FFFFFF;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .dark-theme .footer-container {
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+  }
+
+  .dark-theme .footer-link {
+    color: #FFFFFF;
+  }
+}

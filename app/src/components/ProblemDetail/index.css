@@ -105,3 +105,58 @@
   margin-top: 20px;
   text-align: center;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .problem-detail-container {
+    padding: 15px;
+  }
+
+  .problem-detail-title {
+    font-size: 1.8em;
+  }
+
+  .problem-detail-header-content {
+    flex-direction: column; /* Stack header content vertically */
+    align-items: center; /* Center items */
+    margin-bottom: 15px;
+  }
+
+  .problem-detail-info {
+    text-align: center;
+    margin-bottom: 15px; /* Space between info and actions */
+  }
+
+  .problem-detail-actions {
+    flex-direction: column; /* Stack buttons vertically */
+    width: 100%; /* Full width for buttons */
+    gap: 8px; /* Adjust gap for stacked buttons */
+  }
+
+  .problem-detail-link-button {
+    width: 100%; /* Full width for each button */
+    padding: 10px 15px;
+    font-size: 0.95em;
+  }
+
+  .problem-detail-statement {
+    padding: 10px;
+    font-size: 0.95em;
+  }
+
+  .problem-detail-statement h1 {
+    font-size: 1.8em;
+  }
+
+  .problem-detail-statement h2 {
+    font-size: 1.5em;
+  }
+
+  .problem-detail-statement h3 {
+    font-size: 1.3em;
+  }
+
+  .problem-detail-statement pre {
+    font-size: 0.85em;
+  }
+}

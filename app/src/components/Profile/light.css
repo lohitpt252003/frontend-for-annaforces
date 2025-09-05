@@ -49,3 +49,50 @@
   background-color: #e0ffe0;
   color: #2e7d32;
 }
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .profile-container {
+    background-color: #FFFFFF;
+  }
+
+  .light-theme .profile-container h2 {
+    color: #1A1A1A;
+  }
+
+  .light-theme .profile-container p {
+    color: #555555;
+  }
+
+  .light-theme .profile-container strong {
+    color: #1A1A1A;
+  }
+
+  .light-theme .profile-container a {
+    background-color: #4B47FF;
+    color: #FFFFFF;
+  }
+
+  .light-theme .profile-error {
+    color: #D32F2F;
+  }
+
+  .light-theme .profile-edit-button {
+    background-color: #28a745;
+    color: white;
+  }
+
+  .light-theme .profile-cancel-button:hover {
+    background-color: #A01C28;
+  }
+
+  .light-theme .profile-view-submissions-link {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .light-theme .profile-solved-problem-item {
+    background-color: #e0ffe0;
+    color: #2e7d32;
+  }
+}

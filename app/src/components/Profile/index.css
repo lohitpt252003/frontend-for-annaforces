@@ -238,3 +238,78 @@
 .profile-no-data {
   color: #3498db; /* Info color */
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 95%; /* Adjust max-width for smaller screens */
+  }
+
+  .profile-container h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+
+  .profile-container p {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+
+  .profile-container p strong {
+    min-width: unset; /* Remove min-width for stacking */
+    display: block; /* Stack strong and value */
+    margin-bottom: 5px;
+  }
+
+  .profile-actions-bottom {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px;
+  }
+
+  .profile-view-submissions-link,
+  .profile-edit-button {
+    width: 100%; /* Full width for buttons */
+    padding: 10px 15px;
+    font-size: 1em;
+  }
+
+  .profile-solved-problems-list {
+    justify-content: center; /* Center tags */
+  }
+
+  .profile-solved-problem-item {
+    font-size: 0.85em;
+    padding: 3px 6px;
+  }
+
+  .profile-edit-form label {
+    font-size: 0.9em;
+  }
+
+  .profile-edit-form input[type="text"],
+  .profile-edit-form textarea {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .profile-actions {
+    flex-direction: column; /* Stack form action buttons */
+    gap: 10px;
+  }
+
+  .profile-save-button,
+  .profile-cancel-button {
+    width: 100%; /* Full width for form action buttons */
+    padding: 10px 15px;
+    font-size: 1em;
+  }
+
+  .profile-loading,
+  .profile-error,
+  .profile-no-data {
+    font-size: 1.1em;
+    padding: 20px;
+  }
+}

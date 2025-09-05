@@ -55,3 +55,52 @@
 .dark-theme .problem-detail-statement code {
   background-color: #24243A;
 }
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .dark-theme .problem-detail-error {
+    color: #FF8A80;
+  }
+
+  .dark-theme .problem-detail-submit-button {
+    background-color: #5B57FF;
+    color: #FFFFFF;
+  }
+
+  .dark-theme .problem-detail-view-submissions-button {
+    background-color: #7AD39B;
+    color: #121212;
+  }
+
+  .dark-theme .problem-detail-view-solution-button {
+    background-color: #FFC107;
+    color: #121212;
+  }
+
+  .dark-theme .problem-detail-separator {
+    border-top: 1px solid #2D333B;
+  }
+
+  .dark-theme .problem-detail-statement {
+    color: #FFFFFF;
+  }
+
+  .dark-theme .problem-detail-statement h1,
+  .dark-theme .problem-detail-statement h2,
+  .dark-theme .problem-detail-statement h3,
+  .dark-theme .problem-detail-statement h4,
+  .dark-theme .problem-detail-statement h5,
+  .dark-theme .problem-detail-statement h6 {
+    color: #FFFFFF;
+  }
+
+  .dark-theme .problem-detail-statement pre {
+    background-color: #121212;
+    border: 1px solid #2D333B;
+    border-left: 3px solid #5B57FF;
+  }
+
+  .dark-theme .problem-detail-statement code {
+    background-color: #24243A;
+  }
+}

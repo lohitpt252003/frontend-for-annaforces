@@ -55,3 +55,56 @@
 .light-theme .problems-no-problems {
   color: #555;
 }
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .problems-container {
+    background-color: #fff;
+  }
+
+  .light-theme .problems-error {
+    color: #D32F2F;
+  }
+
+  .light-theme .problems-filter-input,
+  .light-theme .problems-filter-select {
+    border: 1px solid #D0D7DE;
+    background-color: #fff;
+    color: #333;
+  }
+
+  .light-theme .problems-list-item {
+    border: 1px solid #E6EBF1;
+    background-color: #fdfdfd;
+  }
+
+  .light-theme .problems-list-item h3 {
+    color: #333;
+  }
+
+  .light-theme .problems-list-item-link {
+    color: #007bff;
+  }
+
+  .light-theme .problems-view-submissions-link {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  .light-theme .problems-view-solution-link {
+    background-color: #28a745;
+    color: white;
+  }
+
+  .light-theme .problems-list-item p {
+    color: #666;
+  }
+
+  .light-theme .problems-list-item strong {
+    color: #444;
+  }
+
+  .light-theme .problems-no-problems {
+    color: #555;
+  }
+}

@@ -52,3 +52,40 @@
   border-radius: 5px;
   text-align: center;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .code-submission-container {
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 95%; /* Adjust max-width for smaller screens */
+  }
+
+  .code-submission-container h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+
+  .code-submission-form label {
+    font-size: 0.9em;
+  }
+
+  .code-submission-form select,
+  .code-submission-form textarea {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .code-submission-form textarea {
+    min-height: 150px; /* Smaller height for mobile */
+  }
+
+  .code-submission-form button {
+    padding: 10px 15px;
+    font-size: 1em;
+  }
+
+  .code-submission-message {
+    font-size: 0.9em;
+  }
+}

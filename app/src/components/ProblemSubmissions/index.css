@@ -1,6 +1,6 @@
 .problem-submissions-container {
   padding: 30px;
-  background-color: #fff;
+  
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px auto;
@@ -54,12 +54,12 @@
 .problem-submissions-table th, .problem-submissions-table td {
   padding: 15px;
   text-align: left;
-  border-bottom: 1px solid #eee; /* Only horizontal borders */
+  border-bottom: 1px solid var(--problem-submissions-table-border-color); /* Only horizontal borders */
 }
 
 .problem-submissions-table th {
-  background-color: #eef; /* Lighter background for header */
-  color: #333; /* Darker text for header */
+  background-color: var(--problem-submissions-table-header-bg);
+  color: var(--problem-submissions-table-header-text);
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -67,16 +67,16 @@
 }
 
 .problem-submissions-table tr:nth-child(even) {
-  background-color: #f9f9f9; /* Subtle stripe */
+  background-color: var(--problem-submissions-table-row-even-bg);
 }
 
 .problem-submissions-table tr:hover {
-  background-color: #e0e0e0; /* More pronounced hover */
+  background-color: var(--problem-submissions-table-row-hover-bg);
 }
 
 .problem-submissions-table td a {
   text-decoration: none;
-  color: #007bff; /* Standard blue for links */
+  color: var(--problem-submissions-table-link-color);
 }
 
 .problem-submissions-table td a:hover {
@@ -105,4 +105,37 @@
 /* Compilation error will have default text color */
 .status-compilation-error {
   font-weight: bold;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .problem-submissions-container {
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 100%; /* Allow full width on smaller screens */
+  }
+
+  .problem-submissions-filters {
+    flex-direction: column; /* Stack filters vertically */
+    gap: 10px;
+  }
+
+  .problem-submissions-filter-input,
+  .problem-submissions-filter-select,
+  .problem-submissions-filters button {
+    width: 100%; /* Full width for filter elements */
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .problem-submissions-table {
+    display: block; /* Make table a block element */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+
+  .problem-submissions-table th, .problem-submissions-table td {
+    padding: 10px; /* Adjust padding for smaller screens */
+    font-size: 0.9em; /* Adjust font size for smaller screens */
+  }
 }

@@ -18,3 +18,22 @@
   margin-bottom: 15px;
   text-align: justify;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .about-us-container {
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 95%; /* Adjust max-width for smaller screens */
+  }
+
+  .about-us-title {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+
+  .about-us-content {
+    font-size: 1em;
+    line-height: 1.5;
+  }
+}

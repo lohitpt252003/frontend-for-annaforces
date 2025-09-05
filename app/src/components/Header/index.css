@@ -51,3 +51,84 @@
   margin-left: 20px;
   transition: background-color 0.3s ease;
 }
+
+/* Hamburger menu button */
+.hamburger-menu-button {
+  display: none; /* Hidden by default on larger screens */
+  background: none;
+  border: none;
+  font-size: 1.8em;
+  cursor: pointer;
+  color: inherit; /* Inherit color from parent for theming */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .header-nav {
+    flex-direction: column; /* Stack items vertically */
+    padding: 10px 15px; /* Adjust padding for smaller screens */
+    align-items: flex-start; /* Align items to the start */
+  }
+
+  .header-logo-container {
+    width: 100%; /* Full width for logo container */
+    display: flex;
+    justify-content: space-between; /* Space between logo and hamburger */
+    align-items: center;
+  }
+
+  .header-link-brand {
+    font-size: 1.2em; /* Smaller font size for brand */
+  }
+
+  .header-nav-links {
+    flex-direction: column; /* Stack nav links vertically */
+    margin-top: 10px; /* Add some space from the logo */
+    width: 70%; /* Side panel width */
+    height: calc(100vh - 60px); /* Full viewport height minus header height */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+    position: fixed; /* Use fixed to cover the whole viewport */
+    top: 60px; /* Adjust based on header height */
+    left: -70%; /* Start off-screen to the left (negative of width) */
+    background-color: inherit; /* Inherit background for theming */
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure it's above other content */
+    transition: left 0.3s ease-in-out; /* Transition the left property */
+  }
+
+  .header-nav-links.open {
+    left: 0; /* Slide into view */
+  }
+
+  .header-nav-link {
+    margin: 5px 0; /* Adjust margins for stacked links */
+    font-size: 1em; /* Smaller font size for nav links */
+    width: 100%; /* Full width for links */
+    text-align: center; /* Center align links */
+    padding: 8px 0; /* Add padding for clickable area */
+  }
+
+  .header-welcome-text {
+    margin-right: 0; /* Remove right margin */
+    margin-bottom: 10px; /* Add bottom margin for stacking */
+    font-size: 1em;
+  }
+
+  .theme-toggle-button {
+    margin-left: 0; /* Remove left margin */
+    margin-top: 10px; /* Add top margin for stacking */
+    width: 100%; /* Full width for button */
+  }
+
+  .header-logout-container {
+    margin-top: auto; /* Push to the bottom of the flex container */
+    width: 100%; /* Full width */
+    padding: 10px 0; /* Add some padding */
+    text-align: center; /* Center the logout button */
+  }
+
+  .hamburger-menu-button {
+    display: block; /* Show hamburger on small screens */
+  }
+}

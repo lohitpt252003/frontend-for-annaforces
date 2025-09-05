@@ -1,3 +1,12 @@
+.dark-theme {
+  --problem-submissions-table-header-bg: #3a3f47;
+  --problem-submissions-table-header-text: #e0e0e0;
+  --problem-submissions-table-row-even-bg: #1e2127;
+  --problem-submissions-table-row-hover-bg: #282c34;
+  --problem-submissions-table-link-color: #61dafb;
+  --problem-submissions-table-border-color: #2D333B;
+}
+
 .dark-theme .problem-submissions-error {
   color: #FF8A80;
 }
@@ -12,4 +21,44 @@
 .dark-theme .problem-submissions-list-item {
   border: 1px solid #2D333B;
   background-color: #121212;
+}
+
+.dark-theme .problem-submissions-table th {
+  background-color: var(--problem-submissions-table-header-bg);
+  color: var(--problem-submissions-table-header-text);
+}
+
+.dark-theme .problem-submissions-table tr:nth-child(even) {
+  background-color: var(--problem-submissions-table-row-even-bg);
+}
+
+.dark-theme .problem-submissions-table tr:hover {
+  background-color: var(--problem-submissions-table-row-hover-bg);
+}
+
+.dark-theme .problem-submissions-table td a {
+  color: var(--problem-submissions-table-link-color);
+}
+
+.dark-theme .problem-submissions-table th, .dark-theme .problem-submissions-table td {
+  border-bottom: 1px solid var(--problem-submissions-table-border-color);
+}
+
+/* Responsive adjustments for smaller screens in dark theme */
+@media (max-width: 768px) {
+  .dark-theme .problem-submissions-error {
+    color: #FF8A80;
+  }
+
+  .dark-theme .problem-submissions-filter-input,
+  .dark-theme .problem-submissions-filter-select {
+    border: 1px solid #2D333B;
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+  }
+
+  .dark-theme .problem-submissions-list-item {
+    border: 1px solid #2D333B;
+    background-color: #121212;
+  }
 }

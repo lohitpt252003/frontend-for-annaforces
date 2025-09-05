@@ -6,3 +6,15 @@
 .light-theme .footer-link {
   color: #1A1A1A;
 }
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .footer-container {
+    background-color: #F8F9FD;
+    color: #1A1A1A;
+  }
+
+  .light-theme .footer-link {
+    color: #1A1A1A;
+  }
+}
