@@ -89,6 +89,8 @@ Significant effort has been made to improve the visual appeal and user experienc
 *   **`PrivacyPolicy`**: Outlines the privacy policy of the Annaforces platform.
 *   **`NotFound`**: Displays a 404 "Page Not Found" message, including the incorrect URL, and provides a link to the Welcome Page.
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
+*   **`ForgotPassword`**: Provides a form for users to request their User ID or initiate a password reset via OTP. Sends an OTP to the user's email for password reset requests.
+*   **`ResetPassword`**: Allows users to reset their password by providing their email, the OTP received, and a new password.
 
 ### Authentication Flow
 
@@ -108,8 +110,6 @@ Significant effort has been made to improve the visual appeal and user experienc
 
 ### Routing
 
-The application uses `react-router-dom` for navigation:
-
 *   `/`: Redirects to `/welcome` if logged in, or `/login` if not.
 *   `/login`: Displays the login form. If the user is already logged in, it redirects to `/welcome`.
 *   `/signup`: Displays the signup form.
@@ -125,5 +125,7 @@ The application uses `react-router-dom` for navigation:
 *   `/credits`: Displays the credits page (protected route).
 *   `/about`: Displays information about the platform.
 *   `/contact`: Displays contact information.
-*   `/privacy`: Displays the privacy policy.
+*   `/privacy`: Outlines the privacy policy of the Annaforces platform.
+*   `/forgot-password`: Allows users to request their User ID or initiate a password reset via OTP.
+*   `/reset-password`: Allows users to reset their password using an OTP.
 *   Any other unmatched route redirects to `/login`.

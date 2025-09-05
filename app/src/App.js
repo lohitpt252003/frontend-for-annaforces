@@ -19,6 +19,8 @@ import Footer from './components/Footer';
 import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 import NotFound from './components/NotFound';
 import LoadingSpinner from './components/LoadingSpinner'; // Import LoadingSpinner
 import { ToastContainer, toast } from 'react-toastify';
@@ -84,7 +86,9 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLoginSuccess} setIsLoading={setIsLoading} />} />
           <Route path="/signup" element={<Signup setIsLoading={setIsLoading} />} />
-          <Route path="/verify-otp/:email" element={<OTPVerification setIsLoading={setIsLoading} />} />
+          <Route path="/verify-otp/:userId" element={<OTPVerification setIsLoading={setIsLoading} />} />
+          <Route path="/forgot-password" element={<ForgotPassword setIsLoading={setIsLoading} />} />
+          <Route path="/reset-password" element={<ResetPassword setIsLoading={setIsLoading} />} />
           
           <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
             <Route path="/welcome" element={<WelcomePage userName={userName} />} />
