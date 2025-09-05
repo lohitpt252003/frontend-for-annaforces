@@ -1,0 +1,39 @@
+.signup-container {
+  background-color: #333333;
+  color: #f0f0f0;
+}
+
+.signup-title {
+  color: #ffffff;
+}
+
+.signup-label {
+  color: #cccccc;
+}
+
+.signup-input {
+  border: 1px solid #555555;
+  background-color: #444444;
+  color: #f0f0f0;
+}
+
+.signup-button {
+  background-color: #663399; /* Darker purple */
+  color: #ffffff;
+}
+
+.signup-button:hover {
+  background-color: #552288; /* Even darker purple */
+}
+
+.signup-error {
+  color: #ff6666;
+}
+
+.signup-login-link a {
+  color: #9966cc;
+}
+
+.signup-login-link a:hover {
+  color: #8855bb;
+}

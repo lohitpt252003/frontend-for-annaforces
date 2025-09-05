@@ -1,0 +1,39 @@
+.signup-container {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.signup-title {
+  color: #333333;
+}
+
+.signup-label {
+  color: #555555;
+}
+
+.signup-input {
+  border: 1px solid #cccccc;
+  background-color: #f9f9f9;
+  color: #333333;
+}
+
+.signup-button {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.signup-button:hover {
+  background-color: #0056b3;
+}
+
+.signup-error {
+  color: #dc3545;
+}
+
+.signup-login-link a {
+  color: #007bff;
+}
+
+.signup-login-link a:hover {
+  color: #0056b3;
+}

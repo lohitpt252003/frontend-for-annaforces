@@ -32,7 +32,7 @@
 
 .code-submission-form textarea {
   min-height: 250px; /* Make textarea larger */
-  font-family: 'Courier New', Courier, monospace; /* Monospace font for code */
+  font-family: 'Ubuntu Mono', monospace; /* Monospace font for code */
 }
 
 .code-submission-form button {

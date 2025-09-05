@@ -99,8 +99,8 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
                   <p><strong>Message:</strong> {testResult.message}</p>
                   <p><strong>Execution Time:</strong> {testResult.execution_time} s</p>
                   <p><strong>Memory Usage:</strong> {testResult.memory_usage} MB</p>
-                  <p><strong>Expected Output:</strong> <pre>{testResult.expected_output}</pre></p>
-                  <p><strong>Actual Output:</strong> <pre>{testResult.actual_output}</pre></p>
+                  <div><strong>Expected Output:</strong> <pre>{testResult.expected_output}</pre></div>
+                  <div><strong>Actual Output:</strong> <pre>{testResult.actual_output}</pre></div>
                 </div>
               )}
             </li>

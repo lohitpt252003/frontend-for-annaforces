@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './index.css'; // Import the CSS file
 import './light.css';
@@ -39,6 +39,9 @@ function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
       } else {
         setError(data.error || 'Login failed');
         toast.error(data.error || 'Login failed');
+        if (data.error === "Account not verified. Please verify your email with OTP.") {
+          navigate(`/verify-otp/${userId}`);
+        }
       }
     } catch (err) {
       setError('Network error or server is unreachable');
@@ -80,6 +83,9 @@ function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
         </button>
         {error && <p className="login-error">{error}</p>}
       </form>
+      <p className="login-signup-link">
+        Don't have an account? <Link to="/signup">Sign Up</Link>
+      </p>
     </div>
   );
 }

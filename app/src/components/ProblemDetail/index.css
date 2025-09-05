@@ -59,13 +59,13 @@
   border: 1px solid #ddd;
   padding: 10px;
   overflow-x: auto;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 0.9em;
   margin-bottom: 15px;
 }
 
 .problem-detail-statement code {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Ubuntu Mono', monospace;
   padding: 2px 4px;
   border-radius: 3px;
 }

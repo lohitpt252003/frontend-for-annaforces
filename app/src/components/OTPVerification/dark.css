@@ -1,0 +1,31 @@
+.otp-verification-container {
+  background-color: #333333;
+  color: #f0f0f0;
+}
+
+.otp-verification-title {
+  color: #ffffff;
+}
+
+.otp-verification-label {
+  color: #cccccc;
+}
+
+.otp-verification-input {
+  border: 1px solid #555555;
+  background-color: #444444;
+  color: #f0f0f0;
+}
+
+.otp-verification-button {
+  background-color: #4CAF50; /* Green for success/verification */
+  color: #ffffff;
+}
+
+.otp-verification-button:hover {
+  background-color: #45a049;
+}
+
+.otp-verification-error {
+  color: #ff6666;
+}

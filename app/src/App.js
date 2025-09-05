@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './components/Login';
+import Signup from './components/Signup';
+import OTPVerification from './components/OTPVerification';
 import WelcomePage from './components/WelcomePage';
 import Problems from './components/Problems';
 import ProblemDetail from './components/ProblemDetail';
@@ -81,6 +83,8 @@ function App() {
         <Header isLoggedIn={isLoggedIn} userName={userName} onLogout={handleLogout} toggleTheme={toggleTheme} currentTheme={theme} />
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLoginSuccess} setIsLoading={setIsLoading} />} />
+          <Route path="/signup" element={<Signup setIsLoading={setIsLoading} />} />
+          <Route path="/verify-otp/:email" element={<OTPVerification setIsLoading={setIsLoading} />} />
           
           <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
             <Route path="/welcome" element={<WelcomePage userName={userName} />} />

@@ -5,7 +5,7 @@
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
   line-height: 1.6;
 }
 
@@ -42,7 +42,7 @@
   border-radius: 8px;
   padding: 20px;
   overflow-x: auto;
-  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 1em;
   line-height: 1.4;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -115,7 +115,7 @@
   padding: 15px;
   border-radius: 6px;
   overflow-x: auto;
-  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 0.95em;
   white-space: pre-wrap; /* Ensures long lines wrap */
   word-wrap: break-word; /* Ensures long words break */

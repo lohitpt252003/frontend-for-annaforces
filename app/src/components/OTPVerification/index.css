@@ -1,0 +1,54 @@
+.otp-verification-container {
+  padding: 20px;
+  max-width: 400px;
+  margin: 50px auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.otp-verification-title {
+  margin-bottom: 20px;
+}
+
+.otp-verification-message {
+  margin-bottom: 20px;
+  font-size: 0.95em;
+}
+
+.otp-verification-form-group {
+  margin-bottom: 15px;
+}
+
+.otp-verification-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.otp-verification-input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 1.2em;
+  text-align: center;
+  letter-spacing: 5px; /* Space out OTP digits */
+}
+
+.otp-verification-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: background-color 0.3s ease;
+}
+
+.otp-verification-error {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.9em;
+}
