@@ -178,7 +178,7 @@ function ProblemSubmissions({ token, setIsLoading }) { // Accept setIsLoading pr
                 <td>
                   <Link to={`/submissions/${submission.submission_id}`}>{submission.submission_id}</Link>
                 </td>
-                <td>{submission.user_id}</td>
+                <td><Link to={`/users/${submission.user_id}`}>{submission.user_id}</Link></td>
                 <td className={`status-${submission.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
                   {console.log('Submission Status:', submission.status)}
                   {submission.status}

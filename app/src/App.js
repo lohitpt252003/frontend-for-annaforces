@@ -82,7 +82,7 @@ function App() {
   return (
     <Router>
       <div>
-        <Header isLoggedIn={isLoggedIn} userName={userName} onLogout={handleLogout} toggleTheme={toggleTheme} currentTheme={theme} />
+        <Header isLoggedIn={isLoggedIn} userName={userName} userId={userId} onLogout={handleLogout} toggleTheme={toggleTheme} currentTheme={theme} />
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLoginSuccess} setIsLoading={setIsLoading} />} />
           <Route path="/signup" element={<Signup setIsLoading={setIsLoading} />} />
@@ -97,7 +97,7 @@ function App() {
             <Route path="/problems/:problemId/submit" element={<CodeSubmission token={token} setIsLoading={setIsLoading} />} />
             <Route path="/problems/:problemId/submissions" element={<ProblemSubmissions token={token} setIsLoading={setIsLoading} />} />
             <Route path="/problems/:problemId/solution" element={<SolutionDetail setGlobalLoading={setIsLoading} />} />
-            <Route path="/profile" element={<Profile userId={userId} token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/users/:userId" element={<Profile loggedUserId={userId} token={token} setIsLoading={setIsLoading} />} />
             <Route path="/users/:userId/submissions" element={<UserSubmissions token={token} setIsLoading={setIsLoading} />} />
             <Route path="/submissions/:submissionId" element={<SubmissionDetail token={token} setIsLoading={setIsLoading} />} />
             <Route path="/credits" element={<Credits />} />

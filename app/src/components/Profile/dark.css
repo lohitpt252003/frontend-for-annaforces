@@ -26,3 +26,22 @@
 .dark-theme .profile-error {
   color: #FF8A80;
 }
+
+.dark-theme .profile-cancel-button:hover {
+  background-color: #A01C28;
+}
+
+.dark-theme .profile-view-submissions-link {
+  background-color: #007bff;
+  color: white;
+}
+
+.dark-theme .profile-view-submissions-link:hover {
+  background-color: #0056b3;
+}
+
+.dark-theme .profile-solved-problem-item {
+  background-color: #1a471a; /* Darker green background */
+  border: 1px solid #2e7d32;
+  color: #7ad39b; /* Lighter green text */
+}

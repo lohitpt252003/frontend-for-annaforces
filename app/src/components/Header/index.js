@@ -5,7 +5,7 @@ import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
 
-function Header({ isLoggedIn, userName, onLogout, toggleTheme, currentTheme }) {
+function Header({ isLoggedIn, userName, userId, onLogout, toggleTheme, currentTheme }) {
   return (
     <header>
       <nav className="header-nav">
@@ -17,7 +17,7 @@ function Header({ isLoggedIn, userName, onLogout, toggleTheme, currentTheme }) {
           {isLoggedIn && (
             <>
               <Link to="/problems" className="header-nav-link">Problems 🧩</Link>
-              <Link to="/profile" className="header-nav-link">Profile 👤</Link>
+              <Link to={`/users/${userId}`} className="header-nav-link">Profile 🧑‍💻</Link>
               <Link to="/credits" className="header-nav-link">Credits 🏆</Link>
             </>
           )}

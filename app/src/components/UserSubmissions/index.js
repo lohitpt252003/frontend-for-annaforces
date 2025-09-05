@@ -189,7 +189,7 @@ function UserSubmissions({ token, setIsLoading }) { // Accept setIsLoading prop
               <td>
                 <Link to={`/submissions/${submission.submission_id}`}>{submission.submission_id}</Link>
               </td>
-              <td>{submission.problem_id}</td>
+              <td><Link to={`/problems/${submission.problem_id}`}>{submission.problem_id}</Link></td>
               <td className={`status-${submission.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
                 {console.log('Submission Status:', submission.status)}
                 {submission.status}

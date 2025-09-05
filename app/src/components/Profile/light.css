@@ -26,3 +26,26 @@
 .light-theme .profile-error {
   color: #D32F2F;
 }
+
+.light-theme .profile-edit-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.light-theme .profile-cancel-button:hover {
+  background-color: #A01C28;
+}
+
+.light-theme .profile-view-submissions-link {
+  background-color: #007bff;
+  color: white;
+}
+
+.light-theme .profile-view-submissions-link:hover {
+  background-color: #0056b3;
+}
+
+.light-theme .profile-solved-problem-item {
+  background-color: #e0ffe0;
+  color: #2e7d32;
+}
