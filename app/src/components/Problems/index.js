@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
+import api from '../../utils/api'; // Import the new api utility
 
 function Problems({ setIsLoading }) { // Accept setIsLoading prop
   const [allProblems, setAllProblems] = useState({}); // Store all fetched problems
@@ -23,11 +24,11 @@ function Problems({ setIsLoading }) { // Accept setIsLoading prop
       setIsLoading(true); // Use global loading
 
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
+        const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/`, token);
+
+        if (!response) { // If response is null, it means handleApiResponse redirected
+          return;
+        }
 
         const data = await response.json();
 

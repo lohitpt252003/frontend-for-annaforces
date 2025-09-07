@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import { InlineMath, BlockMath } from 'react-katex'; // Import KaTeX components
+import 'katex/dist/katex.min.css'; // Import KaTeX CSS
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
 import SampleCases from '../SampleCases';
+import api from '../../utils/api'; // Import the new api utility
 
 function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
   const { problem_id } = useParams();
@@ -22,11 +25,11 @@ function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
       setIsLoading(true); // Use global loading
 
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
+        const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}`, token);
+
+        if (!response) { // If response is null, it means handleApiResponse redirected
+          return;
+        }
 
         const data = await response.json();
 
@@ -82,24 +85,25 @@ function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
       </div>
       <hr className="problem-detail-separator" />
       <div className="problem-detail-section">
-        <h3>Problem Statement</h3>
+        <h3>Problem Statement 📝</h3>
         <ReactMarkdown>{problem.description_content}</ReactMarkdown>
       </div>
 
       <div className="problem-detail-section">
-        <h3>Input Format</h3>
+        <h3>Input Format 📥</h3>
         <ReactMarkdown>{problem.input_content}</ReactMarkdown>
       </div>
 
       <div className="problem-detail-section">
-        <h3>Output Format</h3>
+        <h3>Output Format 📤</h3>
         <ReactMarkdown>{problem.output_content}</ReactMarkdown>
       </div>
 
       {problem.constraints_content && (
         <div className="problem-detail-section">
-          <h3>Constraints</h3>
-          <ReactMarkdown>{problem.constraints_content}</ReactMarkdown>
+          <h3>Constraints 📏</h3>
+          {/* Render math using InlineMath */}
+          <InlineMath>{problem.constraints_content}</InlineMath>
         </div>
       )}
 
@@ -107,7 +111,7 @@ function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
 
       {problem.notes_content && (
         <div className="problem-detail-section">
-          <h3>Notes</h3>
+          <h3>Notes 🗒️</h3>
           <ReactMarkdown>{problem.notes_content}</ReactMarkdown>
         </div>
       )}

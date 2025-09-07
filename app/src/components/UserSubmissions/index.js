@@ -3,8 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
+import api from '../../utils/api'; // Import the new api utility
 
-function UserSubmissions({ token, setIsLoading }) { // Accept setIsLoading prop
+function UserSubmissions({ setIsLoading }) { // Removed token prop
   const { userId } = useParams();
   const [allSubmissions, setAllSubmissions] = useState([]); // Store all fetched submissions
   const [submissions, setSubmissions] = useState([]); // Submissions to display after filtering
@@ -19,17 +20,26 @@ function UserSubmissions({ token, setIsLoading }) { // Accept setIsLoading prop
 
   useEffect(() => {
     const fetchSubmissions = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('No token found. Please log in.');
+        setIsLoading(false);
+        return;
+      }
+
       setIsLoading(true); // Use global loading
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/submissions`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
+        const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/submissions`, token);
+
+        if (!response) { // If response is null, it means handleApiResponse redirected
+          return;
+        }
+
+        const data = await response.json();
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data = await response.json();
         setAllSubmissions(data); // Store all submissions
         setSubmissions(data);    // Initially display all submissions
       } catch (error) {
@@ -39,11 +49,11 @@ function UserSubmissions({ token, setIsLoading }) { // Accept setIsLoading prop
       }
     };
 
-    if (userId && token) {
+    if (userId) { // Removed token from dependency array
       fetchSubmissions();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId, token]);
+  }, [userId]); // Removed token from dependency array
 
   useEffect(() => {
     let filtered = allSubmissions;
@@ -101,15 +111,6 @@ function UserSubmissions({ token, setIsLoading }) { // Accept setIsLoading prop
           return aId - bId;
         } else {
           return bId - aId;
-        }
-      } else {
-        // Default string comparison for other columns
-        const aValue = a[sortKey] ? a[sortKey].toString() : '';
-        const bValue = b[sortKey] ? b[sortKey].toString() : '';
-        if (sortOrder === 'asc') {
-          return aValue.localeCompare(bValue);
-        } else {
-          return bValue.localeCompare(aValue);
         }
       }
     });

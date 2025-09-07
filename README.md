@@ -66,7 +66,7 @@ Significant effort has been made to improve the visual appeal and user experienc
 
 -   **Enhanced Styling**: The `SubmissionDetail` and `Credits` pages have received comprehensive styling updates, including modern layouts, improved typography, better spacing, and refined element designs. The `ProblemDetail` page has also been refined with improved layout for problem information and action buttons, and the problem statement content is now visually centered for better readability.
 -   **Icons in Credits**: The `Credits` page now features relevant icons (e.g., GitHub, LinkedIn) for contributor links, enhancing visual clarity and engagement.
--   **Emojis Across Pages**: Emojis have been strategically added to various pages and components throughout the application, including titles, labels, buttons, and list items, to provide a more friendly and intuitive user interface.
+-   **Emojis Across Pages**: Emojis have been strategically added to various pages and components throughout the application, including titles, labels, buttons, and list items, to provide a more friendly and intuitive user interface. The frontend is now truly full of emojis! 🤩
 
 ### Core Components
 
@@ -76,7 +76,8 @@ Significant effort has been made to improve the visual appeal and user experienc
 *   **`Logout`**: A component that triggers the logout process, clearing user data from `localStorage` and redirecting to the login page.
 *   **`WelcomePage`**: A simple page displayed after successful user login.
 *   **`Problems`**: Fetches and displays a list of all available problems from the backend. Includes search and filter functionalities (by title, ID, difficulty, and tags). Problem titles are clickable links to their detail pages. Now includes a "View Solution" button for each problem.
-*   **`ProblemDetail`**: Displays the detailed information for a specific problem, fetched from the backend. If the problem is not found, it displays a message indicating that the problem is not there. Now includes a "View Solution" button. It now also displays problem constraints.
+*   **`ProblemDetail`**: Displays the detailed information for a specific problem, fetched from the backend. If the problem is not found, it displays a message indicating that the problem is not there. Now includes a "View Solution" button. It now also displays problem constraints and utilizes the `SampleCases` component for rendering sample test cases.
+*   **`SampleCases`**: A dedicated component for displaying sample input/output test cases for problems. It provides a convenient "Copy" button for each input and output, allowing users to easily copy the content to their clipboard. Toast notifications are used to provide feedback on copy operations.
 *   **`Profile`**: Displays user profile information. Now allows editing of name, username, and bio. Also displays a list of solved problems with clickable links to problem details.
 *   **`UserSubmissions`**: Displays a sortable table of all submissions for a specific user, fetched from the backend. Includes robust filter functionalities (by problem ID, status, language, and timestamp) with dynamically generated status options to ensure accuracy. Each submission ID is a clickable link to its detailed view, and problem IDs are now clickable links to problem details.
 *   **`ProblemSubmissions`**: Displays a list of all submissions for a specific problem, fetched from the backend. Includes filter functionalities (by user ID, status, and timestamp). Each submission is a clickable link to its detailed view, and user IDs are now clickable links to user profiles.

@@ -5,8 +5,9 @@ import { toast } from 'react-toastify';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
+import api from '../../utils/api'; // Import the new api utility
 
-function Profile({ loggedUserId, token, setIsLoading }) { // Accept loggedUserId prop
+function Profile({ loggedUserId, setIsLoading }) { // Removed token prop
   const { userId } = useParams(); // Get userId from URL params
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
@@ -18,17 +19,26 @@ function Profile({ loggedUserId, token, setIsLoading }) { // Accept loggedUserId
 
   useEffect(() => {
     const fetchUserData = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('No token found. Please log in.');
+        setIsLoading(false);
+        return;
+      }
+
       setIsLoading(true); // Use global loading
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
+        const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, token);
+
+        if (!response) { // If response is null, it means handleApiResponse redirected
+          return;
+        }
+
+        const data = await response.json();
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data = await response.json();
         
         setUserData(data);
         setEditedName(data.name);
@@ -42,13 +52,20 @@ function Profile({ loggedUserId, token, setIsLoading }) { // Accept loggedUserId
     };
 
     const fetchSolvedProblems = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        // Error already handled by fetchUserData or global api handler
+        return;
+      }
+
       setIsLoading(true);
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/solved`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
+        const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/solved`, token);
+
+        if (!response) { // If response is null, it means handleApiResponse redirected
+          return;
+        }
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -63,28 +80,31 @@ function Profile({ loggedUserId, token, setIsLoading }) { // Accept loggedUserId
       }
     };
 
-    if (userId && token) {
+    if (userId) { // Removed token from dependency array
       fetchUserData();
       fetchSolvedProblems();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId, token]);
+  }, [userId]); // Removed token from dependency array
 
   const handleSave = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('No token found. Please log in.');
+      return;
+    }
+
     setIsLoading(true);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/update-profile`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          name: editedName,
-          username: editedUsername,
-          bio: editedBio
-        })
-      });
+      const response = await api.put(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/update-profile`, {
+        name: editedName,
+        username: editedUsername,
+        bio: editedBio
+      }, token);
+
+      if (!response) { // If response is null, it means handleApiResponse redirected
+        return;
+      }
 
       const data = await response.json();
 
@@ -92,11 +112,12 @@ function Profile({ loggedUserId, token, setIsLoading }) { // Accept loggedUserId
         toast.success(data.message || 'Profile updated successfully!');
         setIsEditing(false);
         // Re-fetch user data to update the displayed profile
-        const updatedResponse = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
+        const updatedResponse = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, token);
+
+        if (!updatedResponse) {
+          return;
+        }
+
         const updatedData = await updatedResponse.json();
         if (updatedResponse.ok) {
           setUserData(updatedData);

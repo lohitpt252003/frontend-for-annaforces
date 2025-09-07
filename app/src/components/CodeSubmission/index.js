@@ -4,8 +4,9 @@ import { toast } from 'react-toastify';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
+import api from '../../utils/api'; // Import the new api utility
 
-function CodeSubmission({ token, setIsLoading }) { // Accept setIsLoading prop
+function CodeSubmission({ setIsLoading }) { // Removed token prop as it's fetched internally
   const { problemId } = useParams();
   const navigate = useNavigate();
   const [code, setCode] = useState('');
@@ -19,15 +20,20 @@ function CodeSubmission({ token, setIsLoading }) { // Accept setIsLoading prop
     setError('');
     setIsLoading(true); // Use global loading
 
+    const token = localStorage.getItem('token'); // Get token inside handleSubmit
+    if (!token) {
+      setError('No token found. Please log in.');
+      toast.error('No token found. Please log in.');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submit`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ code, language })
-      });
+      const response = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submit`, { code, language }, token);
+
+      if (!response) { // If response is null, it means handleApiResponse redirected
+        return;
+      }
 
       const data = await response.json();
 

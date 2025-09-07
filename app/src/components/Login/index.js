@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
+import api from '../../utils/api'; // Import the new api utility
 
 function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
   const [userId, setUserId] = useState('');
@@ -17,13 +18,11 @@ function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
     setIsLoading(true); // Use global loading
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user_id: userId, password: password }),
-      });
+      const response = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, { user_id: userId, password: password });
+
+      if (!response) { // If response is null, it means handleApiResponse redirected
+        return;
+      }
 
       const data = await response.json();
 
@@ -78,7 +77,7 @@ function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
             required
           />
         </div>
-        <button type="submit" className="login-button" disabled={false}> {/* Remove disabled based on local isLoading */}
+        <button type="submit" className="login-button" disabled={false}>
           Login ▶️
         </button>
         {error && <p className="login-error">{error}</p>}

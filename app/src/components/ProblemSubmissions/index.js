@@ -3,8 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
+import api from '../../utils/api'; // Import the new api utility
 
-function ProblemSubmissions({ token, setIsLoading }) { // Accept setIsLoading prop
+function ProblemSubmissions({ setIsLoading }) { // Removed token prop
   const { problemId } = useParams();
   const [allSubmissions, setAllSubmissions] = useState([]); // Store all fetched submissions
   const [submissions, setSubmissions] = useState([]); // Submissions to display after filtering
@@ -18,17 +19,26 @@ function ProblemSubmissions({ token, setIsLoading }) { // Accept setIsLoading pr
 
   useEffect(() => {
     const fetchSubmissions = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('No token found. Please log in.');
+        setIsLoading(false);
+        return;
+      }
+
       setIsLoading(true); // Use global loading
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submissions`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
+        const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submissions`, token);
+
+        if (!response) { // If response is null, it means handleApiResponse redirected
+          return;
+        }
+
+        const data = await response.json();
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data = await response.json();
         setAllSubmissions(data); // Store all submissions
         setSubmissions(data);    // Initially display all submissions
       } catch (error) {
@@ -38,11 +48,11 @@ function ProblemSubmissions({ token, setIsLoading }) { // Accept setIsLoading pr
       }
     };
 
-    if (problemId && token) {
+    if (problemId) { // Removed token from dependency array
       fetchSubmissions();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [problemId, token]);
+  }, [problemId]); // Removed token from dependency array
 
   useEffect(() => {
     let filtered = allSubmissions;
@@ -191,7 +201,7 @@ function ProblemSubmissions({ token, setIsLoading }) { // Accept setIsLoading pr
         </table>
       )}
     </div>
-  )
+  );
 }
 
 export default ProblemSubmissions;
