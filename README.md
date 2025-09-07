@@ -54,7 +54,11 @@ The application now includes a global loading indicator (spinner) that is displa
 
 -   **`LoadingSpinner`**: A reusable component that renders a spinner.
 -   **`App.js`**: Manages a global `isLoading` state and passes a `setGlobalLoading` function to components that make API calls. It conditionally renders the `LoadingSpinner` based on the `isLoading` state.
--   **API-calling Components**: Components like `Login`, `Problems`, `ProblemDetail`, `CodeSubmission`, `ProblemSubmissions`, `Profile`, and `UserSubmissions` now accept `setGlobalLoading` as a prop. They call `setGlobalLoading(true)` before initiating an API request and `setGlobalLoading(false)` in the `finally` block of the API call to hide the spinner.
+-   **API-calling Components**: Components like `Login`, `Problems`, `ProblemDetail`, `CodeSubmission`, `ProblemSubmissions`, `Profile`, and `UserSubmissions` now accept `setGlobalLoading` as a prop. They call `setGlobalLoading(true)` before initiating an API request and `setGlobalLoading(false)` in the `finally` block of the API call to hide the spinner. These components now utilize a centralized API utility (`src/utils/api.js`) for making requests, which also handles global concerns like unauthorized responses (e.g., session expiration) by redirecting to the login page.
+
+### Mathematical Rendering
+
+To ensure accurate and visually appealing display of mathematical expressions, especially in problem constraints, the frontend now integrates `react-katex`. This library allows rendering LaTeX-like mathematical notation directly within React components, providing high-quality typography for complex formulas.
 
 ### Toast Notifications
 
