@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
+import SampleCases from '../SampleCases';
 
 function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
   const { problem_id } = useParams();
@@ -80,9 +81,36 @@ function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
         </div>
       </div>
       <hr className="problem-detail-separator" />
-      <div className="problem-detail-statement">
-        <ReactMarkdown>{problem.problem_statement}</ReactMarkdown>
+      <div className="problem-detail-section">
+        <h3>Problem Statement</h3>
+        <ReactMarkdown>{problem.description_content}</ReactMarkdown>
       </div>
+
+      <div className="problem-detail-section">
+        <h3>Input Format</h3>
+        <ReactMarkdown>{problem.input_content}</ReactMarkdown>
+      </div>
+
+      <div className="problem-detail-section">
+        <h3>Output Format</h3>
+        <ReactMarkdown>{problem.output_content}</ReactMarkdown>
+      </div>
+
+      {problem.constraints_content && (
+        <div className="problem-detail-section">
+          <h3>Constraints</h3>
+          <ReactMarkdown>{problem.constraints_content}</ReactMarkdown>
+        </div>
+      )}
+
+      <SampleCases samples_data={problem.samples_data} />
+
+      {problem.notes_content && (
+        <div className="problem-detail-section">
+          <h3>Notes</h3>
+          <ReactMarkdown>{problem.notes_content}</ReactMarkdown>
+        </div>
+      )}
     </div>
   );
 }
