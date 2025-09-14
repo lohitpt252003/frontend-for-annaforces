@@ -7,7 +7,7 @@ import './light.css';
 import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
 
-function Profile({ loggedUserId, setIsLoading }) { // Removed token prop
+function Profile({ loggedUserId }) { // Removed token prop
   const { userId } = useParams(); // Get userId from URL params
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
@@ -16,17 +16,18 @@ function Profile({ loggedUserId, setIsLoading }) { // Removed token prop
   const [editedUsername, setEditedUsername] = useState('');
   const [editedBio, setEditedBio] = useState('');
   const [solvedProblems, setSolvedProblems] = useState([]); // New state for solved problems
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
         setError('No token found. Please log in.');
-        setIsLoading(false);
+        setIsLoadingLocal(false);
         return;
       }
 
-      setIsLoading(true); // Use global loading
+      setIsLoadingLocal(true); // Use global loading
       try {
         const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, token);
 
@@ -47,7 +48,7 @@ function Profile({ loggedUserId, setIsLoading }) { // Removed token prop
       } catch (error) {
         setError(error);
       } finally {
-        setIsLoading(false); // Use global loading
+        setIsLoadingLocal(false); // Use global loading
       }
     };
 
@@ -58,7 +59,7 @@ function Profile({ loggedUserId, setIsLoading }) { // Removed token prop
         return;
       }
 
-      setIsLoading(true);
+      setIsLoadingLocal(true);
       try {
         const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/solved`, token);
 
@@ -76,7 +77,7 @@ function Profile({ loggedUserId, setIsLoading }) { // Removed token prop
         console.error("Error fetching solved problems:", error);
         // Optionally set an error state for solved problems
       } finally {
-        setIsLoading(false);
+        setIsLoadingLocal(false);
       }
     };
 
@@ -94,7 +95,7 @@ function Profile({ loggedUserId, setIsLoading }) { // Removed token prop
       return;
     }
 
-    setIsLoading(true);
+    setIsLoadingLocal(true);
     try {
       const response = await api.put(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/update-profile`, {
         name: editedName,
@@ -131,7 +132,7 @@ function Profile({ loggedUserId, setIsLoading }) { // Removed token prop
       toast.error('Network error or server is unreachable.');
       console.error('Update profile error:', err);
     } finally {
-      setIsLoading(false);
+      setIsLoadingLocal(false);
     }
   };
 
@@ -147,6 +148,10 @@ function Profile({ loggedUserId, setIsLoading }) { // Removed token prop
 
   if (error) {
     return <div className="profile-error">Error: {error.message}</div>;
+  }
+
+  if (isLoadingLocal) {
+    return <div className="profile-loading">Loading profile...</div>;
   }
 
   if (!userData) {

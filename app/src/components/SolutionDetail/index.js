@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown'; // Import ReactMarkdown
+import { InlineMath, BlockMath } from 'react-katex'; // Import KaTeX components
+import 'katex/dist/katex.min.css'; // Import KaTeX CSS
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import './index.css'; // For component-specific styles
 import './light.css'; // For component-specific styles
 import './dark.css'; // For component-specific styles
 
-const SolutionDetail = ({ setGlobalLoading }) => {
+const SolutionDetail = () => {
   const { problemId } = useParams();
   const [solutionData, setSolutionData] = useState(null);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const [selectedLanguage, setSelectedLanguage] = useState('python'); // State to control selected language in modal
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
 
   useEffect(() => {
     const fetchSolution = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
         setError('No token found. Please log in.');
-        if (setGlobalLoading) setGlobalLoading(false);
+        setIsLoadingLocal(false);
         return;
       }
 
-      if (setGlobalLoading) setGlobalLoading(true);
+      setIsLoadingLocal(true);
       try {
         const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/solution`, {
           headers: {
@@ -50,14 +55,14 @@ const SolutionDetail = ({ setGlobalLoading }) => {
         setError(err.message);
         console.error('Error fetching solution:', err);
       } finally {
-        if (setGlobalLoading) setGlobalLoading(false);
+        setIsLoadingLocal(false);
       }
     };
 
     if (problemId) {
       fetchSolution();
     }
-  }, [problemId, setGlobalLoading]);
+  }, [problemId]);
 
   const handleViewSolutionClick = () => {
     setShowModal(true);
@@ -82,8 +87,12 @@ const SolutionDetail = ({ setGlobalLoading }) => {
     return <div className="solution-detail-error">Error: {error}</div>;
   }
 
-  if (!solutionData) {
+  if (isLoadingLocal) {
     return <div className="solution-detail-loading">Loading solution...</div>;
+  }
+
+  if (!solutionData) {
+    return <div className="solution-detail-not-found">Solution not found.</div>;
   }
 
   return (
@@ -93,7 +102,16 @@ const SolutionDetail = ({ setGlobalLoading }) => {
       <div className="solution-detail-section">
         <h3 className="solution-detail-subtitle">Explanation (solution.md)</h3>
         {solutionData.markdown ? (
-          <ReactMarkdown>{solutionData.markdown}</ReactMarkdown>
+          <ReactMarkdown
+            remarkPlugins={[remarkMath]}
+            rehypePlugins={[rehypeKatex]}
+            components={{
+              math: ({ value }) => <BlockMath>{value}</BlockMath>,
+              inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+            }}
+          >
+            {solutionData.markdown}
+          </ReactMarkdown>
         ) : (
           <p>No markdown explanation available.</p>
         )}

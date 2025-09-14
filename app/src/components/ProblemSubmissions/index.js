@@ -5,7 +5,7 @@ import './light.css';
 import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
 
-function ProblemSubmissions({ setIsLoading }) { // Removed token prop
+function ProblemSubmissions() { // Removed token prop
   const { problemId } = useParams();
   const [allSubmissions, setAllSubmissions] = useState([]); // Store all fetched submissions
   const [submissions, setSubmissions] = useState([]); // Submissions to display after filtering
@@ -16,17 +16,18 @@ function ProblemSubmissions({ setIsLoading }) { // Removed token prop
   const [filterEndDate, setFilterEndDate] = useState('');
   const [sortKey, setSortKey] = useState('submission_id');
   const [sortOrder, setSortOrder] = useState('desc');
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
         setError('No token found. Please log in.');
-        setIsLoading(false);
+        setIsLoadingLocal(false);
         return;
       }
 
-      setIsLoading(true); // Use global loading
+      setIsLoadingLocal(true); // Use local loading
       try {
         const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submissions`, token);
 
@@ -44,7 +45,7 @@ function ProblemSubmissions({ setIsLoading }) { // Removed token prop
       } catch (error) {
         setError(error);
       } finally {
-        setIsLoading(false); // Use global loading
+        setIsLoadingLocal(false); // Use global loading
       }
     };
 
@@ -52,7 +53,7 @@ function ProblemSubmissions({ setIsLoading }) { // Removed token prop
       fetchSubmissions();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [problemId]); // Removed token from dependency array
+  }, [problemId]);
 
   useEffect(() => {
     let filtered = allSubmissions;
@@ -159,7 +160,9 @@ function ProblemSubmissions({ setIsLoading }) { // Removed token prop
           title="Filter by End Date 📅"
         />
       </div>
-      {submissions.length === 0 ? (
+      {isLoadingLocal ? (
+        <div className="problem-submissions-loading">Loading submissions...</div>
+      ) : submissions.length === 0 ? (
         <div className="problem-submissions-no-submissions">No submissions found for this problem.</div>
       ) : (
         <table className="problem-submissions-table">

@@ -6,16 +6,17 @@ import './light.css';
 import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
 
-function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
+function Login({ onLogin }) { // Add setIsLoading prop
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [isLoadingLocal, setIsLoadingLocal] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setIsLoading(true); // Use global loading
+    setIsLoadingLocal(true); // Use local loading
 
     try {
       const response = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, { user_id: userId, password: password });
@@ -47,7 +48,7 @@ function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
       toast.error('Network error or server is unreachable');
       console.error('Login error:', err);
     } finally {
-      setIsLoading(false); // Use global loading
+      setIsLoadingLocal(false); // Use local loading
     }
   };
 
@@ -77,8 +78,8 @@ function Login({ onLogin, setIsLoading }) { // Add setIsLoading prop
             required
           />
         </div>
-        <button type="submit" className="login-button" disabled={false}>
-          Login ▶️
+        <button type="submit" className="login-button" disabled={isLoadingLocal}>
+          {isLoadingLocal ? 'Logging in...' : 'Login ▶️'}
         </button>
         {error && <p className="login-error">{error}</p>}
       </form>

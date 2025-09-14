@@ -5,13 +5,14 @@ import './light.css';
 import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
 
-function Problems({ setIsLoading }) { // Accept setIsLoading prop
+function Problems() { // Accept setIsLoading prop
   const [allProblems, setAllProblems] = useState({}); // Store all fetched problems
   const [problems, setProblems] = useState({}); // Problems to display after filtering/searching
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterDifficulty, setFilterDifficulty] = useState('');
   const [filterTag, setFilterTag] = useState('');
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
 
   useEffect(() => {
     const fetchProblems = async () => {
@@ -21,7 +22,7 @@ function Problems({ setIsLoading }) { // Accept setIsLoading prop
         return;
       }
 
-      setIsLoading(true); // Use global loading
+      setIsLoadingLocal(true); // Use local loading
 
       try {
         const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/`, token);
@@ -42,7 +43,7 @@ function Problems({ setIsLoading }) { // Accept setIsLoading prop
         setError('Network error or server is unreachable');
         console.error('Fetch problems error:', err);
       } finally {
-        setIsLoading(false); // Use global loading
+        setIsLoadingLocal(false); // Use local loading
       }
     };
 
@@ -112,7 +113,9 @@ function Problems({ setIsLoading }) { // Accept setIsLoading prop
           {tags.map(t => <option key={t} value={t}>{t}</option>)}
         </select>
       </div>
-      {Object.keys(problems).length === 0 ? (
+      {isLoadingLocal ? (
+        <p className="problems-loading">Loading problems...</p>
+      ) : Object.keys(problems).length === 0 ? (
         <p className="problems-no-problems">No problems available.</p>
       ) : (
         <ul className="problems-list">

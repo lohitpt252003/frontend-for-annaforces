@@ -11,10 +11,11 @@ import './dark.css';
 import SampleCases from '../SampleCases';
 import api from '../../utils/api'; // Import the new api utility
 
-function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
+function ProblemDetail() { // Accept setIsLoading prop
   const { problem_id } = useParams();
   const [problem, setProblem] = useState(null);
   const [error, setError] = useState('');
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
 
   useEffect(() => {
     const fetchProblem = async () => {
@@ -24,7 +25,7 @@ function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
         return;
       }
 
-      setIsLoading(true); // Use global loading
+      setIsLoadingLocal(true); // Use local loading
 
       try {
         const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}`, token);
@@ -48,7 +49,7 @@ function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
         setError('Network error or server is unreachable');
         console.error('Fetch problem error:', err);
       } finally {
-        setIsLoading(false); // Use global loading
+        setIsLoadingLocal(false); // Use local loading
       }
     };
 
@@ -58,6 +59,10 @@ function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
 
   if (error) {
     return <div className="problem-detail-error">Error: {error}</div>;
+  }
+
+  if (isLoadingLocal) {
+    return <div className="problem-detail-loading">Loading problem details...</div>;
   }
 
   if (!problem) {
@@ -88,24 +93,59 @@ function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
       <hr className="problem-detail-separator" />
       <div className="problem-detail-section">
         <h3>Problem Statement 📝</h3>
-        <ReactMarkdown>{problem.description_content}</ReactMarkdown>
+        <ReactMarkdown
+          remarkPlugins={[remarkMath]}
+          rehypePlugins={[rehypeKatex]}
+          components={{
+            math: ({ value }) => <BlockMath>{value}</BlockMath>,
+            inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+          }}
+        >
+          {problem.description_content}
+        </ReactMarkdown>
       </div>
 
       <div className="problem-detail-section">
         <h3>Input Format 📥</h3>
-        <ReactMarkdown>{problem.input_content}</ReactMarkdown>
+        <ReactMarkdown
+          remarkPlugins={[remarkMath]}
+          rehypePlugins={[rehypeKatex]}
+          components={{
+            math: ({ value }) => <BlockMath>{value}</BlockMath>,
+            inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+          }}
+        >
+          {problem.input_content}
+        </ReactMarkdown>
       </div>
 
       <div className="problem-detail-section">
         <h3>Output Format 📤</h3>
-        <ReactMarkdown>{problem.output_content}</ReactMarkdown>
+        <ReactMarkdown
+          remarkPlugins={[remarkMath]}
+          rehypePlugins={[rehypeKatex]}
+          components={{
+            math: ({ value }) => <BlockMath>{value}</BlockMath>,
+            inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+          }}
+        >
+          {problem.output_content}
+        </ReactMarkdown>
       </div>
 
       {problem.constraints_content && (
         <div className="problem-detail-section">
           <h3>Constraints 📏</h3>
-          {/* Render math using InlineMath */}
-          <InlineMath>{problem.constraints_content}</InlineMath>
+          <ReactMarkdown
+            remarkPlugins={[remarkMath]}
+            rehypePlugins={[rehypeKatex]}
+            components={{
+              math: ({ value }) => <BlockMath>{value}</BlockMath>,
+              inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+            }}
+          >
+            {problem.constraints_content}
+          </ReactMarkdown>
         </div>
       )}
 
@@ -114,7 +154,16 @@ function ProblemDetail({ setIsLoading }) { // Accept setIsLoading prop
       {problem.notes_content && (
         <div className="problem-detail-section">
           <h3>Notes 🗒️</h3>
-          <ReactMarkdown>{problem.notes_content}</ReactMarkdown>
+          <ReactMarkdown
+            remarkPlugins={[remarkMath]}
+            rehypePlugins={[rehypeKatex]}
+            components={{
+              math: ({ value }) => <BlockMath>{value}</BlockMath>,
+              inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+            }}
+          >
+            {problem.notes_content}
+          </ReactMarkdown>
         </div>
       )}
     </div>

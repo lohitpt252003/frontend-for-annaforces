@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'react-toastify'; // Import toast
+import { InlineMath, BlockMath } from 'react-katex'; // Import KaTeX components
+import 'katex/dist/katex.min.css'; // Import KaTeX CSS
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 function SampleCases({ samples_data }) {
   const [copiedStatus, setCopiedStatus] = useState({});
@@ -47,7 +51,18 @@ function SampleCases({ samples_data }) {
               {copiedStatus[`input-${index}`] || 'Copy'}
             </button>
           </p>
-          <pre><ReactMarkdown>{sample.input}</ReactMarkdown></pre>
+          <pre>
+  <ReactMarkdown
+    remarkPlugins={[remarkMath]}
+    rehypePlugins={[rehypeKatex]}
+    components={{
+      math: ({ value }) => <BlockMath>{value}</BlockMath>,
+      inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+    }}
+  >
+    {sample.input}
+  </ReactMarkdown>
+</pre>
           <p>
             <strong>Output:</strong>
             <button
@@ -57,11 +72,33 @@ function SampleCases({ samples_data }) {
               {copiedStatus[`output-${index}`] || 'Copy'}
             </button>
           </p>
-          <pre><ReactMarkdown>{sample.output}</ReactMarkdown></pre>
+          <pre>
+            <ReactMarkdown
+              remarkPlugins={[remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+              components={{
+                math: ({ value }) => <BlockMath>{value}</BlockMath>,
+                inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+              }}
+            >
+              {sample.output}
+            </ReactMarkdown>
+          </pre>
           {sample.description && (
             <p><strong>Explanation:</strong></p>
           )}
-          {sample.description && <ReactMarkdown>{sample.description}</ReactMarkdown>}
+          {sample.description &&
+            <ReactMarkdown
+              remarkPlugins={[remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+              components={{
+                math: ({ value }) => <BlockMath>{value}</BlockMath>,
+                inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+              }}
+            >
+              {sample.description}
+            </ReactMarkdown>
+          }
         </div>
       ))}
     </div>
