@@ -33,7 +33,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
         const initialExpandedState = {};
         if (data.test_results) {
           data.test_results.forEach(tr => {
-            initialExpandedState[tr.test_case_number] = true;
+            initialExpandedState[tr.test_case_number] = false;
           });
         }
         setExpandedTestCases(initialExpandedState);
@@ -89,7 +89,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
           {submissionData.test_results.map((testResult, index) => (
             <li key={index} className="submission-detail-test-results-list-item">
               <div className="test-case-header">
-                <p><strong>Test Case {testResult.test_case_number}:</strong> {testResult.status}</p>
+                <p><strong>Test Case {testResult.test_case_number}:</strong> <span className={`test-case-status test-case-status-${testResult.status.toLowerCase().replace(/ /g, '-')}`}>{testResult.status}</span></p>
                 <button onClick={() => toggleTestCase(testResult.test_case_number)} className="test-case-toggle-button">
                   {expandedTestCases[testResult.test_case_number] ? 'Collapse' : 'Expand'}
                 </button>
@@ -99,6 +99,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
                   <p><strong>Message:</strong> {testResult.message}</p>
                   <p><strong>Execution Time:</strong> {testResult.execution_time} s</p>
                   <p><strong>Memory Usage:</strong> {testResult.memory_usage} MB</p>
+                  <div><strong>Input:</strong> <pre>{testResult.input}</pre></div>
                   <div><strong>Expected Output:</strong> <pre>{testResult.expected_output}</pre></div>
                   <div><strong>Actual Output:</strong> <pre>{testResult.actual_output}</pre></div>
                 </div>

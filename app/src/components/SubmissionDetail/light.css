@@ -1,4 +1,3 @@
-
 .light-theme .submission-detail-container {
   background-color: #FFFFFF;
   color: #333333;
@@ -104,4 +103,22 @@
   .light-theme .test-case-details {
     border-left: 2px solid #CCCCCC;
   }
+}
+
+.light-theme .test-case-status-passed {
+  color: #28a745; /* Green */
+}
+
+.light-theme .test-case-status-wrong-answer {
+  color: #dc3545; /* Red */
+}
+
+.light-theme .test-case-status-runtime-error,
+.light-theme .test-case-status-time-limit-exceeded,
+.light-theme .test-case-status-memory-limit-exceeded {
+  color: #ffc107; /* Yellow/Orange */
+}
+
+.light-theme .test-case-status-compilation-error {
+  color: #6c757d; /* Gray */
 }

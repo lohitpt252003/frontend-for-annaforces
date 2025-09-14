@@ -68,6 +68,13 @@ Significant effort has been made to improve the visual appeal and user experienc
 -   **Icons in Credits**: The `Credits` page now features relevant icons (e.g., GitHub, LinkedIn) for contributor links, enhancing visual clarity and engagement.
 -   **Emojis Across Pages**: Emojis have been strategically added to various pages and components throughout the application, including titles, labels, buttons, and list items, to provide a more friendly and intuitive user interface.
 
+### Recent Frontend Enhancements
+
+-   **SubmissionDetail Component:**
+    -   Test cases now collapse by default, improving readability for submissions with many test cases.
+    -   Test case statuses are now color-coded for quick visual feedback: green for "passed", red for "wrong answer", yellow for "runtime error", "time limit exceeded", and "memory limit exceeded", and grey for "compilation error".
+    -   Input for each test case is now displayed, providing more context for debugging.
+
 ### Core Components
 
 *   **`Login`**: Provides a form for user authentication against the backend API. Displays a loading indicator during submission. Stores user credentials and token in `localStorage` upon successful login. If a user's account is unverified, they will be redirected to the OTP verification page.
@@ -81,7 +88,7 @@ Significant effort has been made to improve the visual appeal and user experienc
 *   **`Profile`**: Displays user profile information. Now allows editing of name, username, and bio. Also displays a list of solved problems with clickable links to problem details.
 *   **`UserSubmissions`**: Displays a sortable table of all submissions for a specific user, fetched from the backend. Includes robust filter functionalities (by problem ID, status, language, and timestamp) with dynamically generated status options to ensure accuracy. Each submission ID is a clickable link to its detailed view, and problem IDs are now clickable links to problem details.
 *   **`ProblemSubmissions`**: Displays a list of all submissions for a specific problem, fetched from the backend. Includes filter functionalities (by user ID, status, and timestamp). Each submission is a clickable link to its detailed view, and user IDs are now clickable links to user profiles.
-*   **`SubmissionDetail`**: Displays the detailed information for a specific submission, including code, language, status, and test results, fetched from the backend. If the submission is not found, it displays a message indicating that the submission is not there.
+*   **`SubmissionDetail`**: Displays the detailed information for a specific submission, including code, language, status, and test results, fetched from the backend. Test cases now collapse by default, and their statuses are color-coded (green for passed, red for wrong answer, yellow for runtime/time limit/memory limit, grey for compilation error). Input for each test case is also displayed. If the submission is not found, it displays a message indicating that the submission is not there.
 *   **`CodeSubmission`**: Provides a form for users to submit code for a specific problem, including language selection and code input.
 *   **`Credits`**: Displays credits for the project, including contributors and technologies used.
 *   **`Footer`**: Displays copyright information, links to About Us, Contact, and Privacy Policy pages.
@@ -90,7 +97,7 @@ Significant effort has been made to improve the visual appeal and user experienc
 *   **`PrivacyPolicy`**: Outlines the privacy policy of the Annaforces platform.
 *   **`NotFound`**: Displays a 404 "Page Not Found" message, including the incorrect URL, and provides a link to the Welcome Page.
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
-*   **`ForgotPassword`**: Provides a form for users to request their User ID or initiate a password reset via OTP. Sends an OTP to the user's email for password reset requests.
+*   **`ForgotPassword`**: Provides a form for users to request their User ID or initiate a password reset via OTP. Sends an OTP to the user's email for password reset requests. The OTP is discarded after 3 incorrect attempts.
 *   **`ResetPassword`**: Allows users to reset their password by providing their email, the OTP received, and a new password.
 
 ### Authentication Flow

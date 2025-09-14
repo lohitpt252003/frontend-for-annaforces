@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { InlineMath, BlockMath } from 'react-katex'; // Import KaTeX components
 import 'katex/dist/katex.min.css'; // Import KaTeX CSS
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';

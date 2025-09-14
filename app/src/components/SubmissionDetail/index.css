@@ -173,7 +173,7 @@
     font-size: 0.9em;
   }
 
-  .submission-detail-test-results-list-item {
+  .submission-detail-test-results-list {
     padding: 15px;
     margin-bottom: 15px;
   }
@@ -200,4 +200,22 @@
     padding: 10px;
     font-size: 0.85em;
   }
+}
+
+.test-case-status-passed {
+  color: #28a745; /* Green */
+}
+
+.test-case-status-wrong-answer {
+  color: #dc3545; /* Red */
+}
+
+.test-case-status-runtime-error,
+.test-case-status-time-limit-exceeded,
+.test-case-status-memory-limit-exceeded {
+  color: #ffc107; /* Yellow/Orange */
+}
+
+.test-case-status-compilation-error {
+  color: #6c757d; /* Gray */
 }

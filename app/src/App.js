@@ -86,7 +86,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLoginSuccess} setIsLoading={setIsLoading} />} />
           <Route path="/signup" element={<Signup setIsLoading={setIsLoading} />} />
-          <Route path="/verify-otp/:userId" element={<OTPVerification setIsLoading={setIsLoading} />} />
+          <Route path="/verify-otp/:email" element={<OTPVerification setIsLoading={setIsLoading} />} />
           <Route path="/forgot-password" element={<ForgotPassword setIsLoading={setIsLoading} />} />
           <Route path="/reset-password" element={<ResetPassword setIsLoading={setIsLoading} />} />
           
