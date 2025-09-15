@@ -89,7 +89,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
           {submissionData.test_results.map((testResult, index) => (
             <li key={index} className="submission-detail-test-results-list-item">
               <div className="test-case-header">
-                <p><strong>Test Case {testResult.test_case_number}:</strong> <span className={`test-case-status test-case-status-${testResult.status.toLowerCase().replace(/ /g, '-')}`}>{testResult.status}</span></p>
+                <p><strong>Test Case {testResult.test_case_number}:</strong> <span className={`test-case-status test-case-status-${testResult.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>{testResult.status}</span></p>
                 <button onClick={() => toggleTestCase(testResult.test_case_number)} className="test-case-toggle-button">
                   {expandedTestCases[testResult.test_case_number] ? 'Collapse' : 'Expand'}
                 </button>
