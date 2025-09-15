@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
+import { getCachedSubmission, cacheSubmission } from '../cache';
 
 function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   const { submissionId } = useParams();
@@ -10,9 +11,29 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   const [error, setError] = useState(null);
   const [expandedTestCases, setExpandedTestCases] = useState({});
 
+  const initializeExpandedState = (data) => {
+    const initialExpandedState = {};
+    if (data.test_results) {
+      data.test_results.forEach(tr => {
+        initialExpandedState[tr.test_case_number] = false;
+      });
+    }
+    setExpandedTestCases(initialExpandedState);
+  };
+
   useEffect(() => {
     const fetchSubmissionData = async () => {
       setIsLoading(true); // Use global loading
+
+      // Check cache first
+      const cachedData = getCachedSubmission(submissionId);
+      if (cachedData) {
+        setSubmissionData(cachedData);
+        initializeExpandedState(cachedData);
+        setIsLoading(false);
+        return;
+      }
+
       try {
         const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/submissions/${submissionId}`, {
           headers: {
@@ -29,14 +50,10 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
         const data = await response.json();
         setSubmissionData(data);
 
-        // Initialize all test cases to be expanded by default
-        const initialExpandedState = {};
-        if (data.test_results) {
-          data.test_results.forEach(tr => {
-            initialExpandedState[tr.test_case_number] = false;
-          });
-        }
-        setExpandedTestCases(initialExpandedState);
+        // Cache the data
+        cacheSubmission(submissionId, data);
+
+        initializeExpandedState(data);
 
       } catch (error) {
         setError(error);

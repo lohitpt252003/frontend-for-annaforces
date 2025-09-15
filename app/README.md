@@ -68,6 +68,10 @@ Significant effort has been made to improve the visual appeal and user experienc
 -   **Icons in Credits**: The `Credits` page now features relevant icons (e.g., GitHub, LinkedIn) for contributor links, enhancing visual clarity and engagement.
 -   **Emojis Across Pages**: Emojis have been strategically added to various pages and components throughout the application, including titles, labels, buttons, and list items, to provide a more friendly and intuitive user interface.
 
+### Caching
+
+The application uses `localStorage` to cache submission details. When a user visits a submission detail page, the data is fetched from the backend and stored in `localStorage`. Subsequent visits to the same submission page will load the data from the cache, improving performance. The caching logic is encapsulated in the `src/components/cache` component.
+
 ### Recent Frontend Enhancements
 
 -   **SubmissionDetail Component:**
