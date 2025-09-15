@@ -122,3 +122,15 @@
 .dark-theme .test-case-status-compilation-error {
   color: #6c757d; /* Gray */
 }
+
+.dark-theme .cache-notification {
+  background-color: #3a3a3a;
+  border: 1px solid #555555;
+  color: #e0e0e0;
+}
+
+.dark-theme .cache-notification button {
+  background-color: #61dafb;
+  color: #282c34;
+  border: 1px solid #61dafb;
+}

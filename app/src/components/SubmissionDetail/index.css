@@ -219,3 +219,27 @@
 .test-case-status-compilation-error {
   color: #6c757d; /* Gray */
 }
+
+.cache-notification {
+  background-color: #fffbe6;
+  border: 1px solid #ffe58f;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cache-notification p {
+  margin: 0;
+}
+
+.cache-notification button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}

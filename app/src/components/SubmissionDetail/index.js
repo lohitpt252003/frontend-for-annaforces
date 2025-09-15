@@ -10,6 +10,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   const [submissionData, setSubmissionData] = useState(null);
   const [error, setError] = useState(null);
   const [expandedTestCases, setExpandedTestCases] = useState({});
+  const [isCached, setIsCached] = useState(false);
 
   const initializeExpandedState = (data) => {
     const initialExpandedState = {};
@@ -21,6 +22,11 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
     setExpandedTestCases(initialExpandedState);
   };
 
+  const handleClearCache = () => {
+    localStorage.removeItem(`submission_${submissionId}`);
+    window.location.reload();
+  };
+
   useEffect(() => {
     const fetchSubmissionData = async () => {
       setIsLoading(true); // Use global loading
@@ -30,6 +36,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
       if (cachedData) {
         setSubmissionData(cachedData);
         initializeExpandedState(cachedData);
+        setIsCached(true);
         setIsLoading(false);
         return;
       }
@@ -85,6 +92,11 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
 
   return (
     <div className="submission-detail-container">
+      {isCached && (
+        <div className="cache-notification">
+          <p>This submission is being displayed from the cache. <button onClick={handleClearCache}>Clear Cache</button> to see the latest updates.</p>
+        </div>
+      )}
       <h2>Submission Details: {submissionId}</h2>
       <p><strong>Problem ID:</strong> {submissionData.problem_id}</p>
       <p><strong>User ID:</strong> {submissionData.user_id}</p>
