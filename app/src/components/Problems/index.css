@@ -6,6 +6,11 @@
   max-width: 1200px; /* Increased max-width for wider layout */
 }
 
+.cache-notification {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .problems-loading,
 .problems-error,
 .problems-no-problems {

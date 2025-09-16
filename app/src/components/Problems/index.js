@@ -4,6 +4,7 @@ import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
+import { getCachedProblems, cacheProblems, clearProblemsCache } from '../../components/cache/problems_list';
 
 function Problems() { // Accept setIsLoading prop
   const [allProblems, setAllProblems] = useState({}); // Store all fetched problems
@@ -13,6 +14,12 @@ function Problems() { // Accept setIsLoading prop
   const [filterDifficulty, setFilterDifficulty] = useState('');
   const [filterTag, setFilterTag] = useState('');
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
+  const [isCached, setIsCached] = useState(false);
+
+  const handleClearCache = () => {
+    clearProblemsCache();
+    window.location.reload();
+  };
 
   useEffect(() => {
     const fetchProblems = async () => {
@@ -22,20 +29,30 @@ function Problems() { // Accept setIsLoading prop
         return;
       }
 
-      setIsLoadingLocal(true); // Use local loading
+      setIsLoadingLocal(true);
+
+      const cachedProblems = getCachedProblems();
+      if (cachedProblems) {
+        setAllProblems(cachedProblems);
+        setProblems(cachedProblems);
+        setIsLoadingLocal(false);
+        setIsCached(true);
+        return;
+      }
 
       try {
         const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/`, token);
 
-        if (!response) { // If response is null, it means handleApiResponse redirected
+        if (!response) {
           return;
         }
 
         const data = await response.json();
 
         if (response.ok) {
-          setAllProblems(data); // Store all problems
-          setProblems(data);    // Initially display all problems
+          setAllProblems(data);
+          setProblems(data);
+          cacheProblems(data);
         } else {
           setError(data.error || 'Failed to fetch problems');
         }
@@ -43,7 +60,7 @@ function Problems() { // Accept setIsLoading prop
         setError('Network error or server is unreachable');
         console.error('Fetch problems error:', err);
       } finally {
-        setIsLoadingLocal(false); // Use local loading
+        setIsLoadingLocal(false);
       }
     };
 
@@ -88,6 +105,11 @@ function Problems() { // Accept setIsLoading prop
   return (
     <div className="problems-container">
       <h2>Problems 📋</h2>
+      {isCached && (
+        <div className="cache-notification">
+          <p>This list is being displayed from the cache. <button onClick={handleClearCache}>Clear Cache</button> to see the latest updates.</p>
+        </div>
+      )}
       <div className="problems-filters">
         <input
           type="text"

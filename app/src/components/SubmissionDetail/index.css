@@ -226,9 +226,7 @@
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
 }
 
 .cache-notification p {
