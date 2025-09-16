@@ -17,6 +17,11 @@ function ProblemSubmissions() { // Removed token prop
   const [sortKey, setSortKey] = useState('submission_id');
   const [sortOrder, setSortOrder] = useState('desc');
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [submissionsPerPage] = useState(10);
+  const [totalSubmissions, setTotalSubmissions] = useState(0);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -29,7 +34,11 @@ function ProblemSubmissions() { // Removed token prop
 
       setIsLoadingLocal(true); // Use local loading
       try {
-        const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submissions`, token);
+        const response = await api.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submissions?page=${currentPage}&per_page=${submissionsPerPage}` +
+          `&userId=${filterUserId}&status=${filterStatus}&startDate=${filterStartDate}&endDate=${filterEndDate}`,
+          token
+        );
 
         if (!response) { // If response is null, it means handleApiResponse redirected
           return;
@@ -40,8 +49,9 @@ function ProblemSubmissions() { // Removed token prop
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        setAllSubmissions(data); // Store all submissions
-        setSubmissions(data);    // Initially display all submissions
+        setAllSubmissions(data.submissions); // Store all submissions
+        setSubmissions(data.submissions);    // Initially display all submissions
+        setTotalSubmissions(data.total_submissions);
       } catch (error) {
         setError(error);
       } finally {
@@ -53,7 +63,7 @@ function ProblemSubmissions() { // Removed token prop
       fetchSubmissions();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [problemId]);
+  }, [problemId, currentPage, submissionsPerPage, filterUserId, filterStatus, filterStartDate, filterEndDate]);
 
   useEffect(() => {
     let filtered = allSubmissions;
@@ -97,6 +107,7 @@ function ProblemSubmissions() { // Removed token prop
   };
 
   const sortedSubmissions = useMemo(() => {
+    if (!submissions || !Array.isArray(submissions)) return [];
     return [...submissions].sort((a, b) => {
       if (sortKey === 'submission_id') {
         const aId = parseInt(a.submission_id.substring(1), 10);
@@ -165,43 +176,52 @@ function ProblemSubmissions() { // Removed token prop
       ) : submissions.length === 0 ? (
         <div className="problem-submissions-no-submissions">No submissions found for this problem.</div>
       ) : (
-        <table className="problem-submissions-table">
-          <thead>
-            <tr>
-              <th onClick={() => handleSort('submission_id')}>
-                Submission ID 📄 {sortKey === 'submission_id' && (sortOrder === 'asc' ? '▲' : '▼')}
-              </th>
-              <th onClick={() => handleSort('user_id')}>
-                User ID 👤 {sortKey === 'user_id' && (sortOrder === 'asc' ? '▲' : '▼')}
-              </th>
-              <th onClick={() => handleSort('status')}>
-                Status 📊 {sortKey === 'status' && (sortOrder === 'asc' ? '▲' : '▼')}
-              </th>
-              <th onClick={() => handleSort('language')}>
-                Language 🌐 {sortKey === 'language' && (sortOrder === 'asc' ? '▲' : '▼')}
-              </th>
-              <th onClick={() => handleSort('timestamp')}>
-                Timestamp ⏰ {sortKey === 'timestamp' && (sortOrder === 'asc' ? '▲' : '▼')}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedSubmissions.map(submission => (
-              <tr key={submission.submission_id}>
-                <td>
-                  <Link to={`/submissions/${submission.submission_id}`}>{submission.submission_id}</Link>
-                </td>
-                <td><Link to={`/users/${submission.user_id}`}>{submission.user_id}</Link></td>
-                <td className={`status-${submission.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
-                  {/*console.log('Submission Status:', submission.status)*/}
-                  {submission.status}
-                </td>
-                <td>{submission.language}</td>
-                <td>{new Date(submission.timestamp).toLocaleString()}</td>
+        <>
+          <table className="problem-submissions-table">
+            <thead>
+              <tr>
+                <th onClick={() => handleSort('submission_id')}>
+                  Submission ID 📄 {sortKey === 'submission_id' && (sortOrder === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('user_id')}>
+                  User ID 👤 {sortKey === 'user_id' && (sortOrder === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('status')}>
+                  Status 📊 {sortKey === 'status' && (sortOrder === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('language')}>
+                  Language 🌐 {sortKey === 'language' && (sortOrder === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('timestamp')}>
+                  Timestamp ⏰ {sortKey === 'timestamp' && (sortOrder === 'asc' ? '▲' : '▼')}
+                </th>
               </tr>
+            </thead>
+            <tbody>
+              {sortedSubmissions.map(submission => (
+                <tr key={submission.submission_id}>
+                  <td>
+                    <Link to={`/submissions/${submission.submission_id}`}>{submission.submission_id}</Link>
+                  </td>
+                  <td><Link to={`/users/${submission.user_id}`}>{submission.user_id}</Link></td>
+                  <td className={`status-${submission.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
+                    {/*console.log('Submission Status:', submission.status)*/}
+                    {submission.status}
+                  </td>
+                  <td>{submission.language}</td>
+                  <td>{new Date(submission.timestamp).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="pagination">
+            {Array.from({ length: Math.ceil(totalSubmissions / submissionsPerPage) }, (_, i) => (
+              <button key={i + 1} onClick={() => paginate(i + 1)} className={currentPage === i + 1 ? 'active' : ''}>
+                {i + 1}
+              </button>
             ))}
-          </tbody>
-        </table>
+          </div>
+        </>
       )}
     </div>
   );
