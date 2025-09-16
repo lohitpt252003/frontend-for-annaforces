@@ -10,12 +10,19 @@ import './light.css';
 import './dark.css';
 import SampleCases from '../SampleCases';
 import api from '../../utils/api'; // Import the new api utility
+import { getCachedProblemDetail, cacheProblemDetail, clearProblemDetailCache } from '../../components/cache/problem_detail';
 
 function ProblemDetail() { // Accept setIsLoading prop
   const { problem_id } = useParams();
   const [problem, setProblem] = useState(null);
   const [error, setError] = useState('');
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
+  const [isCached, setIsCached] = useState(false);
+
+  const handleClearCache = () => {
+    clearProblemDetailCache(problem_id);
+    window.location.reload();
+  };
 
   useEffect(() => {
     const fetchProblem = async () => {
@@ -25,7 +32,15 @@ function ProblemDetail() { // Accept setIsLoading prop
         return;
       }
 
-      setIsLoadingLocal(true); // Use local loading
+      setIsLoadingLocal(true);
+
+      const cachedProblem = getCachedProblemDetail(problem_id);
+      if (cachedProblem) {
+        setProblem(cachedProblem);
+        setIsCached(true);
+        setIsLoadingLocal(false);
+        return;
+      }
 
       try {
         const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}`, token);
@@ -38,6 +53,7 @@ function ProblemDetail() { // Accept setIsLoading prop
 
         if (response.ok) {
           setProblem(data);
+          cacheProblemDetail(problem_id, data);
         } else {
           if (response.status === 404) {
             setError("The problem is not there.");
@@ -72,6 +88,11 @@ function ProblemDetail() { // Accept setIsLoading prop
   return (
     <div className="problem-detail-container">
       <h2 className="problem-detail-title">{problem.meta.title} ({problem_id}) 📄</h2>
+      {isCached && (
+        <div className="cache-notification">
+          <p>This problem is being displayed from the cache. <button onClick={handleClearCache}>Clear Cache</button> to see the latest updates.</p>
+        </div>
+      )}
       <div className="problem-detail-header-content">
         <div className="problem-detail-info">
           <p><strong>Difficulty:</strong> ⭐ {problem.meta.difficulty}</p>

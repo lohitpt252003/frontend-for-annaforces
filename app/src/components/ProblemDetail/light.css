@@ -1,3 +1,9 @@
+.light-theme .cache-notification {
+  background-color: #E3F2FD;
+  border: 1px solid #90CAF9;
+  color: #0D47A1;
+}
+
 .light-theme .problem-detail-error {
   color: #D32F2F;
 }
