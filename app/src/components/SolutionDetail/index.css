@@ -8,6 +8,11 @@
     color: var(--text-color);
 }
 
+.cache-notification {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .solution-detail-title {
     color: var(--primary-color);
     text-align: center;

@@ -8,6 +8,7 @@ import rehypeKatex from 'rehype-katex';
 import './index.css'; // For component-specific styles
 import './light.css'; // For component-specific styles
 import './dark.css'; // For component-specific styles
+import { getCachedSolution, cacheSolution, clearSolutionCache } from '../../components/cache/solution';
 
 const SolutionDetail = () => {
   const { problemId } = useParams();
@@ -16,6 +17,12 @@ const SolutionDetail = () => {
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const [selectedLanguage, setSelectedLanguage] = useState('python'); // State to control selected language in modal
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
+  const [isCached, setIsCached] = useState(false);
+
+  const handleClearCache = () => {
+    clearSolutionCache(problemId);
+    window.location.reload();
+  };
 
   useEffect(() => {
     const fetchSolution = async () => {
@@ -27,6 +34,15 @@ const SolutionDetail = () => {
       }
 
       setIsLoadingLocal(true);
+
+      const cachedSolution = getCachedSolution(problemId);
+      if (cachedSolution) {
+        setSolutionData(cachedSolution);
+        setIsCached(true);
+        setIsLoadingLocal(false);
+        return;
+      }
+
       try {
         const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/solution`, {
           headers: {
@@ -41,6 +57,7 @@ const SolutionDetail = () => {
 
         const data = await response.json();
         setSolutionData(data);
+        cacheSolution(problemId, data);
 
         // Set default selected language if available
         if (data.python) {
@@ -98,6 +115,11 @@ const SolutionDetail = () => {
   return (
     <div className="solution-detail-container">
       <h2 className="solution-detail-title">Solution for Problem {problemId}</h2>
+      {isCached && (
+        <div className="cache-notification">
+          <p>This solution is being displayed from the cache. <button onClick={handleClearCache}>Clear Cache</button> to see the latest updates.</p>
+        </div>
+      )}
       
       <div className="solution-detail-section">
         <h3 className="solution-detail-subtitle">Explanation (solution.md)</h3>

@@ -2,6 +2,12 @@
   background-color: #282c34;
 }
 
+.dark-theme .cache-notification {
+  background-color: #0A2430;
+  border: 1px solid #64B5F6;
+  color: #B3E5FC;
+}
+
 .dark-theme .problems-error {
   color: #FF8A80;
 }

@@ -1,3 +1,9 @@
+.dark-theme .cache-notification {
+  background-color: #0A2430;
+  border: 1px solid #64B5F6;
+  color: #B3E5FC;
+}
+
 .dark-theme {
     --background-color-secondary: #1E1E1E;
     --text-color: #FFFFFF;

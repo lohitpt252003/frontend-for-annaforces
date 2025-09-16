@@ -2,6 +2,12 @@
   background-color: #fff;
 }
 
+.light-theme .cache-notification {
+  background-color: #E3F2FD;
+  border: 1px solid #90CAF9;
+  color: #0D47A1;
+}
+
 .light-theme .problems-error {
   color: #D32F2F;
 }
