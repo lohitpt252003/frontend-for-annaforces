@@ -17,11 +17,6 @@ function ProblemSubmissions() { // Removed token prop
   const [sortKey, setSortKey] = useState('submission_id');
   const [sortOrder, setSortOrder] = useState('desc');
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [submissionsPerPage] = useState(10);
-  const [totalSubmissions, setTotalSubmissions] = useState(0);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -35,8 +30,7 @@ function ProblemSubmissions() { // Removed token prop
       setIsLoadingLocal(true); // Use local loading
       try {
         const response = await api.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submissions?page=${currentPage}&per_page=${submissionsPerPage}` +
-          `&userId=${filterUserId}&status=${filterStatus}&startDate=${filterStartDate}&endDate=${filterEndDate}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submissions`,
           token
         );
 
@@ -51,7 +45,6 @@ function ProblemSubmissions() { // Removed token prop
         }
         setAllSubmissions(data.submissions); // Store all submissions
         setSubmissions(data.submissions);    // Initially display all submissions
-        setTotalSubmissions(data.total_submissions);
       } catch (error) {
         setError(error);
       } finally {
@@ -63,7 +56,7 @@ function ProblemSubmissions() { // Removed token prop
       fetchSubmissions();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [problemId, currentPage, submissionsPerPage, filterUserId, filterStatus, filterStartDate, filterEndDate]);
+  }, [problemId]);
 
   useEffect(() => {
     let filtered = allSubmissions;
@@ -214,13 +207,6 @@ function ProblemSubmissions() { // Removed token prop
               ))}
             </tbody>
           </table>
-          <div className="pagination">
-            {Array.from({ length: Math.ceil(totalSubmissions / submissionsPerPage) }, (_, i) => (
-              <button key={i + 1} onClick={() => paginate(i + 1)} className={currentPage === i + 1 ? 'active' : ''}>
-                {i + 1}
-              </button>
-            ))}
-          </div>
         </>
       )}
     </div>

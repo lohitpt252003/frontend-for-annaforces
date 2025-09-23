@@ -15,9 +15,6 @@ function Problems() { // Accept setIsLoading prop
   const [filterTag, setFilterTag] = useState('');
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const [isCached, setIsCached] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [problemsPerPage] = useState(3);
-  const [totalProblems, setTotalProblems] = useState(0);
 
   const handleClearCache = () => {
     clearProblemsCache();
@@ -25,44 +22,7 @@ function Problems() { // Accept setIsLoading prop
   };
 
   useEffect(() => {
-    const fetchAllProblemsForFiltering = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        setError('No token found. Please log in.');
-        return;
-      }
-
-      const cachedAllProblems = getCachedProblems();
-      if (cachedAllProblems && cachedAllProblems.allProblems) {
-        setAllProblems(cachedAllProblems.allProblems);
-        setTotalProblems(cachedAllProblems.total_problems_all);
-        setIsCached(true);
-      } else {
-        try {
-          // Fetch all problems for filtering purposes (without pagination)
-          const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/?per_page=9999`, token); // Fetch a large number to get all
-          if (!response) return;
-          const data = await response.json();
-          if (response.ok) {
-            setAllProblems(data.problems);
-            setTotalProblems(data.total_problems);
-            cacheProblems({ allProblems: data.problems, total_problems_all: data.total_problems });
-          } else {
-            setError(data.error || 'Failed to fetch all problems for filtering');
-          }
-        } catch (err) {
-          setError('Network error or server is unreachable');
-          console.error('Fetch all problems error:', err);
-        }
-      }
-    };
-
-    fetchAllProblemsForFiltering();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const fetchPaginatedProblems = async () => {
+    const fetchProblems = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
         setError('No token found. Please log in.');
@@ -70,10 +30,19 @@ function Problems() { // Accept setIsLoading prop
       }
 
       setIsLoadingLocal(true);
+
+      const cachedProblems = getCachedProblems();
+      if (cachedProblems) {
+        setAllProblems(cachedProblems.allProblems);
+        setProblems(cachedProblems.allProblems);
+        setIsCached(true);
+        setIsLoadingLocal(false);
+        return;
+      }
+
       try {
         const response = await api.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/problems/?page=${currentPage}&per_page=${problemsPerPage}` +
-          `&search=${searchTerm}&difficulty=${filterDifficulty}&tag=${filterTag}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/problems/`,
           token
         );
 
@@ -81,24 +50,57 @@ function Problems() { // Accept setIsLoading prop
         const data = await response.json();
 
         if (response.ok) {
+          setAllProblems(data.problems);
           setProblems(data.problems);
-          setTotalProblems(data.total_problems);
+          cacheProblems({ allProblems: data.problems });
         } else {
-          setError(data.error || 'Failed to fetch paginated problems');
+          setError(data.error || 'Failed to fetch problems');
         }
       } catch (err) {
         setError('Network error or server is unreachable');
-        console.error('Fetch paginated problems error:', err);
+        console.error('Fetch problems error:', err);
       } finally {
         setIsLoadingLocal(false);
       }
     };
 
-    fetchPaginatedProblems();
+    fetchProblems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, problemsPerPage, searchTerm, filterDifficulty, filterTag]);
+  }, []);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  useEffect(() => {
+    let filtered = allProblems;
+
+    if (searchTerm) {
+        filtered = Object.entries(filtered).reduce((acc, [problemId, problemData]) => {
+            if (problemId.toLowerCase().includes(searchTerm) || problemData.title.toLowerCase().includes(searchTerm)) {
+                acc[problemId] = problemData;
+            }
+            return acc;
+        }, {});
+    }
+
+    if (filterDifficulty) {
+        filtered = Object.entries(filtered).reduce((acc, [problemId, problemData]) => {
+            if (problemData.difficulty.toLowerCase() === filterDifficulty.toLowerCase()) {
+                acc[problemId] = problemData;
+            }
+            return acc;
+        }, {});
+    }
+
+    if (filterTag) {
+        filtered = Object.entries(filtered).reduce((acc, [problemId, problemData]) => {
+            if (problemData.tags.map(t => t.toLowerCase()).includes(filterTag.toLowerCase())) {
+                acc[problemId] = problemData;
+            }
+            return acc;
+        }, {});
+    }
+
+    setProblems(filtered);
+}, [allProblems, searchTerm, filterDifficulty, filterTag]);
+
 
   if (error) {
     return <div className="problems-error">Error: {error}</div>;
@@ -165,13 +167,6 @@ function Problems() { // Accept setIsLoading prop
               </li>
             ))}
           </ul>
-          <div className="pagination">
-            {Array.from({ length: Math.ceil(totalProblems / problemsPerPage) }, (_, i) => (
-              <button key={i + 1} onClick={() => paginate(i + 1)} className={currentPage === i + 1 ? 'active' : ''}>
-                {i + 1}
-              </button>
-            ))}
-          </div>
         </>
       )}
     </div>
