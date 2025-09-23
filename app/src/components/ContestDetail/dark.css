@@ -1,0 +1,185 @@
+.dark-theme .cache-notification {
+  background-color: #0A2430;
+  border: 1px solid #64B5F6;
+  color: #B3E5FC;
+}
+
+.dark-theme .contest-detail-error {
+  color: #FF8A80;
+}
+
+.dark-theme .contest-detail-view-problems-button {
+  background-color: #5B57FF;
+  color: #FFFFFF;
+}
+
+.dark-theme .contest-detail-view-problems-button:hover {
+  background-color: #2E2BB2;
+}
+
+.dark-theme .contest-detail-separator {
+  border-top: 1px solid #2D333B;
+}
+
+.dark-theme .contest-detail-section {
+  color: #FFFFFF;
+}
+
+.dark-theme .contest-detail-section h1,
+.dark-theme .contest-detail-section h2,
+.dark-theme .contest-detail-section h3,
+.dark-theme .contest-detail-section h4,
+.dark-theme .contest-detail-section h5,
+.dark-theme .contest-detail-section h6 {
+  color: #FFFFFF;
+}
+
+.dark-theme .contest-detail-section pre {
+  background-color: #121212;
+  border: 1px solid #2D333B;
+  border-left: 3px solid #5B57FF;
+}
+
+.dark-theme .contest-detail-section code {
+  background-color: #24243A;
+}
+
+.dark-theme .contest-detail-tabs {
+  border-bottom: 1px solid #2D333B;
+}
+
+.dark-theme .contest-detail-tab-button {
+  color: #e0e0e0;
+}
+
+.dark-theme .contest-detail-tab-button:hover {
+  color: #61dafb;
+}
+
+.dark-theme .contest-detail-tab-button.active {
+  color: #61dafb;
+  border-bottom: 3px solid #61dafb;
+}
+
+.dark-theme .contest-problems-loading,
+.dark-theme .contest-problems-no-problems,
+.dark-theme .contest-problem-error {
+  color: #ccc;
+}
+
+.dark-theme .contest-problems-list-item {
+  border: 1px solid #3a3f47;
+  background-color: #1e2127;
+}
+
+.dark-theme .contest-problems-list-item h3 {
+  color: #e0e0e0;
+}
+
+.dark-theme .contest-problems-list-item-link {
+  color: #61dafb;
+}
+
+.dark-theme .contest-problems-submit-button {
+  background-color: #5B57FF;
+  color: #FFFFFF;
+}
+
+.dark-theme .contest-problems-submit-button:hover {
+  background-color: #2E2BB2;
+}
+
+.dark-theme .contest-problems-view-submissions-button {
+  background-color: #5a6268;
+  color: #e0e0e0;
+}
+
+.dark-theme .contest-problems-view-submissions-button:hover {
+  background-color: #6c757d;
+}
+
+.dark-theme .contest-problems-list-item p {
+  color: #ccc;
+}
+
+.dark-theme .contest-problems-list-item strong {
+  color: #e0e0e0;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .dark-theme .contest-detail-error {
+    color: #FF8A80;
+  }
+
+  .dark-theme .contest-detail-view-problems-button {
+    background-color: #5B57FF;
+    color: #FFFFFF;
+  }
+
+  .dark-theme .contest-detail-separator {
+    border-top: 1px solid #2D333B;
+  }
+
+  .dark-theme .contest-detail-section {
+    color: #FFFFFF;
+  }
+
+  .dark-theme .contest-detail-section h1,
+  .dark-theme .contest-detail-section h2,
+  .dark-theme .contest-detail-section h3,
+  .dark-theme .contest-detail-section h4,
+  .dark-theme .contest-detail-section h5,
+  .dark-theme .contest-detail-section h6 {
+    color: #FFFFFF;
+  }
+
+  .dark-theme .contest-detail-section pre {
+    background-color: #121212;
+    border: 1px solid #2D333B;
+    border-left: 3px solid #5B57FF;
+  }
+
+  .dark-theme .contest-detail-section code {
+    background-color: #24243A;
+  }
+
+  .dark-theme .contest-detail-tab-button {
+    border-top: 1px solid #3a3f47;
+  }
+
+  .dark-theme .contest-detail-tab-button.active {
+    border-top: 3px solid #61dafb;
+  }
+
+  .dark-theme .contest-problems-list-item {
+    border: 1px solid #3a3f47;
+    background-color: #1e2127;
+  }
+
+  .dark-theme .contest-problems-list-item h3 {
+    color: #e0e0e0;
+  }
+
+  .dark-theme .contest-problems-list-item-link {
+    color: #61dafb;
+  }
+
+  .dark-theme .contest-problems-submit-button {
+    background-color: #5B57FF;
+    color: #FFFFFF;
+  }
+
+  .dark-theme .contest-problems-view-submissions-button {
+    background-color: #5a6268;
+    color: #e0e0e0;
+  }
+
+  .dark-theme .contest-problems-list-item p {
+    color: #ccc;
+  }
+
+  .dark-theme .contest-problems-list-item strong {
+    color: #e0e0e0;
+  }
+}

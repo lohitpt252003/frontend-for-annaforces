@@ -43,27 +43,15 @@ function ProblemDetail() { // Accept setIsLoading prop
       }
 
       try {
-        const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}`, token);
-
-        if (!response) { // If response is null, it means handleApiResponse redirected
-          return;
-        }
-
-        const data = await response.json();
-
-        if (response.ok) {
-          setProblem(data);
-          cacheProblemDetail(problem_id, data);
-        } else {
-          if (response.status === 404) {
-            setError("The problem is not there.");
-          } else {
-            setError(data.error || 'Failed to fetch problem details');
-          }
-        }
+        const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}`, token);
+        setProblem(data);
+        cacheProblemDetail(problem_id, data);
       } catch (err) {
-        setError('Network error or server is unreachable');
-        console.error('Fetch problem error:', err);
+        if (err.message.includes("404")) {
+            setError("The problem is not there.");
+        } else {
+            setError(err.message || 'Network error or server is unreachable');
+        }
       } finally {
         setIsLoadingLocal(false); // Use local loading
       }
@@ -120,6 +108,12 @@ function ProblemDetail() { // Accept setIsLoading prop
           components={{
             math: ({ value }) => <BlockMath>{value}</BlockMath>,
             inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+            p: ({ children }) => {
+              if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
+                return children;
+              }
+              return <p>{children}</p>;
+            },
           }}
         >
           {problem.description_content}
@@ -134,6 +128,12 @@ function ProblemDetail() { // Accept setIsLoading prop
           components={{
             math: ({ value }) => <BlockMath>{value}</BlockMath>,
             inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+            p: ({ children }) => {
+              if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
+                return children;
+              }
+              return <p>{children}</p>;
+            },
           }}
         >
           {problem.input_content}
@@ -148,6 +148,12 @@ function ProblemDetail() { // Accept setIsLoading prop
           components={{
             math: ({ value }) => <BlockMath>{value}</BlockMath>,
             inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+            p: ({ children }) => {
+              if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
+                return children;
+              }
+              return <p>{children}</p>;
+            },
           }}
         >
           {problem.output_content}
@@ -163,6 +169,12 @@ function ProblemDetail() { // Accept setIsLoading prop
             components={{
               math: ({ value }) => <BlockMath>{value}</BlockMath>,
               inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+              p: ({ children }) => {
+                if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
+                  return children;
+                }
+                return <p>{children}</p>;
+              },
             }}
           >
             {problem.constraints_content}
@@ -181,6 +193,12 @@ function ProblemDetail() { // Accept setIsLoading prop
             components={{
               math: ({ value }) => <BlockMath>{value}</BlockMath>,
               inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+              p: ({ children }) => {
+                if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
+                  return children;
+                }
+                return <p>{children}</p>;
+              },
             }}
           >
             {problem.notes_content}

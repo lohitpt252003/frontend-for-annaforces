@@ -1,3 +1,6 @@
+import './index.css'; // For component-specific styles
+import './light.css'; // For component-specific styles
+import './dark.css'; // For component-specific styles
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'react-toastify'; // Import toast

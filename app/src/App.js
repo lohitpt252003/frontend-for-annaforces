@@ -21,6 +21,8 @@ import Contact from './components/Contact';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import Contests from './components/Contests';
+import ContestDetail from './components/ContestDetail';
 import NotFound from './components/NotFound';
 import LoadingSpinner from './components/LoadingSpinner'; // Import LoadingSpinner
 import { ToastContainer, toast } from 'react-toastify';
@@ -101,6 +103,8 @@ function App() {
             <Route path="/users/:userId/submissions" element={<UserSubmissions token={token} setIsLoading={setIsLoading} />} />
             <Route path="/submissions/:submissionId" element={<SubmissionDetail token={token} setIsLoading={setIsLoading} />} />
             <Route path="/credits" element={<Credits />} />
+            <Route path="/contests" element={<Contests theme={theme} />} />
+            <Route path="/contests/:contestId" element={<ContestDetail theme={theme} />} />
           </Route>
 
           <Route path="/about" element={<AboutUs />} />

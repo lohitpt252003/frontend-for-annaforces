@@ -21,53 +21,49 @@ function Problems() { // Accept setIsLoading prop
     window.location.reload();
   };
 
-  useEffect(() => {
-    const fetchProblems = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        setError('No token found. Please log in.');
-        return;
-      }
-
-      setIsLoadingLocal(true);
-
-      const cachedProblems = getCachedProblems();
-      if (cachedProblems) {
-        setAllProblems(cachedProblems.allProblems);
-        setProblems(cachedProblems.allProblems);
-        setIsCached(true);
-        setIsLoadingLocal(false);
-        return;
-      }
-
-      try {
-        const response = await api.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/problems/`,
-          token
-        );
-
-        if (!response) return;
-        const data = await response.json();
-
-        if (response.ok) {
-          setAllProblems(data.problems);
-          setProblems(data.problems);
-          cacheProblems({ allProblems: data.problems });
-        } else {
-          setError(data.error || 'Failed to fetch problems');
+      useEffect(() => {
+      const fetchProblems = async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          setError('No token found. Please log in.');
+          return;
         }
-      } catch (err) {
-        setError('Network error or server is unreachable');
-        console.error('Fetch problems error:', err);
-      } finally {
-        setIsLoadingLocal(false);
-      }
-    };
-
-    fetchProblems();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  
+        setIsLoadingLocal(true);
+  
+        const cachedProblems = getCachedProblems();
+        if (cachedProblems) {
+          setAllProblems(cachedProblems.allProblems);
+          setProblems(cachedProblems.allProblems);
+          setIsCached(true);
+          setIsLoadingLocal(false);
+          return;
+        }
+  
+        try {
+          const data = await api.get(
+            `${process.env.REACT_APP_API_BASE_URL}/api/problems/`,
+            token
+          );
+  
+          if (data && data.problems) {
+            setAllProblems(data.problems);
+            setProblems(data.problems);
+            cacheProblems({ allProblems: data.problems });
+          } else {
+            setError(data.error || 'Failed to fetch problems');
+          }
+        } catch (err) {
+          setError(err.message || 'Network error or server is unreachable');
+          console.error('Fetch problems error:', err);
+        } finally {
+          setIsLoadingLocal(false);
+        }
+      };
+  
+      fetchProblems();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
   useEffect(() => {
     let filtered = allProblems;
 

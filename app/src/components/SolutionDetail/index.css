@@ -163,6 +163,22 @@
     line-height: 1.4;
 }
 
+.solution-detail-code-block-container {
+    position: relative;
+}
+
+.solution-detail-copy-code-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
 .solution-detail-error {
     color: var(--error-color);
     text-align: center;

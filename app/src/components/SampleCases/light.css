@@ -1,0 +1,9 @@
+.light-theme .copy-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.light-theme .copy-button:hover {
+  background-color: #e0e0e0;
+}

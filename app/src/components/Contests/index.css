@@ -1,0 +1,148 @@
+.contests-container {
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.cache-notification {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.contests-loading,
+.contests-error,
+.contests-no-contests {
+  padding: 20px;
+  text-align: center;
+  font-size: 1.1em;
+  color: #555;
+}
+
+.contests-filters {
+  margin-bottom: 30px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.contests-filter-input,
+.contests-filter-select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  flex: 1;
+  min-width: 200px;
+  max-width: 250px;
+}
+
+.contests-list {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.contests-list-item {
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contests-list-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contests-list-item h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.4em;
+}
+
+.contests-list-item-link {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contests-list-item-link:hover {
+  text-decoration: underline;
+}
+
+.contests-list-item p {
+  margin: 8px 0;
+  font-size: 0.98em;
+}
+
+.contests-list-item strong {
+  font-weight: 600;
+}
+
+.contest-progress-bar-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  height: 10px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.contest-progress-bar {
+  height: 100%;
+  background-color: #4CAF50; /* Green */
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  transition: width 0.5s ease-in-out;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .contests-container {
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 100%;
+  }
+
+  .contests-filters {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .contests-filter-input,
+  .contests-filter-select {
+    width: 100%;
+    max-width: none;
+    min-width: unset;
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .contests-list {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .contests-list-item {
+    padding: 15px;
+  }
+
+  .contests-list-item h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  .contests-list-item p {
+    font-size: 0.9em;
+  }
+}

@@ -23,6 +23,7 @@ function Header({ isLoggedIn, userName, userId, onLogout, toggleTheme, currentTh
           {isLoggedIn && (
             <>
               <Link to="/problems" className="header-nav-link" onClick={toggleMobileMenu}>Problems 🧩</Link>
+              <Link to="/contests" className="header-nav-link" onClick={toggleMobileMenu}>Contests 🏆</Link>
               <Link to={`/users/${userId}`} className="header-nav-link" onClick={toggleMobileMenu}>Profile 🧑‍💻</Link>
               <Link to="/credits" className="header-nav-link" onClick={toggleMobileMenu}>Credits 🏆</Link>
             </>

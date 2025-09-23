@@ -5,6 +5,7 @@ import { InlineMath, BlockMath } from 'react-katex'; // Import KaTeX components
 import 'katex/dist/katex.min.css'; // Import KaTeX CSS
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import { toast } from 'react-toastify';
 import './index.css'; // For component-specific styles
 import './light.css'; // For component-specific styles
 import './dark.css'; // For component-specific styles
@@ -89,14 +90,26 @@ const SolutionDetail = () => {
     setShowModal(false);
   };
 
+  const handleCopyCode = (code) => {
+    navigator.clipboard.writeText(code).then(() => {
+      toast.success('Code copied to clipboard!');
+    }, (err) => {
+      toast.error('Failed to copy code.');
+      console.error('Could not copy text: ', err);
+    });
+  };
+
   const renderCodeBlock = (language) => {
     const code = solutionData[language];
     if (!code) return <p>No {language} solution available.</p>;
 
+    const codeToShow = code.endsWith('\n') ? code.slice(0, -1) : code;
+
     return (
-      <pre><code className={`language-${language}`}>{ 
-        code.endsWith('\n') ? code.slice(0, -1) : code
-      }</code></pre>
+      <div className="solution-detail-code-block-container">
+        <button onClick={() => handleCopyCode(codeToShow)} className="solution-detail-copy-code-button">Copy Code</button>
+        <pre><code className={`language-${language}`}>{codeToShow}</code></pre>
+      </div>
     );
   };
 

@@ -1,0 +1,185 @@
+.light-theme .cache-notification {
+  background-color: #E3F2FD;
+  border: 1px solid #90CAF9;
+  color: #0D47A1;
+}
+
+.light-theme .contest-detail-error {
+  color: #D32F2F;
+}
+
+.light-theme .contest-detail-view-problems-button {
+  background-color: #4B47FF;
+  color: #FFFFFF;
+}
+
+.light-theme .contest-detail-view-problems-button:hover {
+  background-color: #2A28B0;
+}
+
+.light-theme .contest-detail-separator {
+  border-top: 1px solid #E6EBF1;
+}
+
+.light-theme .contest-detail-section {
+  color: #1A1A1A;
+}
+
+.light-theme .contest-detail-section h1,
+.light-theme .contest-detail-section h2,
+.light-theme .contest-detail-section h3,
+.light-theme .contest-detail-section h4,
+.light-theme .contest-detail-section h5,
+.light-theme .contest-detail-section h6 {
+  color: #1A1A1A;
+}
+
+.light-theme .contest-detail-section pre {
+  background-color: #F8F9FD;
+  border: 1px solid #D0D7DE;
+  border-left: 3px solid #4B47FF;
+}
+
+.light-theme .contest-detail-section code {
+  background-color: #F3F3FF;
+}
+
+.light-theme .contest-detail-tabs {
+  border-bottom: 1px solid #E6EBF1;
+}
+
+.light-theme .contest-detail-tab-button {
+  color: #555;
+}
+
+.light-theme .contest-detail-tab-button:hover {
+  color: #007bff;
+}
+
+.light-theme .contest-detail-tab-button.active {
+  color: #007bff;
+  border-bottom: 3px solid #007bff;
+}
+
+.light-theme .contest-problems-loading,
+.light-theme .contest-problems-no-problems,
+.light-theme .contest-problem-error {
+  color: #555;
+}
+
+.light-theme .contest-problems-list-item {
+  border: 1px solid #E6EBF1;
+  background-color: #fdfdfd;
+}
+
+.light-theme .contest-problems-list-item h3 {
+  color: #333;
+}
+
+.light-theme .contest-problems-list-item-link {
+  color: #007bff;
+}
+
+.light-theme .contest-problems-submit-button {
+  background-color: #4B47FF;
+  color: #FFFFFF;
+}
+
+.light-theme .contest-problems-submit-button:hover {
+  background-color: #2A28B0;
+}
+
+.light-theme .contest-problems-view-submissions-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.light-theme .contest-problems-view-submissions-button:hover {
+  background-color: #5a6268;
+}
+
+.light-theme .contest-problems-list-item p {
+  color: #666;
+}
+
+.light-theme .contest-problems-list-item strong {
+  color: #444;
+}
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .contest-detail-error {
+    color: #D32F2F;
+  }
+
+  .light-theme .contest-detail-view-problems-button {
+    background-color: #4B47FF;
+    color: #FFFFFF;
+  }
+
+  .light-theme .contest-detail-separator {
+    border-top: 1px solid #E6EBF1;
+  }
+
+  .light-theme .contest-detail-section {
+    color: #1A1A1A;
+  }
+
+  .light-theme .contest-detail-section h1,
+  .light-theme .contest-detail-section h2,
+  .light-theme .contest-detail-section h3,
+  .light-theme .contest-detail-section h4,
+  .light-theme .contest-detail-section h5,
+  .light-theme .contest-detail-section h6 {
+    color: #1A1A1A;
+  }
+
+  .light-theme .contest-detail-section pre {
+    background-color: #F8F9FD;
+    border: 1px solid #D0D7DE;
+    border-left: 3px solid #4B47FF;
+  }
+
+  .light-theme .contest-detail-section code {
+    background-color: #F3F3FF;
+  }
+
+  .light-theme .contest-detail-tab-button {
+    border-top: 1px solid #eee;
+  }
+
+  .light-theme .contest-detail-tab-button.active {
+    border-top: 3px solid #007bff;
+  }
+
+  .light-theme .contest-problems-list-item {
+    border: 1px solid #E6EBF1;
+    background-color: #fdfdfd;
+  }
+
+  .light-theme .contest-problems-list-item h3 {
+    color: #333;
+  }
+
+  .light-theme .contest-problems-list-item-link {
+    color: #007bff;
+  }
+
+  .light-theme .contest-problems-submit-button {
+    background-color: #4B47FF;
+    color: #FFFFFF;
+  }
+
+  .light-theme .contest-problems-view-submissions-button {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  .light-theme .contest-problems-list-item p {
+    color: #666;
+  }
+
+  .light-theme .contest-problems-list-item strong {
+    color: #444;
+  }
+}

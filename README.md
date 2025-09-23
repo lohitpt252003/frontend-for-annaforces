@@ -54,7 +54,7 @@ The application now includes a global loading indicator (spinner) that is displa
 
 -   **`LoadingSpinner`**: A reusable component that renders a spinner.
 -   **`App.js`**: Manages a global `isLoading` state and passes a `setGlobalLoading` function to components that make API calls. It conditionally renders the `LoadingSpinner` based on the `isLoading` state.
--   **API-calling Components**: Components like `Login`, `Problems`, `ProblemDetail`, `CodeSubmission`, `ProblemSubmissions`, `Profile`, and `UserSubmissions` now accept `setGlobalLoading` as a prop. They call `setGlobalLoading(true)` before initiating an API request and `setGlobalLoading(false)` in the `finally` block of the API call to hide the spinner. These components now utilize a centralized API utility (`src/utils/api.js`) for making requests, which also handles global concerns like unauthorized responses (e.g., session expiration) by redirecting to the login page.
+-   **API-calling Components**: Components like `Login`, `Problems`, `ProblemDetail`, `CodeSubmission`, `ProblemSubmissions`, `Profile`, `UserSubmissions`, `Contests`, and `ContestDetail` now accept `setGlobalLoading` as a prop. They call `setGlobalLoading(true)` before initiating an API request and `setGlobalLoading(false)` in the `finally` block of the API call to hide the spinner. These components now utilize a centralized API utility (`src/utils/api.js`) for making requests, which now directly returns the parsed JSON response (or text for non-JSON responses) and handles global concerns like unauthorized responses (e.g., session expiration) by redirecting to the login page.
 
 ### Mathematical Rendering
 
@@ -107,6 +107,8 @@ The application uses `localStorage` to cache submission details. When a user vis
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
 *   **`ForgotPassword`**: Provides a form for users to request their User ID or initiate a password reset via OTP. Sends an OTP to the user's email for password reset requests. The OTP is discarded after 3 incorrect attempts.
 *   **`ResetPassword`**: Allows users to reset their password by providing their email, the OTP received, and a new password.
+*   **`Contests`**: Fetches and displays a list of all available contests from the backend. Each contest is a clickable link to its detail page.
+*   **`ContestDetail`**: Displays the detailed information for a specific contest, including its metadata, description, and theoretical background. It uses `react-markdown` to render the `contest_description` and `contest_theory` fields.
 
 ### Authentication Flow
 
@@ -140,6 +142,8 @@ The application uses `localStorage` to cache submission details. When a user vis
 *   `/users/:userId/submissions`: Displays a list of all submissions for a specific user (protected route).
 *   `/submissions/:submissionId`: Displays detailed information for a specific submission (protected route).
 *   `/credits`: Displays the credits page (protected route).
+*   `/contests`: Displays a list of all contests (protected route).
+*   `/contests/:contestId`: Displays details for a specific contest (protected route).
 *   `/about`: Displays information about the platform.
 *   `/contact`: Displays contact information.
 *   `/privacy`: Outlines the privacy policy of the Annaforces platform.
