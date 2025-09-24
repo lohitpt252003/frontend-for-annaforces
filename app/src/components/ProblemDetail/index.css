@@ -54,6 +54,17 @@
   margin-left: 0;
 }
 
+.problem-detail-pdf-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.problem-detail-pdf-button:hover {
+  background-color: #0056b3;
+}
+
 .problem-detail-separator {
   margin-top: 20px;
   margin-bottom: 20px;

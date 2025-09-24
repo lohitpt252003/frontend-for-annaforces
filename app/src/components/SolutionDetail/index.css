@@ -66,6 +66,31 @@
     background-color: var(--primary-color-dark);
 }
 
+.solution-detail-view-solution-button.solution-detail-author-button {
+  background-color: #28a745;
+}
+
+.solution-detail-view-solution-button.solution-detail-author-button:hover {
+  background-color: #218838;
+}
+
+.solution-detail-view-solution-button.solution-detail-pdf-button {
+  background-color: #17a2b8;
+}
+
+.solution-detail-view-solution-button.solution-detail-pdf-button:hover {
+  background-color: #117a8b;
+}
+
+.solution-detail-view-solution-button.solution-detail-back-button {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.solution-detail-view-solution-button.solution-detail-back-button:hover {
+  background-color: #e0a800;
+}
+
 /* Modal Styles */
 .solution-modal-overlay {
     position: fixed;
@@ -198,7 +223,6 @@
     width: fit-content;
     margin: 30px auto 0 auto;
     padding: 10px 20px;
-    background-color: var(--primary-color);
     color: white;
     text-decoration: none;
     border-radius: 5px;

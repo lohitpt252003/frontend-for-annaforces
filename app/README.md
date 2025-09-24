@@ -48,6 +48,15 @@ Each component has its own `light.css` and `dark.css` files, which contain theme
 
 We have begun refactoring the frontend components to move inline styles into dedicated `index.css` files within each component's directory. This process also includes applying the `component-name-classname` convention to all elements and improving the overall aesthetic of the UI. Components that have been refactored include: `Header`, `Login`, `WelcomePage`, `Problems`, `ProblemDetail`, `ProblemSubmissions`, `CodeSubmission`, `UserSubmissions`, `Credits`, and `SolutionDetail`.
 
+### PDF Support
+
+The application now supports PDF versions of problem statements and solutions.
+
+-   **`ProblemDetail`**: If a PDF version of the problem statement is available, a "View PDF Statement" button will be displayed. Clicking this button will open the PDF in a new tab.
+-   **`SolutionDetail`**: If a PDF version of the solution is available, a "View PDF Solution" button will be displayed. Clicking this button will open the PDF in a new tab.
+
+This feature is enabled by checking for `has_pdf_statement` and `has_pdf_solution` flags in the API responses.
+
 ### Global Loading Indicator
 
 The application now includes a global loading indicator (spinner) that is displayed during API calls. This is implemented using the `react-spinners` package.

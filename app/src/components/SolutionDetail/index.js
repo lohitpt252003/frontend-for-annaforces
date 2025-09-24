@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import './index.css'; // For component-specific styles
 import './light.css'; // For component-specific styles
 import './dark.css'; // For component-specific styles
+import api from '../../utils/api';
 import { getCachedSolution, cacheSolution, clearSolutionCache } from '../../components/cache/solution';
 
 const SolutionDetail = () => {
@@ -19,6 +20,30 @@ const SolutionDetail = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('python'); // State to control selected language in modal
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const [isCached, setIsCached] = useState(false);
+
+  const handleViewPdfSolution = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/solution.pdf`, token);
+      if (data.pdf_data) {
+        const byteCharacters = atob(data.pdf_data);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], {type: 'application/pdf'});
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+      }
+    } catch (err) {
+      if (err.message.includes("not found")) {
+        toast.error('PDF solution not uploaded yet.');
+      } else {
+        toast.error('Failed to load PDF solution.');
+      }
+    }
+  };
 
   const handleClearCache = () => {
     clearSolutionCache(problemId);
@@ -45,18 +70,7 @@ const SolutionDetail = () => {
       }
 
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/solution`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'Failed to fetch solution');
-        }
-
-        const data = await response.json();
+        const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/solution`, token);
         setSolutionData(data);
         cacheSolution(problemId, data);
 
@@ -156,6 +170,11 @@ const SolutionDetail = () => {
         <button onClick={handleViewSolutionClick} className="solution-detail-view-solution-button">
           View Author's Solution 💡
         </button>
+        {solutionData.has_pdf_solution && (
+          <button onClick={handleViewPdfSolution} className="solution-detail-view-solution-button solution-detail-pdf-button">
+            View PDF Solution
+          </button>
+        )}
       </div>
 
       {showModal && (

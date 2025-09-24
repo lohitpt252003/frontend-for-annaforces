@@ -5,6 +5,7 @@ import { InlineMath, BlockMath } from 'react-katex'; // Import KaTeX components
 import 'katex/dist/katex.min.css'; // Import KaTeX CSS
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import { toast } from 'react-toastify';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
@@ -18,6 +19,30 @@ function ProblemDetail() { // Accept setIsLoading prop
   const [error, setError] = useState('');
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const [isCached, setIsCached] = useState(false);
+
+  const handleViewPdf = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}/statement.pdf`, token);
+      if (data.pdf_data) {
+        const byteCharacters = atob(data.pdf_data);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], {type: 'application/pdf'});
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+      }
+    } catch (err) {
+      if (err.message.includes("not found")) {
+        toast.error('PDF statement not uploaded yet.');
+      } else {
+        toast.error('Failed to load PDF statement.');
+      }
+    }
+  };
 
   const handleClearCache = () => {
     clearProblemDetailCache(problem_id);
@@ -97,72 +122,17 @@ function ProblemDetail() { // Accept setIsLoading prop
           <Link to={`/problems/${problem_id}/solution`} className="problem-detail-link-button problem-detail-view-solution-button">
             View Solution 💡
           </Link>
+          {problem.has_pdf_statement && (
+            <button onClick={handleViewPdf} className="problem-detail-link-button problem-detail-pdf-button">
+              View PDF Statement
+            </button>
+          )}
         </div>
       </div>
       <hr className="problem-detail-separator" />
-      <div className="problem-detail-section">
-        <h3>Problem Statement 📝</h3>
-        <ReactMarkdown
-          remarkPlugins={[remarkMath]}
-          rehypePlugins={[rehypeKatex]}
-          components={{
-            math: ({ value }) => <BlockMath>{value}</BlockMath>,
-            inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
-            p: ({ children }) => {
-              if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
-                return children;
-              }
-              return <p>{children}</p>;
-            },
-          }}
-        >
-          {problem.description_content}
-        </ReactMarkdown>
-      </div>
-
-      <div className="problem-detail-section">
-        <h3>Input Format 📥</h3>
-        <ReactMarkdown
-          remarkPlugins={[remarkMath]}
-          rehypePlugins={[rehypeKatex]}
-          components={{
-            math: ({ value }) => <BlockMath>{value}</BlockMath>,
-            inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
-            p: ({ children }) => {
-              if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
-                return children;
-              }
-              return <p>{children}</p>;
-            },
-          }}
-        >
-          {problem.input_content}
-        </ReactMarkdown>
-      </div>
-
-      <div className="problem-detail-section">
-        <h3>Output Format 📤</h3>
-        <ReactMarkdown
-          remarkPlugins={[remarkMath]}
-          rehypePlugins={[rehypeKatex]}
-          components={{
-            math: ({ value }) => <BlockMath>{value}</BlockMath>,
-            inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
-            p: ({ children }) => {
-              if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
-                return children;
-              }
-              return <p>{children}</p>;
-            },
-          }}
-        >
-          {problem.output_content}
-        </ReactMarkdown>
-      </div>
-
-      {problem.constraints_content && (
+      <>
         <div className="problem-detail-section">
-          <h3>Constraints 📏</h3>
+          <h3>Problem Statement 📝</h3>
           <ReactMarkdown
             remarkPlugins={[remarkMath]}
             rehypePlugins={[rehypeKatex]}
@@ -177,16 +147,12 @@ function ProblemDetail() { // Accept setIsLoading prop
               },
             }}
           >
-            {problem.constraints_content}
+            {problem.description_content}
           </ReactMarkdown>
         </div>
-      )}
 
-      <SampleCases samples_data={problem.samples_data} />
-
-      {problem.notes_content && (
         <div className="problem-detail-section">
-          <h3>Notes 🗒️</h3>
+          <h3>Input Format 📥</h3>
           <ReactMarkdown
             remarkPlugins={[remarkMath]}
             rehypePlugins={[rehypeKatex]}
@@ -201,10 +167,76 @@ function ProblemDetail() { // Accept setIsLoading prop
               },
             }}
           >
-            {problem.notes_content}
+            {problem.input_content}
           </ReactMarkdown>
         </div>
-      )}
+
+        <div className="problem-detail-section">
+          <h3>Output Format 📤</h3>
+          <ReactMarkdown
+            remarkPlugins={[remarkMath]}
+            rehypePlugins={[rehypeKatex]}
+            components={{
+              math: ({ value }) => <BlockMath>{value}</BlockMath>,
+              inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+              p: ({ children }) => {
+                if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
+                  return children;
+                }
+                return <p>{children}</p>;
+              },
+            }}
+          >
+            {problem.output_content}
+          </ReactMarkdown>
+        </div>
+
+        {problem.constraints_content && (
+          <div className="problem-detail-section">
+            <h3>Constraints 📏</h3>
+            <ReactMarkdown
+              remarkPlugins={[remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+              components={{
+                math: ({ value }) => <BlockMath>{value}</BlockMath>,
+                inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+                p: ({ children }) => {
+                  if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
+                    return children;
+                  }
+                  return <p>{children}</p>;
+                },
+              }}
+            >
+              {problem.constraints_content}
+            </ReactMarkdown>
+          </div>
+        )}
+
+        <SampleCases samples_data={problem.samples_data} />
+
+        {problem.notes_content && (
+          <div className="problem-detail-section">
+            <h3>Notes 🗒️</h3>
+            <ReactMarkdown
+              remarkPlugins={[remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+              components={{
+                math: ({ value }) => <BlockMath>{value}</BlockMath>,
+                inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
+                p: ({ children }) => {
+                  if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
+                    return children;
+                  }
+                  return <p>{children}</p>;
+                },
+              }}
+            >
+              {problem.notes_content}
+            </ReactMarkdown>
+          </div>
+        )}
+      </>
     </div>
   );
 }

@@ -19,15 +19,13 @@ function Login({ onLogin }) { // Add setIsLoading prop
     setIsLoadingLocal(true); // Use local loading
 
     try {
-      const response = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, { user_id: userId, password: password });
+      const data = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, { user_id: userId, password: password });
 
-      if (!response) { // If response is null, it means handleApiResponse redirected
+      if (!data) { // If data is null, it means handleApiResponse redirected
         return;
       }
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (data) {
         localStorage.setItem('user_id', data.user_id);
         localStorage.setItem('username', data.username);
         localStorage.setItem('name', data.name);
