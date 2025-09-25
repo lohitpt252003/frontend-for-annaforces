@@ -27,19 +27,10 @@ function Profile({ loggedUserId }) { // Removed token prop
         return;
       }
 
-      setIsLoadingLocal(true); // Use global loading
+      setIsLoadingLocal(true);
       try {
-        const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, token);
-
-        if (!response) { // If response is null, it means handleApiResponse redirected
-          return;
-        }
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, token);
+        if (!data) return;
         
         setUserData(data);
         setEditedName(data.name);
@@ -48,34 +39,25 @@ function Profile({ loggedUserId }) { // Removed token prop
       } catch (error) {
         setError(error);
       } finally {
-        setIsLoadingLocal(false); // Use global loading
+        setIsLoadingLocal(false);
       }
     };
 
     const fetchSolvedProblems = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
-        // Error already handled by fetchUserData or global api handler
         return;
       }
 
       setIsLoadingLocal(true);
       try {
-        const response = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/solved`, token);
+        const solvedProblemIds = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/solved`, token);
+        if (!solvedProblemIds) return;
 
-        if (!response) { // If response is null, it means handleApiResponse redirected
-          return;
-        }
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const solvedProblemIds = await response.json();
         setSolvedProblems(solvedProblemIds);
 
       } catch (error) {
         console.error("Error fetching solved problems:", error);
-        // Optionally set an error state for solved problems
       } finally {
         setIsLoadingLocal(false);
       }
@@ -97,39 +79,26 @@ function Profile({ loggedUserId }) { // Removed token prop
 
     setIsLoadingLocal(true);
     try {
-      const response = await api.put(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/update-profile`, {
+      const data = await api.put(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/update-profile`, {
         name: editedName,
         username: editedUsername,
         bio: editedBio
       }, token);
 
-      if (!response) { // If response is null, it means handleApiResponse redirected
-        return;
-      }
+      if (!data) return;
 
-      const data = await response.json();
+      toast.success(data.message || 'Profile updated successfully!');
+      setIsEditing(false);
 
-      if (response.ok) {
-        toast.success(data.message || 'Profile updated successfully!');
-        setIsEditing(false);
-        // Re-fetch user data to update the displayed profile
-        const updatedResponse = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, token);
-
-        if (!updatedResponse) {
-          return;
-        }
-
-        const updatedData = await updatedResponse.json();
-        if (updatedResponse.ok) {
-          setUserData(updatedData);
-        } else {
-          toast.error(updatedData.error || 'Failed to re-fetch updated profile data.');
-        }
+      // Re-fetch user data to update the displayed profile
+      const updatedData = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, token);
+      if (updatedData) {
+        setUserData(updatedData);
       } else {
-        toast.error(data.error || 'Failed to update profile.');
+        toast.error('Failed to re-fetch updated profile data.');
       }
     } catch (err) {
-      toast.error('Network error or server is unreachable.');
+      toast.error(err.message || 'Network error or server is unreachable.');
       console.error('Update profile error:', err);
     } finally {
       setIsLoadingLocal(false);

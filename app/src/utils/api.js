@@ -52,7 +52,19 @@ const api = {
     });
     return handleApiResponse(response);
   },
-  // Add other methods (put, delete) as needed
+
+  put: async (url, data, token) => {
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : '',
+      },
+      body: JSON.stringify(data),
+    });
+    return handleApiResponse(response);
+  },
+  // Add other methods (delete) as needed
 };
 
 export default api;
