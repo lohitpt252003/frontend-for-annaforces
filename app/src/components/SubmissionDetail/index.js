@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
@@ -13,6 +14,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   const [error, setError] = useState(null);
   const [expandedTestCases, setExpandedTestCases] = useState({});
   const [isCached, setIsCached] = useState(false);
+  const pollingInterval = useRef(null);
 
   const initializeExpandedState = (data) => {
     const initialExpandedState = {};
@@ -27,6 +29,35 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   const handleClearCache = () => {
     localStorage.removeItem(`submission_${submissionId}`);
     window.location.reload();
+  };
+
+  const handleCopy = (text, type) => {
+    navigator.clipboard.writeText(text).then(() => {
+      toast.success(`${type} copied to clipboard!`);
+    }, (err) => {
+      toast.error('Failed to copy!');
+      console.error('Could not copy text: ', err);
+    });
+  };
+
+  const pollSubmissionStatus = async () => {
+    try {
+      const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/submissions/${submissionId}`, token);
+      if (!data) return;
+
+      setSubmissionData(data);
+
+      const finalStatus = !data.status.startsWith("Running") && data.status !== "Queued";
+      if (finalStatus) {
+        console.log("Final status reached. Stopping polling.");
+        clearInterval(pollingInterval.current);
+        cacheSubmission(submissionId, data); // Cache the final result
+      }
+    } catch (error) {
+      console.error("Polling error:", error);
+      setError(error);
+      clearInterval(pollingInterval.current);
+    }
   };
 
   useEffect(() => {
@@ -48,11 +79,15 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
         if (!data) return;
 
         setSubmissionData(data);
-
-        // Cache the data
-        cacheSubmission(submissionId, data);
-
         initializeExpandedState(data);
+
+        const isRunning = data.status.startsWith("Running") || data.status === "Queued";
+        if (isRunning) {
+          console.log("Submission is running. Starting polling.");
+          pollingInterval.current = setInterval(pollSubmissionStatus, 3000);
+        } else {
+          cacheSubmission(submissionId, data); // Cache if already final
+        }
 
       } catch (error) {
         setError(error);
@@ -64,6 +99,13 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
     if (submissionId && token) {
       fetchSubmissionData();
     }
+
+    // Cleanup function to clear interval when component unmounts
+    return () => {
+      if (pollingInterval.current) {
+        clearInterval(pollingInterval.current);
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submissionId, token]);
 
@@ -99,7 +141,10 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
       </span></p>
       <p><strong>Timestamp:</strong> {new Date(submissionData.timestamp).toLocaleString()}</p>
 
-      <h3>Code:</h3>
+      <div className="code-header">
+        <h3>Code:</h3>
+        <button onClick={() => handleCopy(submissionData.code, 'Code')} className="copy-button">Copy Code</button>
+      </div>
       <pre className="submission-detail-code-block">
         <code>{submissionData.code}</code>
       </pre>
@@ -120,9 +165,21 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
                   <p><strong>Message:</strong> {testResult.message}</p>
                   <p><strong>Execution Time:</strong> {testResult.execution_time} s</p>
                   <p><strong>Memory Usage:</strong> {testResult.memory_usage} MB</p>
-                  <div><strong>Input:</strong> <pre>{testResult.input}</pre></div>
-                  <div><strong>Expected Output:</strong> <pre>{testResult.expected_output}</pre></div>
-                  <div><strong>Actual Output:</strong> <pre>{testResult.actual_output}</pre></div>
+                  <div className="test-case-io">
+                    <strong>Input:</strong>
+                    <button onClick={() => handleCopy(testResult.input, 'Input')} className="copy-button-inline">Copy</button>
+                    <pre>{testResult.input}</pre>
+                  </div>
+                  <div className="test-case-io">
+                    <strong>Expected Output:</strong>
+                    <button onClick={() => handleCopy(testResult.expected_output, 'Expected Output')} className="copy-button-inline">Copy</button>
+                    <pre>{testResult.expected_output}</pre>
+                  </div>
+                  <div className="test-case-io">
+                    <strong>Actual Output:</strong>
+                    <button onClick={() => handleCopy(testResult.actual_output, 'Actual Output')} className="copy-button-inline">Copy</button>
+                    <pre>{testResult.actual_output}</pre>
+                  </div>
                 </div>
               )}
             </li>

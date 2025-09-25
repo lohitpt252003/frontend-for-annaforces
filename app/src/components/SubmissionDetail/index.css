@@ -36,6 +36,27 @@
 }
 
 /* Code block styling */
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.copy-button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.copy-button:active {
+  transform: translateY(1px);
+}
+
 .submission-detail-code-block {
   background-color: #f8f8f8;
   border: 1px solid #ddd;
@@ -108,6 +129,24 @@
 .test-case-details p {
   margin-bottom: 8px;
   font-size: 1em;
+}
+
+.test-case-io {
+  margin-bottom: 10px;
+}
+
+.test-case-io strong {
+  margin-right: 10px;
+}
+
+.copy-button-inline {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-size: 0.8em;
+  margin-left: 10px;
 }
 
 .test-case-details pre {
