@@ -45,8 +45,8 @@ const SolutionDetail = () => {
     }
   };
 
-  const handleClearCache = () => {
-    clearSolutionCache(problemId);
+  const handleClearCache = async () => {
+    await clearSolutionCache(problemId);
     window.location.reload();
   };
 
@@ -61,7 +61,7 @@ const SolutionDetail = () => {
 
       setIsLoadingLocal(true);
 
-      const cachedSolution = getCachedSolution(problemId);
+      const cachedSolution = await getCachedSolution(problemId);
       if (cachedSolution) {
         setSolutionData(cachedSolution);
         setIsCached(true);
@@ -72,7 +72,7 @@ const SolutionDetail = () => {
       try {
         const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/solution`, token);
         setSolutionData(data);
-        cacheSolution(problemId, data);
+        await cacheSolution(problemId, data);
 
         // Set default selected language if available
         if (data.python) {

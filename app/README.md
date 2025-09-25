@@ -2,6 +2,10 @@
 
 This is the frontend for the Annaforces project, built with React.
 
+## Data Structure
+
+For a detailed understanding of how problems, submissions, users, and solutions are structured and stored, please refer to the [DATA/README.md](../../DATA/README.md) file.
+
 ## Project Structure
 
 The main application directory is `frontend-for-annaforces/app`.
@@ -79,7 +83,12 @@ Significant effort has been made to improve the visual appeal and user experienc
 
 ### Caching
 
-The application uses `localStorage` to cache submission details. When a user visits a submission detail page, the data is fetched from the backend and stored in `localStorage`. Subsequent visits to the same submission page will load the data from the cache, improving performance. The caching logic is encapsulated in the `src/components/cache` component.
+To enhance performance and avoid re-fetching data, the application employs a robust caching strategy. To overcome the storage limitations of `localStorage`, the application now uses **IndexedDB** for all API response caching, managed via the `idb-keyval` library. This provides a much larger storage capacity, preventing errors related to storage limits.
+
+-   **Authentication Data:** User authentication information (like JWT tokens) is stored in `localStorage` for quick and synchronous access.
+-   **API Responses:** All other cached data, such as submission details, problem details, and contest information, is stored in IndexedDB.
+
+The caching logic is encapsulated in the `src/components/cache` directory, with a dedicated module for each type of cached data.
 
 ### Recent Frontend Enhancements
 

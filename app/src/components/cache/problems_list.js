@@ -1,17 +1,15 @@
+import { idbGet, idbSet, idbDel } from './idb';
+
 const CACHE_KEY = 'problems_list';
 
-export const getCachedProblems = () => {
-  const cachedData = localStorage.getItem(CACHE_KEY);
-  if (cachedData) {
-    return JSON.parse(cachedData);
-  }
-  return null;
+export const getCachedProblems = async () => {
+  return await idbGet(CACHE_KEY);
 };
 
-export const cacheProblems = (data) => {
-  localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+export const cacheProblems = async (data) => {
+  await idbSet(CACHE_KEY, data);
 };
 
-export const clearProblemsCache = () => {
-  localStorage.removeItem(CACHE_KEY);
+export const clearProblemsCache = async () => {
+  await idbDel(CACHE_KEY);
 };

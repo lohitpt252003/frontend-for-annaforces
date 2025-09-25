@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
-import { getCachedSubmission, cacheSubmission } from '../cache';
+import { getCachedSubmission, cacheSubmission, clearSubmissionCache } from '../cache';
 
 import api from '../../utils/api'; // Import the new api utility
 
@@ -26,8 +26,8 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
     setExpandedTestCases(initialExpandedState);
   };
 
-  const handleClearCache = () => {
-    localStorage.removeItem(`submission_${submissionId}`);
+  const handleClearCache = async () => {
+    await clearSubmissionCache(submissionId);
     window.location.reload();
   };
 
@@ -51,7 +51,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
       if (finalStatus) {
         console.log("Final status reached. Stopping polling.");
         clearInterval(pollingInterval.current);
-        cacheSubmission(submissionId, data); // Cache the final result
+        await cacheSubmission(submissionId, data); // Cache the final result
       }
     } catch (error) {
       console.error("Polling error:", error);
@@ -65,7 +65,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
       setIsLoading(true); // Use global loading
 
       // Check cache first
-      const cachedData = getCachedSubmission(submissionId);
+      const cachedData = await getCachedSubmission(submissionId);
       if (cachedData) {
         setSubmissionData(cachedData);
         initializeExpandedState(cachedData);
@@ -86,7 +86,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
           console.log("Submission is running. Starting polling.");
           pollingInterval.current = setInterval(pollSubmissionStatus, 3000);
         } else {
-          cacheSubmission(submissionId, data); // Cache if already final
+          await cacheSubmission(submissionId, data); // Cache if already final
         }
 
       } catch (error) {

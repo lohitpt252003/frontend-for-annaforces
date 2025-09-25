@@ -1,13 +1,15 @@
+import { idbGet, idbSet, idbDel } from './idb';
+
 const CACHE_PREFIX = 'submission_';
 
-export const getCachedSubmission = (submissionId) => {
-  const cachedData = localStorage.getItem(`${CACHE_PREFIX}${submissionId}`);
-  if (cachedData) {
-    return JSON.parse(cachedData);
-  }
-  return null;
+export const getCachedSubmission = async (submissionId) => {
+  return await idbGet(`${CACHE_PREFIX}${submissionId}`);
 };
 
-export const cacheSubmission = (submissionId, data) => {
-  localStorage.setItem(`${CACHE_PREFIX}${submissionId}`, JSON.stringify(data));
+export const cacheSubmission = async (submissionId, data) => {
+  await idbSet(`${CACHE_PREFIX}${submissionId}`, data);
+};
+
+export const clearSubmissionCache = async (submissionId) => {
+  await idbDel(`${CACHE_PREFIX}${submissionId}`);
 };

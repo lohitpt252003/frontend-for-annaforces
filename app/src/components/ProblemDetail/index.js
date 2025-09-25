@@ -44,8 +44,8 @@ function ProblemDetail() { // Accept setIsLoading prop
     }
   };
 
-  const handleClearCache = () => {
-    clearProblemDetailCache(problem_id);
+  const handleClearCache = async () => {
+    await clearProblemDetailCache(problem_id);
     window.location.reload();
   };
 
@@ -59,7 +59,7 @@ function ProblemDetail() { // Accept setIsLoading prop
 
       setIsLoadingLocal(true);
 
-      const cachedProblem = getCachedProblemDetail(problem_id);
+      const cachedProblem = await getCachedProblemDetail(problem_id);
       if (cachedProblem) {
         setProblem(cachedProblem);
         setIsCached(true);
@@ -70,7 +70,7 @@ function ProblemDetail() { // Accept setIsLoading prop
       try {
         const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}`, token);
         setProblem(data);
-        cacheProblemDetail(problem_id, data);
+        await cacheProblemDetail(problem_id, data);
       } catch (err) {
         if (err.message.includes("404")) {
             setError("The problem is not there.");

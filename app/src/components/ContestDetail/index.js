@@ -26,8 +26,8 @@ const ContestDetail = ({ theme }) => {
         return () => clearInterval(timer);
     }, []);
 
-    const handleClearCache = () => {
-        clearContestDetailCache(contestId);
+    const handleClearCache = async () => {
+        await clearContestDetailCache(contestId);
         window.location.reload();
     };
 
@@ -41,7 +41,7 @@ const ContestDetail = ({ theme }) => {
 
             setIsLoadingLocal(true);
 
-            const cachedContest = getCachedContestDetail(contestId);
+            const cachedContest = await getCachedContestDetail(contestId);
             if (cachedContest) {
                 setContest(cachedContest);
                 setIsCached(true);
@@ -52,7 +52,7 @@ const ContestDetail = ({ theme }) => {
             try {
                 const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/contests/${contestId}`, token);
                 setContest(data);
-                cacheContestDetail(contestId, data);
+                await cacheContestDetail(contestId, data);
             } catch (err) {
                 if (err.message.includes("404")) {
                     setError("The contest is not there.");
@@ -80,14 +80,14 @@ const ContestDetail = ({ theme }) => {
             const problemsDetails = {};
 
             for (const problemId of contest.problems) {
-                const cachedProblem = getCachedProblemDetail(problemId);
+                const cachedProblem = await getCachedProblemDetail(problemId);
                 if (cachedProblem) {
                     problemsDetails[problemId] = cachedProblem;
                 } else {
                     try {
                         const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}`, token);
                         problemsDetails[problemId] = data;
-                        cacheProblemDetail(problemId, data);
+                        await cacheProblemDetail(problemId, data);
                     } catch (err) {
                         console.error(`Error fetching details for problem ${problemId}:`, err);
                         problemsDetails[problemId] = { error: true, message: err.message };

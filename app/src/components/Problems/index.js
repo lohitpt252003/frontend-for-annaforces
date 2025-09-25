@@ -16,8 +16,8 @@ function Problems() { // Accept setIsLoading prop
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const [isCached, setIsCached] = useState(false);
 
-  const handleClearCache = () => {
-    clearProblemsCache();
+  const handleClearCache = async () => {
+    await clearProblemsCache();
     window.location.reload();
   };
 
@@ -31,7 +31,7 @@ function Problems() { // Accept setIsLoading prop
   
         setIsLoadingLocal(true);
   
-        const cachedProblems = getCachedProblems();
+        const cachedProblems = await getCachedProblems();
         if (cachedProblems) {
           setAllProblems(cachedProblems.allProblems);
           setProblems(cachedProblems.allProblems);
@@ -49,7 +49,7 @@ function Problems() { // Accept setIsLoading prop
           if (data && data.problems) {
             setAllProblems(data.problems);
             setProblems(data.problems);
-            cacheProblems({ allProblems: data.problems });
+            await cacheProblems({ allProblems: data.problems });
           } else {
             setError(data.error || 'Failed to fetch problems');
           }

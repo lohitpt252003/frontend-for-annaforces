@@ -23,8 +23,8 @@ const Contests = ({ theme }) => {
         return () => clearInterval(timer);
     }, []);
 
-    const handleClearCache = () => {
-        clearContestsCache();
+    const handleClearCache = async () => {
+        await clearContestsCache();
         window.location.reload();
     };
 
@@ -38,7 +38,7 @@ const Contests = ({ theme }) => {
 
             setIsLoadingLocal(true);
 
-            const cachedContests = getCachedContests();
+            const cachedContests = await getCachedContests();
             if (cachedContests) {
                 setAllContests(cachedContests.allContests);
                 setContests(cachedContests.allContests);
@@ -56,7 +56,7 @@ const Contests = ({ theme }) => {
                 if (Array.isArray(data)) {
                     setAllContests(data);
                     setContests(data);
-                    cacheContests({ allContests: data });
+                    await cacheContests({ allContests: data });
                 } else {
                     setError(data.error || 'Failed to fetch contests');
                 }
