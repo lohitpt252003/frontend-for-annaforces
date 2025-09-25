@@ -5,6 +5,8 @@ import './light.css';
 import './dark.css';
 import { getCachedSubmission, cacheSubmission } from '../cache';
 
+import api from '../../utils/api'; // Import the new api utility
+
 function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   const { submissionId } = useParams();
   const [submissionData, setSubmissionData] = useState(null);
@@ -42,19 +44,9 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
       }
 
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/submissions/${submissionId}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        if (!response.ok) {
-          if (response.status === 404) {
-            setError(new Error("The submission is not there."));
-          } else {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-        }
-        const data = await response.json();
+        const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/submissions/${submissionId}`, token);
+        if (!data) return;
+
         setSubmissionData(data);
 
         // Cache the data

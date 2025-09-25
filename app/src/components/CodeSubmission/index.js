@@ -29,25 +29,19 @@ function CodeSubmission({ setIsLoading }) { // Removed token prop as it's fetche
     }
 
     try {
-      const response = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submit`, { code, language }, token);
+      console.log("Submitting code...");
+      const data = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submit`, { code, language }, token);
+      console.log("Submission response data:", data);
 
-      if (!response) { // If response is null, it means handleApiResponse redirected
+      if (!data) { // If data is null, it means handleApiResponse redirected
+        console.log("No data received, returning.");
         return;
       }
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Submission failed');
-      }
-
-      setMessage(data.message || 'Submission successful!');
-      toast.success(data.message || 'Submission successful!');
-      // Optionally navigate to submission details or user submissions page
-      if (data.submission_id) {
-        navigate(`/submissions/${data.submission_id}`);
-      }
+      toast.success("The code is submitted and will reflect in the submissions check later");
+      navigate(`/problems/${problemId}/submissions`);
     } catch (err) {
+      console.error("Submission error:", err);
       setError(err.message);
       toast.error(err.message);
     } finally {

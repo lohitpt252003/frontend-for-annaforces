@@ -5,6 +5,8 @@ import './index.css';
 import './light.css';
 import './dark.css';
 
+import api from '../../utils/api'; // Import the new api utility
+
 function ForgotPassword({ setIsLoading }) {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -25,31 +27,19 @@ function ForgotPassword({ setIsLoading }) {
 
     const endpoint = mode === 'userid' ? '/api/auth/forgot-userid' : '/api/auth/request-password-reset';
     const successMessage = mode === 'userid' ? 'If a user with that email exists, a reminder has been sent.' : 'If a user with that email exists, an OTP has been sent to your email.';
-    const errorMessage = mode === 'userid' ? 'Failed to send reminder.' : 'Failed to send OTP.';
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}${endpoint}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+      const data = await api.post(`${process.env.REACT_APP_API_BASE_URL}${endpoint}`, { email });
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (data) {
         toast.success(data.message || successMessage);
         if (mode === 'password') {
           navigate('/reset-password', { state: { email: email } }); // Redirect to reset password page with email
         }
-      } else {
-        setError(data.error || errorMessage);
-        toast.error(data.error || errorMessage);
       }
     } catch (err) {
-      setError('Network error or server is unreachable');
-      toast.error('Network error or server is unreachable');
+      setError(err.message);
+      toast.error(err.message);
       console.error(`Forgot ${mode} error:`, err);
     } finally {
       setIsLoading(false);

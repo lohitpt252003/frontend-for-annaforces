@@ -29,20 +29,15 @@ function ProblemSubmissions() { // Removed token prop
 
       setIsLoadingLocal(true); // Use local loading
       try {
-        const response = await api.get(
+        const data = await api.get(
           `${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submissions`,
           token
         );
 
-        if (!response) { // If response is null, it means handleApiResponse redirected
+        if (!data) { // If data is null, it means handleApiResponse redirected
           return;
         }
 
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
         setAllSubmissions(data.submissions); // Store all submissions
         setSubmissions(data.submissions);    // Initially display all submissions
       } catch (error) {

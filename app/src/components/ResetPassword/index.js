@@ -5,6 +5,8 @@ import './index.css';
 import './light.css';
 import './dark.css';
 
+import api from '../../utils/api'; // Import the new api utility
+
 function ResetPassword({ setIsLoading }) {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
@@ -34,26 +36,15 @@ function ResetPassword({ setIsLoading }) {
     }
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-password-reset-otp`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, otp, new_password: newPassword }),
-      });
+      const data = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-password-reset-otp`, { email, otp, new_password: newPassword });
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (data) {
         toast.success(data.message || 'Password reset successfully!');
         navigate('/login');
-      } else {
-        setError(data.error || 'Password reset failed.');
-        toast.error(data.error || 'Password reset failed.');
       }
     } catch (err) {
-      setError('Network error or server is unreachable');
-      toast.error('Network error or server is unreachable');
+      setError(err.message);
+      toast.error(err.message);
       console.error('Reset password error:', err);
     } finally {
       setIsLoading(false);

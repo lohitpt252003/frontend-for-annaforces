@@ -5,6 +5,8 @@ import './index.css';
 import './light.css';
 import './dark.css';
 
+import api from '../../utils/api'; // Import the new api utility
+
 function Signup({ setIsLoading }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -19,26 +21,15 @@ function Signup({ setIsLoading }) {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password, name, email }),
-      });
+      const data = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/signup`, { username, password, name, email });
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (data) {
         toast.success(data.message || 'OTP sent successfully! Please check your email.');
         navigate(`/verify-otp/${email}`); // Redirect to OTP verification page with email
-      } else {
-        setError(data.error || 'Signup failed');
-        toast.error(data.error || 'Signup failed');
       }
     } catch (err) {
-      setError('Network error or server is unreachable');
-      toast.error('Network error or server is unreachable');
+      setError(err.message);
+      toast.error(err.message);
       console.error('Signup error:', err);
     } finally {
       setIsLoading(false);

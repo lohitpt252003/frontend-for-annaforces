@@ -5,6 +5,8 @@ import './index.css';
 import './light.css';
 import './dark.css';
 
+import api from '../../utils/api'; // Import the new api utility
+
 function OTPVerification({ setIsLoading }) {
   const { email } = useParams();
   const [otp, setOtp] = useState('');
@@ -17,26 +19,15 @@ function OTPVerification({ setIsLoading }) {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-otp`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, otp }),
-      });
+      const data = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/verify-otp`, { email, otp });
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (data) {
         toast.success(data.message || 'OTP verified successfully! You can now login.');
         navigate('/login');
-      } else {
-        setError(data.error || 'OTP verification failed');
-        toast.error(data.error || 'OTP verification failed');
       }
     } catch (err) {
-      setError('Network error or server is unreachable');
-      toast.error('Network error or server is unreachable');
+      setError(err.message);
+      toast.error(err.message);
       console.error('OTP verification error:', err);
     } finally {
       setIsLoading(false);
