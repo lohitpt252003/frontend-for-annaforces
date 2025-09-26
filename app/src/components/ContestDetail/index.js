@@ -18,6 +18,7 @@ const ContestDetail = ({ theme }) => {
     const [activeTab, setActiveTab] = useState('problems'); // Default to problems tab
     const [contestProblemsDetails, setContestProblemsDetails] = useState({});
     const [isLoadingContestProblems, setIsLoadingContestProblems] = useState(false);
+    const [userProblemStatus, setUserProblemStatus] = useState({}); // New state for user problem status
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -69,7 +70,7 @@ const ContestDetail = ({ theme }) => {
     }, [contestId]);
 
     useEffect(() => {
-        const fetchContestProblems = async () => {
+        const fetchContestProblemsAndStatus = async () => {
             if (!contest || !contest.problems || contest.problems.length === 0) {
                 setContestProblemsDetails({});
                 return;
@@ -77,6 +78,8 @@ const ContestDetail = ({ theme }) => {
 
             setIsLoadingContestProblems(true);
             const token = localStorage.getItem('token');
+            const loggedUserId = localStorage.getItem('user_id');
+
             const problemsDetails = {};
 
             for (const problemId of contest.problems) {
@@ -95,10 +98,26 @@ const ContestDetail = ({ theme }) => {
                 }
             }
             setContestProblemsDetails(problemsDetails);
+
+            // Fetch user problem status
+            if (loggedUserId) {
+                try {
+                    const statusData = await api.get(
+                        `${process.env.REACT_APP_API_BASE_URL}/api/users/${loggedUserId}/problem-status`,
+                        token
+                    );
+                    if (statusData) {
+                        setUserProblemStatus(statusData);
+                    }
+                } catch (statusError) {
+                    console.error("Error fetching user problem status for contest problems:", statusError);
+                }
+            }
+
             setIsLoadingContestProblems(false);
         };
 
-        fetchContestProblems();
+        fetchContestProblemsAndStatus();
     }, [contest]);
 
     if (error) {
@@ -235,6 +254,11 @@ const ContestDetail = ({ theme }) => {
                                                 <p><strong>Difficulty:</strong> ⭐ {problemData.meta.difficulty}</p>
                                                 <p><strong>Tags:</strong> 🏷️ {problemData.meta.tags.join(', ')}</p>
                                                 <p><strong>Authors:</strong> ✍️ {problemData.meta.authors.join(', ')}</p>
+                                                <p><strong>Status:</strong>
+                                                    {userProblemStatus[problemId] === 'solved' && <span style={{ color: 'green', fontWeight: 'bold' }}> ✅ Solved</span>}
+                                                    {userProblemStatus[problemId] === 'not_solved' && <span style={{ color: 'orange', fontWeight: 'bold' }}> ❌ Not Solved</span>}
+                                                    {(!userProblemStatus[problemId] || userProblemStatus[problemId] === 'not_attempted') && <span style={{ color: 'gray' }}> ❓ Not Attempted</span>}
+                                                </p>
                                             </>
                                         )}
                                     </li>

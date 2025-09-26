@@ -104,7 +104,7 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 
 ### Recent Frontend Enhancements
 
--   **Username Display in Submissions:**
+-   **Problem Status Display in Contests:** The `ContestDetail` component now displays the user's status for each problem within a contest (Solved ✅, Not Solved ❌, Not Attempted ❓) directly on the problem card, providing immediate feedback on their progress.
     -   The `ProblemSubmissions` component now displays the username alongside the user ID in the submissions table, including a `🧑‍💻` emoji.
     -   The `UserSubmissions` component now displays the username of the user whose submissions are being viewed in the header, also with a `🧑‍💻` emoji.
     -   The `SubmissionDetail` component now displays the submitter's username next to their user ID, accompanied by a `🧑‍💻` emoji.

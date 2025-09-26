@@ -15,6 +15,7 @@ function Problems() { // Accept setIsLoading prop
   const [filterTag, setFilterTag] = useState('');
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const [isCached, setIsCached] = useState(false);
+  const [userProblemStatus, setUserProblemStatus] = useState({}); // New state for user problem status
 
   const handleClearCache = async () => {
     await clearProblemsCache();
@@ -22,10 +23,11 @@ function Problems() { // Accept setIsLoading prop
   };
 
       useEffect(() => {
-      const fetchProblems = async () => {
+      const fetchProblemsAndStatus = async () => {
         const token = localStorage.getItem('token');
-        if (!token) {
-          setError('No token found. Please log in.');
+        const loggedUserId = localStorage.getItem('user_id');
+        if (!token || !loggedUserId) {
+          setError('No token or user ID found. Please log in.');
           return;
         }
   
@@ -36,22 +38,44 @@ function Problems() { // Accept setIsLoading prop
           setAllProblems(cachedProblems.allProblems);
           setProblems(cachedProblems.allProblems);
           setIsCached(true);
+          // Fetch user problem status even if problems are cached
+          try {
+            const statusData = await api.get(
+              `${process.env.REACT_APP_API_BASE_URL}/api/users/${loggedUserId}/problem-status`,
+              token
+            );
+            if (statusData) {
+              setUserProblemStatus(statusData);
+            }
+          } catch (statusError) {
+            console.error("Error fetching user problem status:", statusError);
+          }
           setIsLoadingLocal(false);
           return;
         }
   
         try {
-          const data = await api.get(
+          const problemsData = await api.get(
             `${process.env.REACT_APP_API_BASE_URL}/api/problems/`,
             token
           );
   
-          if (data && data.problems) {
-            setAllProblems(data.problems);
-            setProblems(data.problems);
-            await cacheProblems({ allProblems: data.problems });
+          if (problemsData && problemsData.problems) {
+            setAllProblems(problemsData.problems);
+            setProblems(problemsData.problems);
+            await cacheProblems({ allProblems: problemsData.problems });
+
+            // Fetch user problem status after problems are fetched
+            const statusData = await api.get(
+              `${process.env.REACT_APP_API_BASE_URL}/api/users/${loggedUserId}/problem-status`,
+              token
+            );
+            if (statusData) {
+              setUserProblemStatus(statusData);
+            }
+
           } else {
-            setError(data.error || 'Failed to fetch problems');
+            setError(problemsData.error || 'Failed to fetch problems');
           }
         } catch (err) {
           setError(err.message || 'Network error or server is unreachable');
@@ -61,7 +85,7 @@ function Problems() { // Accept setIsLoading prop
         }
       };
   
-      fetchProblems();
+      fetchProblemsAndStatus();
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
   useEffect(() => {
@@ -160,6 +184,11 @@ function Problems() { // Accept setIsLoading prop
                 <p><strong>Difficulty:</strong> ⭐ {problemData.difficulty}</p>
                 <p><strong>Tags:</strong> 🏷️ {problemData.tags.join(', ')}</p>
                 <p><strong>Authors:</strong> ✍️ {problemData.authors.join(', ')}</p>
+                <p><strong>Status:</strong>
+                  {userProblemStatus[problemId] === 'solved' && <span style={{ color: 'green', fontWeight: 'bold' }}> ✅ Solved</span>}
+                  {userProblemStatus[problemId] === 'not_solved' && <span style={{ color: 'orange', fontWeight: 'bold' }}> ❌ Not Solved</span>}
+                  {(!userProblemStatus[problemId] || userProblemStatus[problemId] === 'not_attempted') && <span style={{ color: 'gray' }}> ❓ Not Attempted</span>}
+                </p>
               </li>
             ))}
           </ul>
