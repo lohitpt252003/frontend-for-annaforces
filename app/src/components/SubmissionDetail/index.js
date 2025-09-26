@@ -14,6 +14,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   const [error, setError] = useState(null);
   const [expandedTestCases, setExpandedTestCases] = useState({});
   const [isCached, setIsCached] = useState(false);
+  const [submitterUsername, setSubmitterUsername] = useState(''); // New state for submitter's username
   const pollingInterval = useRef(null);
 
   const initializeExpandedState = (data) => {
@@ -61,7 +62,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   };
 
   useEffect(() => {
-    const fetchSubmissionData = async () => {
+    const fetchSubmissionAndUsername = async () => {
       setIsLoading(true); // Use global loading
 
       // Check cache first
@@ -70,6 +71,19 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
         setSubmissionData(cachedData);
         initializeExpandedState(cachedData);
         setIsCached(true);
+        // Fetch username for cached data
+        try {
+          const userData = await api.get(
+            `${process.env.REACT_APP_API_BASE_URL}/api/users/${cachedData.user_id}/username`,
+            token
+          );
+          if (userData && userData.username) {
+            setSubmitterUsername(userData.username);
+          }
+        } catch (userError) {
+          console.error(`Error fetching username for ${cachedData.user_id}:`, userError);
+          setSubmitterUsername('Unknown');
+        }
         setIsLoading(false);
         return;
       }
@@ -80,6 +94,20 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
 
         setSubmissionData(data);
         initializeExpandedState(data);
+
+        // Fetch username
+        try {
+          const userData = await api.get(
+            `${process.env.REACT_APP_API_BASE_URL}/api/users/${data.user_id}/username`,
+            token
+          );
+          if (userData && userData.username) {
+            setSubmitterUsername(userData.username);
+          }
+        } catch (userError) {
+          console.error(`Error fetching username for ${data.user_id}:`, userError);
+          setSubmitterUsername('Unknown');
+        }
 
         const isRunning = data.status.startsWith("Running") || data.status === "Queued";
         if (isRunning) {
@@ -92,12 +120,12 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
       } catch (error) {
         setError(error);
       } finally {
-        setIsLoading(false); // Use global loading
+        setIsLoading(false);
       }
     };
 
     if (submissionId && token) {
-      fetchSubmissionData();
+      fetchSubmissionAndUsername();
     }
 
     // Cleanup function to clear interval when component unmounts
@@ -133,7 +161,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
       )}
       <h2>Submission Details: {submissionId}</h2>
       <p><strong>Problem ID:</strong> {submissionData.problem_id}</p>
-      <p><strong>User ID:</strong> {submissionData.user_id}</p>
+      <p><strong>User ID:</strong> {submissionData.user_id} ({submitterUsername} 🧑‍💻)</p>
       <p><strong>Language:</strong> {submissionData.language}</p>
       <p><strong>Status:</strong> <span className={`status-${submissionData.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
         {console.log('Submission Status:', submissionData.status)}

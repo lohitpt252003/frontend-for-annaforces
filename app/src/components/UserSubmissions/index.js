@@ -18,9 +18,10 @@ function UserSubmissions() { // Removed token prop
   const [sortKey, setSortKey] = useState('submission_id');
   const [sortOrder, setSortOrder] = useState('desc');
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
+  const [username, setUsername] = useState(''); // New state for username
 
   useEffect(() => {
-    const fetchSubmissions = async () => {
+    const fetchUserDataAndSubmissions = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
         setError('No token found. Please log in.');
@@ -28,28 +29,38 @@ function UserSubmissions() { // Removed token prop
         return;
       }
 
-      setIsLoadingLocal(true); // Use local loading
+      setIsLoadingLocal(true);
       try {
-        const data = await api.get(
+        // Fetch username
+        const userData = await api.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/username`,
+          token
+        );
+        if (userData && userData.username) {
+          setUsername(userData.username);
+        }
+
+        // Fetch submissions
+        const submissionsData = await api.get(
           `${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/submissions`,
           token
         );
 
-        if (!data) { // If data is null, it means handleApiResponse redirected
+        if (!submissionsData) {
           return;
         }
 
-        setAllSubmissions(data.submissions); // Store all submissions
-        setSubmissions(data.submissions);    // Initially display all submissions
+        setAllSubmissions(submissionsData.submissions);
+        setSubmissions(submissionsData.submissions);
       } catch (error) {
         setError(error);
       } finally {
-        setIsLoadingLocal(false); // Use global loading
+        setIsLoadingLocal(false);
       }
     };
 
-    if (userId) { // Removed token from dependency array
-      fetchSubmissions();
+    if (userId) {
+      fetchUserDataAndSubmissions();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
@@ -129,7 +140,7 @@ function UserSubmissions() { // Removed token prop
 
   return (
     <div className="user-submissions-container">
-      <h2>Submissions for User: {userId} 📋</h2>
+      <h2>Submissions for User: {username ? `${username} 🧑‍💻 (${userId})` : userId} 📋</h2>
 
       <div className="user-submissions-filters">
         <input

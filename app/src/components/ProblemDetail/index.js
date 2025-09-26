@@ -109,6 +109,8 @@ function ProblemDetail() { // Accept setIsLoading prop
       <div className="problem-detail-header-content">
         <div className="problem-detail-info">
           <p><strong>Difficulty:</strong> ⭐ {problem.meta.difficulty}</p>
+          <p><strong>Time Limit:</strong> ⏰ {problem.meta.timeLimit} ms</p>
+          <p><strong>Memory Limit:</strong> 🧠 {problem.meta.memoryLimit} MB</p>
           <p><strong>Tags:</strong> 🏷️ {problem.meta.tags.join(', ')}</p>
           <p><strong>Authors:</strong> ✍️ {problem.meta.authors.join(', ')}</p>
         </div>

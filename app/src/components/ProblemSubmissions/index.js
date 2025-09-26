@@ -17,9 +17,10 @@ function ProblemSubmissions() { // Removed token prop
   const [sortKey, setSortKey] = useState('submission_id');
   const [sortOrder, setSortOrder] = useState('desc');
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
+  const [usernames, setUsernames] = useState({}); // New state for usernames
 
   useEffect(() => {
-    const fetchSubmissions = async () => {
+    const fetchSubmissionsAndUsernames = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
         setError('No token found. Please log in.');
@@ -27,28 +28,53 @@ function ProblemSubmissions() { // Removed token prop
         return;
       }
 
-      setIsLoadingLocal(true); // Use local loading
+      setIsLoadingLocal(true);
       try {
-        const data = await api.get(
+        const submissionsData = await api.get(
           `${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/submissions`,
           token
         );
 
-        if (!data) { // If data is null, it means handleApiResponse redirected
+        if (!submissionsData) {
           return;
         }
 
-        setAllSubmissions(data.submissions); // Store all submissions
-        setSubmissions(data.submissions);    // Initially display all submissions
+        setAllSubmissions(submissionsData.submissions);
+        setSubmissions(submissionsData.submissions);
+
+        // Fetch usernames for unique user_ids
+        const uniqueUserIds = [...new Set(submissionsData.submissions.map(s => s.user_id))];
+        const fetchedUsernames = {};
+        for (const userId of uniqueUserIds) {
+          try {
+            const userData = await api.get(
+              `${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/username`,
+              token
+            );
+            if (userData && userData.username) {
+              fetchedUsernames[userId] = userData.username;
+            }
+          } catch (userError) {
+            console.error(`Error fetching username for ${userId}:`, userError);
+            fetchedUsernames[userId] = 'Unknown'; // Fallback
+          }
+        }
+        setUsernames(fetchedUsernames);
+
       } catch (error) {
-        setError(error);
+        if (error.message.includes('500')) {
+          setAllSubmissions([]);
+          setSubmissions([]);
+        } else {
+          setError(error);
+        }
       } finally {
-        setIsLoadingLocal(false); // Use global loading
+        setIsLoadingLocal(false);
       }
     };
 
-    if (problemId) { // Removed token from dependency array
-      fetchSubmissions();
+    if (problemId) {
+      fetchSubmissionsAndUsernames();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [problemId]);
@@ -174,6 +200,9 @@ function ProblemSubmissions() { // Removed token prop
                 <th onClick={() => handleSort('user_id')}>
                   User ID 👤 {sortKey === 'user_id' && (sortOrder === 'asc' ? '▲' : '▼')}
                 </th>
+                <th>
+                  Username 🧑‍💻
+                </th>
                 <th onClick={() => handleSort('status')}>
                   Status 📊 {sortKey === 'status' && (sortOrder === 'asc' ? '▲' : '▼')}
                 </th>
@@ -191,7 +220,12 @@ function ProblemSubmissions() { // Removed token prop
                   <td>
                     <Link to={`/submissions/${submission.submission_id}`}>{submission.submission_id}</Link>
                   </td>
-                  <td><Link to={`/users/${submission.user_id}`}>{submission.user_id}</Link></td>
+                  <td>
+                    <Link to={`/users/${submission.user_id}`}>{submission.user_id}</Link>
+                  </td>
+                  <td>
+                    {usernames[submission.user_id] ? `${usernames[submission.user_id]} 🧑‍💻` : 'Loading...'}
+                  </td>
                   <td className={`status-${submission.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
                     {/*console.log('Submission Status:', submission.status)*/}
                     {submission.status}
