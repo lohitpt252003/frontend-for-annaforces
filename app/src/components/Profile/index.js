@@ -172,10 +172,37 @@ function Profile({ loggedUserId }) { // Removed token prop
           <p><strong>Bio:</strong> 📖 {userData.bio}</p>
           <p><strong>Joined:</strong> 📅 {userData.joined}</p>
           <p><strong>Number of Submissions:</strong> 📋 {userData.number_of_submissions}</p>
-          <p><strong>Solved Problems:</strong> ✅
-            {solvedProblems.length > 0 ? (
+          <p><strong>Number of Submissions:</strong> 📋 {userData.number_of_submissions}</p>
+          <p><strong>Attempted Problems:</strong> 🧠
+            {Object.keys(userData.attempted || {}).length > 0 ? (
               <ul className="profile-solved-problems-list">
-                {solvedProblems.map(problemId => (
+                {Object.keys(userData.attempted).map(problemId => (
+                  <li key={problemId} className="profile-solved-problem-item">
+                    <Link to={`/problems/${problemId}`}>{problemId}</Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              'None'
+            )}
+          </p>
+          <p><strong>Solved Problems:</strong> ✅
+            {Object.keys(userData.solved || {}).length > 0 ? (
+              <ul className="profile-solved-problems-list">
+                {Object.keys(userData.solved).map(problemId => (
+                  <li key={problemId} className="profile-solved-problem-item">
+                    <Link to={`/problems/${problemId}`}>{problemId}</Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              'None'
+            )}
+          </p>
+          <p><strong>Not Solved Problems:</strong> ❌
+            {Object.keys(userData.not_solved || {}).length > 0 ? (
+              <ul className="profile-solved-problems-list">
+                {Object.keys(userData.not_solved).map(problemId => (
                   <li key={problemId} className="profile-solved-problem-item">
                     <Link to={`/problems/${problemId}`}>{problemId}</Link>
                   </li>

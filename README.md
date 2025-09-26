@@ -104,7 +104,10 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 
 ### Recent Frontend Enhancements
 
--   **SubmissionDetail Component:**
+-   **Username Display in Submissions:**
+    -   The `ProblemSubmissions` component now displays the username alongside the user ID in the submissions table, including a `🧑‍💻` emoji.
+    -   The `UserSubmissions` component now displays the username of the user whose submissions are being viewed in the header, also with a `🧑‍💻` emoji.
+    -   The `SubmissionDetail` component now displays the submitter's username next to their user ID, accompanied by a `🧑‍💻` emoji.
     -   Test cases now collapse by default, improving readability for submissions with many test cases.
     -   Test case statuses are now color-coded for quick visual feedback: green for "passed", red for "wrong answer", yellow for "runtime error", "time limit exceeded", and "memory limit exceeded", and grey for "compilation error".
     -   Input for each test case is now displayed, providing more context for debugging.
