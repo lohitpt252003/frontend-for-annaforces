@@ -92,7 +92,7 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 
 ### Recent Frontend Enhancements
 
--   **Problem Status Display in Contests:** The `ContestDetail` component now displays the user's status for each problem within a contest (Solved ✅, Not Solved ❌, Not Attempted ❓) directly on the problem card, providing immediate feedback on their progress.
+-   **Contest Registration Status in Detail Page:** The `ContestDetail` component now displays the user's registration status for the specific contest, showing "Registered ✅" if the user has joined, or a "Register 📝" button if they haven't and the contest is upcoming/running.
     -   The `ProblemSubmissions` component now displays the username alongside the user ID in the submissions table, including a `🧑‍💻` emoji.
     -   The `UserSubmissions` component now displays the username of the user whose submissions are being viewed in the header, also with a `🧑‍💻` emoji.
     -   The `SubmissionDetail` component now displays the submitter's username next to their user ID, accompanied by a `🧑‍💻` emoji.
@@ -108,12 +108,13 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 *   **`Logout`**: A component that triggers the logout process, clearing user data from `localStorage` and redirecting to the login page.
 *   **`WelcomePage`**: A simple page displayed after successful user login.
 *   **`Problems`**: Fetches and displays a list of all available problems from the backend. Includes search and filter functionalities (by title, ID, difficulty, and tags). Problem titles are clickable links to their detail pages. Now includes a "View Solution" button for each problem.
-*   **`ProblemDetail`**: Displays the detailed information for a specific problem, fetched from the backend. If the problem is not found, it displays a message indicating that the problem is not there. Now includes a "View Solution" button.
-*   **`SolutionDetail`**: Displays the solution code (Python, C++, C) and explanation (`solution.md`) for a specific problem, fetched from the backend. Handles loading states and errors. A "Copy" button has been added to the code blocks in the solution modal, allowing users to easily copy the code.
+*   **`ProblemDetail`**: Displays the detailed information for a specific problem. If the problem belongs to an upcoming contest, it displays an informational message. It uses caching to improve performance.
+*   **`SampleCases`**: A dedicated component for displaying sample input/output test cases for problems. It provides a convenient "Copy" button for each input and output, allowing users to easily copy the content to their clipboard. Toast notifications are used to provide feedback on copy operations.
 *   **`Profile`**: Displays user profile information. Now allows editing of name, username, and bio. Also displays a list of solved problems with clickable links to problem details.
-*   **`UserSubmissions`**: Displays a sortable table of all submissions for a specific user, fetched from the backend. Includes robust filter functionalities (by problem ID, status, language, and timestamp) with dynamically generated status options to ensure accuracy. Each submission ID is a clickable link to its detailed view, and problem IDs are now clickable links to problem details.
+*   **`UserSubmissions`**: Displays a sortable table of all submissions for a specific user, fetched from the backend. Includes robust filter functionalities (by problem ID, status, language, and timestamp) with dynamically generated status options to ensure accuracy. Each submission ID is a clickable link to its detailed view, and problem IDs are now clickable links to user profiles.
 *   **`ProblemSubmissions`**: Displays a list of all submissions for a specific problem, fetched from the backend. Includes filter functionalities (by user ID, status, and timestamp). Each submission is a clickable link to its detailed view, and user IDs are now clickable links to user profiles.
-*   **`SubmissionDetail`**: Displays the detailed information for a specific submission. It now features a **live polling mechanism** and a **copy-to-clipboard** functionality. If a submission is still being judged, the page will automatically fetch updates every few seconds. Users can now easily copy the submission code, as well as the input, expected output, and actual output for each test case, with a single click. Test cases now collapse by default, and their statuses are color-coded (green for passed, red for wrong answer, yellow for runtime/time limit/memory limit, grey for compilation error). Input for each test case is also displayed. If the submission is not found, it displays a message indicating that the submission is not there.
+*   **`SubmissionDetail`**: Displays the detailed information for a specific submission. Access to submissions is restricted during a running contest to the owner of the submission.
+*   **`SolutionDetail`**: Displays the solution for a specific problem. Access to solutions is restricted for problems in a running or scheduled contest.
 *   **`CodeSubmission`**: Provides a form for users to submit code for a specific problem. Upon submission, it now displays a toast notification confirming the submission and immediately redirects the user to the problem's submissions page, where they can see their submission appear with a "Queued" status.
 *   **`Credits`**: Displays credits for the project, including contributors and technologies used.
 *   **`Footer`**: Displays copyright information, links to About Us, Contact, and Privacy Policy pages.
@@ -124,6 +125,12 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
 *   **`ForgotPassword`**: Provides a form for users to request their User ID or initiate a password reset via OTP. Sends an OTP to the user's email for password reset requests. The OTP is discarded after 3 incorrect attempts.
 *   **`ResetPassword`**: Allows users to reset their password by providing their email, the OTP received, and a new password.
+*   **`Contests`**: Fetches and displays a list of all available contests from the backend. Each contest is a clickable link to its detail page.
+*   **`ContestDetail`**: Displays the detailed information for a specific contest. It handles different states of the contest:
+    *   If the contest has not started, it shows a message indicating that.
+    *   If the user is not registered for an upcoming or running contest, it prompts them to register.
+    *   If the contest is running, it displays the contest details, including the list of problems and a leaderboard with usernames.
+    The component uses caching for both contest details and problem details to improve performance on subsequent visits. It also fetches problem details in parallel to reduce loading time.
 
 ### Authentication Flow
 
@@ -153,11 +160,15 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 *   `/problems/:problemId/submit`: Provides a form for submitting code to a specific problem (protected route).
 *   `/problems/:problemId/submissions`: Displays a list of all submissions for a specific problem (protected route).
 *   `/problems/:problemId/solution`: Displays the solution code and explanation for a specific problem (protected route).
-*   `/profile`: Displays the logged-in user's profile information (protected route).
+*   `/users/:userId`: Displays the profile information for a specific user (protected route).
 *   `/users/:userId/submissions`: Displays a list of all submissions for a specific user (protected route).
 *   `/submissions/:submissionId`: Displays detailed information for a specific submission (protected route).
 *   `/credits`: Displays the credits page (protected route).
+*   `/contests`: Displays a list of all contests (protected route).
+*   `/contests/:contestId`: Displays details for a specific contest (protected route).
 *   `/about`: Displays information about the platform.
 *   `/contact`: Displays contact information.
 *   `/privacy`: Outlines the privacy policy of the Annaforces platform.
+*   `/forgot-password`: Allows users to request their User ID or initiate a password reset via OTP.
+*   `/reset-password`: Allows users to reset their password using an OTP.
 *   Any other unmatched route redirects to `/login`.

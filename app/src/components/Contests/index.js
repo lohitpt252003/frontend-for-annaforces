@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './index.css';
 import './light.css';
 import './dark.css';
 import api from '../../utils/api';
 import { getCachedContests, cacheContests, clearContestsCache } from '../../components/cache/contests_list';
+import ContestCard from '../ContestCard';
 
 const Contests = ({ theme }) => {
     const [allContests, setAllContests] = useState([]);
@@ -15,6 +17,7 @@ const Contests = ({ theme }) => {
     const [isLoadingLocal, setIsLoadingLocal] = useState(true);
     const [isCached, setIsCached] = useState(false);
     const [currentTime, setCurrentTime] = useState(Date.now());
+    const [userRegistrations, setUserRegistrations] = useState({}); // New state for user registrations
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -22,79 +25,6 @@ const Contests = ({ theme }) => {
         }, 1000);
         return () => clearInterval(timer);
     }, []);
-
-    const handleClearCache = async () => {
-        await clearContestsCache();
-        window.location.reload();
-    };
-
-    useEffect(() => {
-        const fetchContests = async () => {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                setError('No token found. Please log in.');
-                return;
-            }
-
-            setIsLoadingLocal(true);
-
-            const cachedContests = await getCachedContests();
-            if (cachedContests) {
-                setAllContests(cachedContests.allContests);
-                setContests(cachedContests.allContests);
-                setIsCached(true);
-                setIsLoadingLocal(false);
-                return;
-            }
-
-            try {
-                const data = await api.get(
-                    `${process.env.REACT_APP_API_BASE_URL}/api/contests/`,
-                    token
-                );
-
-                if (Array.isArray(data)) {
-                    setAllContests(data);
-                    setContests(data);
-                    await cacheContests({ allContests: data });
-                } else {
-                    setError(data.error || 'Failed to fetch contests');
-                }
-            } catch (err) {
-                setError(err.message || 'Network error or server is unreachable');
-                console.error('Fetch contests error:', err);
-            } finally {
-                setIsLoadingLocal(false);
-            }
-        };
-
-        fetchContests();
-    }, []);
-
-    useEffect(() => {
-        let filtered = [...allContests];
-
-        if (searchTerm) {
-            filtered = filtered.filter(contest =>
-                contest.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                contest.name.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-        }
-
-        if (filterAuthor) {
-            filtered = filtered.filter(contest =>
-                contest.authors.some(author => author.toLowerCase().includes(filterAuthor.toLowerCase()))
-            );
-        }
-
-        setContests(filtered);
-    }, [allContests, searchTerm, filterAuthor]);
-
-    if (error) {
-        return <div className="contests-error">Error: {error}</div>;
-    }
-
-    const authors = allContests ? [...new Set(allContests.flatMap(c => c.authors))] : [];
 
     const getContestStatus = (contest) => {
         const start = new Date(contest.startTime).getTime();
@@ -137,6 +67,134 @@ const Contests = ({ theme }) => {
         }
     };
 
+    useEffect(() => {
+        const fetchContests = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                setError('No token found. Please log in.');
+                return;
+            }
+
+            setIsLoadingLocal(true);
+
+            const cachedContests = await getCachedContests();
+            if (cachedContests) {
+                setAllContests(cachedContests.allContests);
+                setContests(cachedContests.allContests);
+                setIsCached(true);
+                setIsLoadingLocal(false);
+                return;
+            }
+
+            try {
+                const data = await api.get(
+                    `${process.env.REACT_APP_API_BASE_URL}/api/contests/`,
+                    token
+                );
+
+                if (Array.isArray(data)) {
+                    
+                    setAllContests(data);
+                    setContests(data);
+                    await cacheContests({ allContests: data });
+                } else {
+                    setError(data.error || 'Failed to fetch contests');
+                }
+            } catch (err) {
+                setError(err.message || 'Network error or server is unreachable');
+                console.error('Fetch contests error:', err);
+            } finally {
+                setIsLoadingLocal(false);
+            }
+        };
+
+        fetchContests();
+    }, []);
+
+    useEffect(() => {
+        const fetchUserRegistrations = async () => {
+            const token = localStorage.getItem('token');
+            if (!token || allContests.length === 0) {
+                return;
+            }
+
+            const registrations = {};
+            for (const contest of allContests) {
+                try {
+                    const response = await api.get(
+                        `${process.env.REACT_APP_API_BASE_URL}/api/contests/${contest.id}/is-registered`,
+                        token
+                    );
+                    registrations[contest.id] = response.is_registered;
+                } catch (err) {
+                    console.error(`Error fetching registration status for contest ${contest.id}:`, err);
+                    registrations[contest.id] = false; // Assume not registered on error
+                }
+            }
+            setUserRegistrations(registrations);
+        };
+
+        fetchUserRegistrations();
+    }, [allContests]);
+
+    useEffect(() => {
+        let filtered = [...allContests];
+
+        if (searchTerm) {
+            filtered = filtered.filter(contest =>
+                contest.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                contest.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+
+        if (filterAuthor) {
+            filtered = filtered.filter(contest =>
+                contest.authors.some(author => author.toLowerCase().includes(filterAuthor.toLowerCase()))
+            );
+        }
+
+        setContests(filtered);
+    }, [allContests, searchTerm, filterAuthor]);
+
+    const handleClearCache = async () => {
+        await clearContestsCache();
+        window.location.reload();
+    };
+
+    const handleRegister = async (contestId) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            toast.error('Please log in to register for the contest.');
+            return;
+        }
+
+        try {
+            // Optimistically update UI
+            setUserRegistrations(prev => ({ ...prev, [contestId]: true }));
+            toast.info('Registering for contest...');
+
+            const response = await api.post(
+                `${process.env.REACT_APP_API_BASE_URL}/api/contests/${contestId}/register`,
+                {},
+                token
+            );
+            if (response && response.message) {
+                toast.success(response.message);
+            }
+        } catch (err) {
+            toast.error(err.message || 'Failed to register for the contest.');
+            console.error('Contest registration error:', err);
+            // Revert optimistic update on error
+            setUserRegistrations(prev => ({ ...prev, [contestId]: false }));
+        }
+    };
+
+    if (error) {
+        return <div className="contests-error">Error: {error}</div>;
+    }
+
+    const authors = allContests ? [...new Set(allContests.flatMap(c => c.authors))] : [];
+
     return (
         <div className="contests-container">
             <h2>Contests 🏆</h2>
@@ -167,29 +225,17 @@ const Contests = ({ theme }) => {
             ) : contests.length === 0 ? (
                 <p className="contests-no-contests">No contests available.</p>
             ) : (
-                <ul className="contests-list">
-                    {contests.map(contest => {
-                        const { status, timeInfo, progress } = getContestStatus(contest);
-                        return (
-                            <li key={contest.id} className="contests-list-item">
-                                <Link to={`/contests/${contest.id}`} className="contests-list-item-link">
-                                    <h3>{contest.name} ({contest.id})</h3>
-                                </Link>
-                                <p><strong>Status:</strong> {status}</p>
-                                {timeInfo && <p>{timeInfo}</p>}
-                                {status === "Running 🚀" && (
-                                    <div className="contest-progress-bar-container">
-                                        <div className="contest-progress-bar" style={{ width: `${progress}%` }}></div>
-                                    </div>
-                                )}
-                                <p><strong>Description:</strong> {contest.description}</p>
-                                <p><strong>Authors:</strong> ✍️ {contest.authors.join(', ')}</p>
-                                <p><strong>Start Time:</strong> 🗓️ {new Date(contest.startTime).toLocaleString()}</p>
-                                <p><strong>End Time:</strong> 🏁 {new Date(contest.endTime).toLocaleString()}</p>
-                            </li>
-                        );
-                    })}
-                </ul>
+                <div className="contest-card-container">
+                    {contests.map(contest => (
+                        <ContestCard
+                            key={contest.id}
+                            contest={contest}
+                            contestStatus={getContestStatus(contest)}
+                            isRegistered={userRegistrations[contest.id] || false}
+                            onRegister={handleRegister}
+                        />
+                    ))}
+                </div>
             )}
         </div>
     );

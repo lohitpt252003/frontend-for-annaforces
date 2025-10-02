@@ -9,9 +9,18 @@
 
 .problem-detail-loading,
 .problem-detail-error,
-.problem-detail-not-found {
+.problem-detail-not-found,
+.problem-detail-info-message {
   padding: 20px;
   text-align: center;
+}
+
+.problem-detail-info-message {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+  border-radius: .25rem;
+  margin-bottom: 20px;
 }
 
 .problem-detail-title {

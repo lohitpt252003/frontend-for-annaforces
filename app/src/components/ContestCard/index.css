@@ -1,0 +1,104 @@
+.contest-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.contest-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.contest-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contest-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.4em;
+}
+
+.contest-card-link {
+  text-decoration: none;
+  font-weight: bold;
+  color: inherit;
+}
+
+.contest-card-link:hover {
+  text-decoration: underline;
+}
+
+.contest-card p {
+  margin: 8px 0;
+  font-size: 0.98em;
+}
+
+.contest-card strong {
+  font-weight: 600;
+}
+
+.contest-card-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.contest-card-button {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.95em;
+  align-self: flex-start;
+  transition: background-color 0.2s ease-in-out;
+  color: #FFFFFF;
+}
+
+.contest-card-view-button {
+  background-color: #007bff;
+}
+
+.contest-card-view-button:hover {
+  background-color: #0056b3;
+}
+
+.contest-card-register-button {
+  background-color: #28a745;
+}
+
+.contest-card-register-button:hover {
+  background-color: #218838;
+}
+
+.contest-card-registered-status {
+  color: green;
+  font-weight: bold;
+  margin-left: 10px;
+  align-self: center;
+}
+
+.contest-card-progress-bar-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  height: 10px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.contest-card-progress-bar {
+  height: 100%;
+  background-color: #4CAF50; /* Green */
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  transition: width 0.5s ease-in-out;
+}

@@ -1,0 +1,15 @@
+/* Light theme for ContestCard */
+
+.light-theme .contest-card {
+  background-color: #ffffff;
+  border-color: #e0e0e0;
+  color: #333333;
+}
+
+.light-theme .contest-card-link {
+  color: #007bff;
+}
+
+.light-theme .contest-card-link:hover {
+  color: #0056b3;
+}

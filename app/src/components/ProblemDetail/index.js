@@ -17,8 +17,14 @@ function ProblemDetail() { // Accept setIsLoading prop
   const { problem_id } = useParams();
   const [problem, setProblem] = useState(null);
   const [error, setError] = useState('');
+  const [infoMessage, setInfoMessage] = useState('');
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const [isCached, setIsCached] = useState(false);
+
+  const handleClearCache = async () => {
+    await clearProblemDetailCache(problem_id);
+    window.location.reload();
+  };
 
   const handleViewPdf = async () => {
     const token = localStorage.getItem('token');
@@ -44,11 +50,6 @@ function ProblemDetail() { // Accept setIsLoading prop
     }
   };
 
-  const handleClearCache = async () => {
-    await clearProblemDetailCache(problem_id);
-    window.location.reload();
-  };
-
   useEffect(() => {
     const fetchProblem = async () => {
       const token = localStorage.getItem('token');
@@ -69,8 +70,13 @@ function ProblemDetail() { // Accept setIsLoading prop
 
       try {
         const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}`, token);
-        setProblem(data);
-        await cacheProblemDetail(problem_id, data);
+        if (data.status === 'not_started') {
+            setInfoMessage(data.message);
+            setProblem(null); // Reset problem state
+        } else if (data.status === 'started') {
+            setProblem(data.data);
+            await cacheProblemDetail(problem_id, data.data);
+        }
       } catch (err) {
         if (err.message.includes("404")) {
             setError("The problem is not there.");
@@ -78,7 +84,7 @@ function ProblemDetail() { // Accept setIsLoading prop
             setError(err.message || 'Network error or server is unreachable');
         }
       } finally {
-        setIsLoadingLocal(false); // Use local loading
+        setIsLoadingLocal(false);
       }
     };
 
@@ -90,17 +96,25 @@ function ProblemDetail() { // Accept setIsLoading prop
     return <div className="problem-detail-error">Error: {error}</div>;
   }
 
+  if (infoMessage) {
+    console.log("Rendering infoMessage:", infoMessage);
+    return <div className="problem-detail-info-message">{infoMessage}</div>;
+  }
+
   if (isLoadingLocal) {
     return <div className="problem-detail-loading">Loading problem details...</div>;
   }
 
   if (!problem) {
+    console.log("Problem is null, rendering Problem not found.");
     return <div className="problem-detail-not-found">Problem not found.</div>;
   }
 
+  console.log("Rendering ProblemDetail with problem:", problem);
+
   return (
     <div className="problem-detail-container">
-      <h2 className="problem-detail-title">{problem.meta.title} ({problem_id}) 📄</h2>
+      <h2 className="problem-detail-title">{problem && problem.meta && problem.meta.title} ({problem_id}) 📄</h2>
       {isCached && (
         <div className="cache-notification">
           <p>This problem is being displayed from the cache. <button onClick={handleClearCache}>Clear Cache</button> to see the latest updates.</p>
@@ -108,11 +122,11 @@ function ProblemDetail() { // Accept setIsLoading prop
       )}
       <div className="problem-detail-header-content">
         <div className="problem-detail-info">
-          <p><strong>Difficulty:</strong> ⭐ {problem.meta.difficulty}</p>
-          <p><strong>Time Limit:</strong> ⏰ {problem.meta.timeLimit} ms</p>
-          <p><strong>Memory Limit:</strong> 🧠 {problem.meta.memoryLimit} MB</p>
-          <p><strong>Tags:</strong> 🏷️ {problem.meta.tags.join(', ')}</p>
-          <p><strong>Authors:</strong> ✍️ {problem.meta.authors.join(', ')}</p>
+          <p><strong>Difficulty:</strong> ⭐ {problem && problem.meta && problem.meta.difficulty}</p>
+          <p><strong>Time Limit:</strong> ⏰ {problem && problem.meta && problem.meta.timeLimit} ms</p>
+          <p><strong>Memory Limit:</strong> 🧠 {problem && problem.meta && problem.meta.memoryLimit} MB</p>
+          <p><strong>Tags:</strong> 🏷️ {problem && problem.meta && problem.meta.tags && problem.meta.tags.join(', ')}</p>
+          <p><strong>Authors:</strong> ✍️ {problem && problem.meta && problem.meta.authors && problem.meta.authors.join(', ')}</p>
         </div>
         <div className="problem-detail-actions">
           <Link to={`/problems/${problem_id}/submit`} className="problem-detail-link-button problem-detail-submit-button">

@@ -118,7 +118,11 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
         }
 
       } catch (error) {
-        setError(error);
+        if (error.message.includes("You are not allowed to see the submission of the other user during the contest.")) {
+            setError({ message: "You are not allowed to see the submission of other users during an active contest." });
+        } else {
+            setError(error);
+        }
       } finally {
         setIsLoading(false);
       }

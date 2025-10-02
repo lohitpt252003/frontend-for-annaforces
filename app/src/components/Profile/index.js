@@ -15,11 +15,11 @@ function Profile({ loggedUserId }) { // Removed token prop
   const [editedName, setEditedName] = useState('');
   const [editedUsername, setEditedUsername] = useState('');
   const [editedBio, setEditedBio] = useState('');
-  const [solvedProblems, setSolvedProblems] = useState([]); // New state for solved problems
+  const [attendedContests, setAttendedContests] = useState([]); // New state for attended contests
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchUserDataAndContests = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
         setError('No token found. Please log in.');
@@ -36,6 +36,10 @@ function Profile({ loggedUserId }) { // Removed token prop
         setEditedName(data.name);
         setEditedUsername(data.username);
         setEditedBio(data.bio);
+
+        // Extract attended contests from userData
+        setAttendedContests(Object.keys(data.contests || {}));
+
       } catch (error) {
         setError(error);
       } finally {
@@ -43,29 +47,8 @@ function Profile({ loggedUserId }) { // Removed token prop
       }
     };
 
-    const fetchSolvedProblems = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        return;
-      }
-
-      setIsLoadingLocal(true);
-      try {
-        const solvedProblemIds = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/solved`, token);
-        if (!solvedProblemIds) return;
-
-        setSolvedProblems(solvedProblemIds);
-
-      } catch (error) {
-        console.error("Error fetching solved problems:", error);
-      } finally {
-        setIsLoadingLocal(false);
-      }
-    };
-
-    if (userId) { // Removed token from dependency array
-      fetchUserData();
-      fetchSolvedProblems();
+    if (userId) {
+      fetchUserDataAndContests();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]); // Removed token from dependency array
@@ -205,6 +188,19 @@ function Profile({ loggedUserId }) { // Removed token prop
                 {Object.keys(userData.not_solved).map(problemId => (
                   <li key={problemId} className="profile-solved-problem-item">
                     <Link to={`/problems/${problemId}`}>{problemId}</Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              'None'
+            )}
+          </p>
+          <p><strong>Attended Contests:</strong> 🏆
+            {attendedContests.length > 0 ? (
+              <ul className="profile-solved-problems-list">
+                {attendedContests.map(contestId => (
+                  <li key={contestId} className="profile-solved-problem-item">
+                    <Link to={`/contests/${contestId}`}>{contestId}</Link>
                   </li>
                 ))}
               </ul>

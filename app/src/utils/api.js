@@ -14,18 +14,8 @@ const handleApiResponse = async (response) => {
   if (response.ok) {
     return response.json();
   } else {
-    // Attempt to parse JSON for error details, but handle cases where it's not JSON
-    try {
-      const errorData = await response.json();
-      // If it's a 404, we might want a specific message
-      if (response.status === 404 && errorData.message) {
-        throw new Error(errorData.message);
-      }
-      throw new Error(errorData.error || errorData.message || `API Error: ${response.status}`);
-    } catch (e) {
-      // If response is not JSON or parsing fails
-      throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
-    }
+    const errorData = await response.json();
+    throw new Error(errorData.message || `API Error: ${response.status}`);
   }
 };
 

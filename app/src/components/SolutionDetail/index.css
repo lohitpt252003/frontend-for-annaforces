@@ -211,6 +211,17 @@
     font-size: 1.2em;
 }
 
+.solution-detail-info-message {
+  padding: 20px;
+  text-align: center;
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+  border-radius: .25rem;
+  margin-bottom: 20px;
+  font-size: 1.2em;
+}
+
 .solution-detail-loading {
     text-align: center;
     padding: 20px;

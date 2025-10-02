@@ -104,13 +104,14 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 
 ### Recent Frontend Enhancements
 
--   **Problem Status Display in Contests:** The `ContestDetail` component now displays the user's status for each problem within a contest (Solved ✅, Not Solved ❌, Not Attempted ❓) directly on the problem card, providing immediate feedback on their progress.
+-   **Contest Registration Status in Detail Page:** The `ContestDetail` component now displays the user's registration status for the specific contest, showing "Registered ✅" if the user has joined, or a "Register 📝" button if they haven't and the contest is upcoming/running.
     -   The `ProblemSubmissions` component now displays the username alongside the user ID in the submissions table, including a `🧑‍💻` emoji.
     -   The `UserSubmissions` component now displays the username of the user whose submissions are being viewed in the header, also with a `🧑‍💻` emoji.
     -   The `SubmissionDetail` component now displays the submitter's username next to their user ID, accompanied by a `🧑‍💻` emoji.
     -   Test cases now collapse by default, improving readability for submissions with many test cases.
     -   Test case statuses are now color-coded for quick visual feedback: green for "passed", red for "wrong answer", yellow for "runtime error", "time limit exceeded", and "memory limit exceeded", and grey for "compilation error".
     -   Input for each test case is now displayed, providing more context for debugging.
+-   **ProblemDetail Component Robustness:** Implemented defensive checks in the `ProblemDetail` component to prevent `TypeError: Cannot read properties of undefined (reading 'title')` when problem data is not fully loaded or when a problem belongs to a contest that has not started yet. This ensures a more stable rendering experience.
 
 ### Core Components
 
@@ -136,8 +137,8 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
 *   **`ForgotPassword`**: Provides a form for users to request their User ID or initiate a password reset via OTP. Sends an OTP to the user's email for password reset requests. The OTP is discarded after 3 incorrect attempts.
 *   **`ResetPassword`**: Allows users to reset their password by providing their email, the OTP received, and a new password.
-*   **`Contests`**: Fetches and displays a list of all available contests from the backend. Each contest is a clickable link to its detail page.
-*   **`ContestDetail`**: Displays the detailed information for a specific contest, including its metadata, description, and theoretical background. It uses `react-markdown` to render the `contest_description` and `contest_theory` fields.
+*   **`Contests`**: Fetches and displays a list of all available contests from the backend. Each contest is a clickable link to its detail page. It now displays the contest status (Upcoming, Running, Over), shows whether the user is registered for each contest, and allows direct registration from the list.
+*   **`ContestDetail`**: Displays the detailed information for a specific contest, including its metadata, description, and theoretical background. It now also indicates if the contest is a practice contest. It uses `react-markdown` to render the `contest_description` and `contest_theory` fields. **Bug Fix:** Corrected problem meta data access to prevent `TypeError` when rendering `ProblemCard` components, specifically by ensuring `authors` array is always present in fallback metadata. **Optimization:** Improved efficiency by fetching only problem metadata for `ProblemCard` components, rather than full problem details.
 
 ### Authentication Flow
 

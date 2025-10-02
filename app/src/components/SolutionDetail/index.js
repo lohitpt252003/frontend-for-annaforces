@@ -16,6 +16,7 @@ const SolutionDetail = () => {
   const { problemId } = useParams();
   const [solutionData, setSolutionData] = useState(null);
   const [error, setError] = useState(null);
+  const [infoMessage, setInfoMessage] = useState('');
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const [selectedLanguage, setSelectedLanguage] = useState('python'); // State to control selected language in modal
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
@@ -71,18 +72,22 @@ const SolutionDetail = () => {
 
       try {
         const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/solution`, token);
-        setSolutionData(data);
-        await cacheSolution(problemId, data);
+        if (data.status === 'not_available') {
+            setInfoMessage(data.message);
+        } else if (data.status === 'available') {
+            console.log("Status is available, setting solution data and caching.");
+            setSolutionData(data.data);
+            await cacheSolution(problemId, data.data);
 
-        // Set default selected language if available
-        if (data.python) {
-          setSelectedLanguage('python');
-        } else if (data.cpp) {
-          setSelectedLanguage('cpp');
-        } else if (data.c) {
-          setSelectedLanguage('c');
+            // Set default selected language if available
+            if (data.data.python) {
+              setSelectedLanguage('python');
+            } else if (data.data.cpp) {
+              setSelectedLanguage('cpp');
+            } else if (data.data.c) {
+              setSelectedLanguage('c');
+            }
         }
-
       } catch (err) {
         setError(err.message);
         console.error('Error fetching solution:', err);
@@ -129,6 +134,10 @@ const SolutionDetail = () => {
 
   if (error) {
     return <div className="solution-detail-error">Error: {error}</div>;
+  }
+
+  if (infoMessage) {
+    return <div className="solution-detail-info-message">{infoMessage}</div>;
   }
 
   if (isLoadingLocal) {

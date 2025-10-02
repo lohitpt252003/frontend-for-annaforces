@@ -6,6 +6,8 @@ import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
 import { getCachedProblems, cacheProblems, clearProblemsCache } from '../../components/cache/problems_list';
 
+import ProblemCard from '../../components/ProblemCard';
+
 function Problems() { // Accept setIsLoading prop
   const [allProblems, setAllProblems] = useState({}); // Store all fetched problems
   const [problems, setProblems] = useState({}); // Problems to display after filtering/searching
@@ -169,29 +171,15 @@ function Problems() { // Accept setIsLoading prop
         <p className="problems-no-problems">No problems available.</p>
       ) : (
         <>
-          <ul className="problems-list">
+          <div className="problem-card-container">
             {Object.entries(problems).map(([problemId, problemData]) => (
-              <li key={problemId} className="problems-list-item">
-                <Link to={`/problems/${problemId}`} className="problems-list-item-link">
-                  <h3>{problemData.title} ({problemId})</h3>
-                </Link>
-                <Link to={`/problems/${problemId}/submissions`} className="problems-view-submissions-link">
-                  View Submissions
-                </Link>
-                <Link to={`/problems/${problemId}/solution`} className="problems-view-solution-link">
-                  View Solution
-                </Link>
-                <p><strong>Difficulty:</strong> ⭐ {problemData.difficulty}</p>
-                <p><strong>Tags:</strong> 🏷️ {problemData.tags.join(', ')}</p>
-                <p><strong>Authors:</strong> ✍️ {problemData.authors.join(', ')}</p>
-                <p><strong>Status:</strong>
-                  {userProblemStatus[problemId] === 'solved' && <span style={{ color: 'green', fontWeight: 'bold' }}> ✅ Solved</span>}
-                  {userProblemStatus[problemId] === 'not_solved' && <span style={{ color: 'orange', fontWeight: 'bold' }}> ❌ Not Solved</span>}
-                  {(!userProblemStatus[problemId] || userProblemStatus[problemId] === 'not_attempted') && <span style={{ color: 'gray' }}> ❓ Not Attempted</span>}
-                </p>
-              </li>
+              <ProblemCard
+                key={problemId}
+                problem={{ id: problemId, meta: problemData }}
+                userProblemStatus={userProblemStatus[problemId]}
+              />
             ))}
-          </ul>
+          </div>
         </>
       )}
     </div>

@@ -9,9 +9,18 @@
 
 .contest-detail-loading,
 .contest-detail-error,
-.contest-detail-not-found {
+.contest-detail-not-found,
+.contest-detail-info-message {
   padding: 20px;
   text-align: center;
+}
+
+.contest-detail-info-message {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+  border-radius: .25rem;
+  margin-bottom: 20px;
 }
 
 .contest-detail-title {
@@ -167,82 +176,6 @@
   color: #555;
 }
 
-.contest-problems-list {
-  list-style-type: none;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
-}
-
-.contest-problems-list-item {
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.contest-problems-list-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.contest-problems-list-item h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 1.4em;
-}
-
-.contest-problems-list-item-link {
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.contest-problems-list-item-link:hover {
-  text-decoration: underline;
-}
-
-.contest-problems-link-button {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 18px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 0.95em;
-  align-self: flex-start;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.contest-problems-submit-button {
-  background-color: #5B57FF;
-  color: #FFFFFF;
-}
-
-.contest-problems-submit-button:hover {
-  background-color: #2E2BB2;
-}
-
-.contest-problems-view-submissions-button {
-  background-color: #6c757d;
-  color: white;
-  margin-top: 10px;
-}
-
-.contest-problems-view-submissions-button:hover {
-  background-color: #5a6268;
-}
-
-.contest-problems-list-item p {
-  margin: 8px 0;
-  font-size: 0.98em;
-}
-
-.contest-problems-list-item strong {
-  font-weight: 600;
-}
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
@@ -336,3 +269,4 @@
     font-size: 0.85em;
   }
 }
+
