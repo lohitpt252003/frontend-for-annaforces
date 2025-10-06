@@ -22,7 +22,13 @@ const SolutionDetail = () => {
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const [isCached, setIsCached] = useState(false);
 
+  const [isPdfLoading, setIsPdfLoading] = useState(false);
+
   const handleViewPdfSolution = async () => {
+    if (isPdfLoading) return;
+
+    setIsPdfLoading(true);
+    toast.info("Fetching PDF solution...");
     const token = localStorage.getItem('token');
     try {
       const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/solution.pdf`, token);
@@ -36,6 +42,9 @@ const SolutionDetail = () => {
         const blob = new Blob([byteArray], {type: 'application/pdf'});
         const url = URL.createObjectURL(blob);
         window.open(url, '_blank');
+        toast.success("PDF solution opened in a new tab!");
+      } else {
+        toast.warn("No PDF data found in the response.");
       }
     } catch (err) {
       if (err.message.includes("not found")) {
@@ -43,6 +52,8 @@ const SolutionDetail = () => {
       } else {
         toast.error('Failed to load PDF solution.');
       }
+    } finally {
+      setIsPdfLoading(false);
     }
   };
 
@@ -180,8 +191,14 @@ const SolutionDetail = () => {
           View Author's Solution 💡
         </button>
         {solutionData.has_pdf_solution && (
-          <button onClick={handleViewPdfSolution} className="solution-detail-view-solution-button solution-detail-pdf-button">
-            View PDF Solution
+          <button onClick={handleViewPdfSolution} className="solution-detail-view-solution-button solution-detail-pdf-button" disabled={isPdfLoading}>
+            {isPdfLoading ? (
+              <>
+                <span className="spinner" /> Loading...
+              </>
+            ) : (
+              'View PDF Solution'
+            )}
           </button>
         )}
       </div>

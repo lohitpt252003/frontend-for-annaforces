@@ -323,9 +323,6 @@ const ContestDetail = ({ theme }) => {
                             Register for Contest 📝
                         </button>
                     ))}
-                                        <button onClick={() => setActiveTab('problems')} className="contest-detail-link-button contest-detail-view-problems-button">
-                        View Problems 📋
-                    </button>
                 </div>
             </div>
             <hr className="contest-detail-separator" />

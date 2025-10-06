@@ -13,3 +13,13 @@
 .dark-theme .contest-card-link:hover {
   color: #add8e6;
 }
+
+.dark-theme .contest-card-register-button {
+  background-color: #2a9d8f; /* A slightly different green for dark mode */
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.dark-theme .contest-card-register-button:hover {
+  background-color: #218838;
+}

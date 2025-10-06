@@ -13,3 +13,13 @@
 .light-theme .contest-card-link:hover {
   color: #0056b3;
 }
+
+.light-theme .contest-card-register-button {
+  background-color: #28a745; /* Green color for registration */
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.light-theme .contest-card-register-button:hover {
+  background-color: #218838;
+}

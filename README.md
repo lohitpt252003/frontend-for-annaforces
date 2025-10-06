@@ -92,6 +92,7 @@ Significant effort has been made to improve the visual appeal and user experienc
 -   **Enhanced Styling**: The `SubmissionDetail` and `Credits` pages have received comprehensive styling updates, including modern layouts, improved typography, better spacing, and refined element designs. The `ProblemDetail` page has also been refined with improved layout for problem information and action buttons, and the problem statement content is now visually centered for better readability.
 -   **Icons in Credits**: The `Credits` page now features relevant icons (e.g., GitHub, LinkedIn) for contributor links, enhancing visual clarity and engagement.
 -   **Emojis Across Pages**: Emojis have been strategically added to various pages and components throughout the application, including titles, labels, buttons, and list items, to provide a more friendly and intuitive user interface. The frontend is now truly full of emojis! 🤩
+-   **Improved PDF Button Feedback**: The "View PDF Statement" and "View PDF Solution" buttons now provide better user feedback. They display a loading animation and are disabled while the PDF is being fetched. Toast notifications have also been added to inform the user that the PDF is opening in a new tab.
 
 ### Caching
 

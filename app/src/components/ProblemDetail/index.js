@@ -26,7 +26,13 @@ function ProblemDetail() { // Accept setIsLoading prop
     window.location.reload();
   };
 
+  const [isPdfLoading, setIsPdfLoading] = useState(false);
+
   const handleViewPdf = async () => {
+    if (isPdfLoading) return; // Prevent multiple clicks
+
+    setIsPdfLoading(true);
+    toast.info("Fetching PDF statement...");
     const token = localStorage.getItem('token');
     try {
       const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}/statement.pdf`, token);
@@ -40,6 +46,9 @@ function ProblemDetail() { // Accept setIsLoading prop
         const blob = new Blob([byteArray], {type: 'application/pdf'});
         const url = URL.createObjectURL(blob);
         window.open(url, '_blank');
+        toast.success("PDF opened in a new tab!");
+      } else {
+        toast.warn("No PDF data found in the response.");
       }
     } catch (err) {
       if (err.message.includes("not found")) {
@@ -47,6 +56,8 @@ function ProblemDetail() { // Accept setIsLoading prop
       } else {
         toast.error('Failed to load PDF statement.');
       }
+    } finally {
+      setIsPdfLoading(false);
     }
   };
 
@@ -139,8 +150,14 @@ function ProblemDetail() { // Accept setIsLoading prop
             View Solution 💡
           </Link>
           {problem.has_pdf_statement && (
-            <button onClick={handleViewPdf} className="problem-detail-link-button problem-detail-pdf-button">
-              View PDF Statement
+            <button onClick={handleViewPdf} className="problem-detail-link-button problem-detail-pdf-button" disabled={isPdfLoading}>
+              {isPdfLoading ? (
+                <>
+                  <span className="spinner" /> Loading...
+                </>
+              ) : (
+                'View PDF Statement'
+              )}
             </button>
           )}
         </div>

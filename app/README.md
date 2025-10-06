@@ -4,11 +4,19 @@ This is the frontend for the Annaforces project, built with React.
 
 ## Data Structure
 
-For a detailed understanding of how problems, submissions, users, and solutions are structured and stored, please refer to the [DATA/README.md](../../DATA/README.md) file.
+For a detailed understanding of how problems, submissions, users, and solutions are structured and stored, please refer to the [DATA/README.md](../DATA/README.md) file.
+
+## Data Structure
+
+For a detailed understanding of how problems, submissions, users, and solutions are structured and stored, please refer to the [DATA/README.md](../DATA/README.md) file.
+
+## Data Structure
+
+For a detailed understanding of how problems, submissions, users, and solutions are structured and stored, please refer to the [DATA/README.md](../DATA/README.md) file.
 
 ## Project Structure
 
-The main application directory is `frontend-for-annaforces/app`.
+The main frontend application is located in the `frontend-for-annaforces/app` directory.
 
 ## Getting Started
 
@@ -52,6 +60,14 @@ Each component has its own `light.css` and `dark.css` files, which contain theme
 
 We have begun refactoring the frontend components to move inline styles into dedicated `index.css` files within each component's directory. This process also includes applying the `component-name-classname` convention to all elements and improving the overall aesthetic of the UI. Components that have been refactored include: `Header`, `Login`, `WelcomePage`, `Problems`, `ProblemDetail`, `ProblemSubmissions`, `CodeSubmission`, `UserSubmissions`, `Credits`, and `SolutionDetail`.
 
+### Global Loading Indicator
+
+The application now includes a global loading indicator (spinner) that is displayed during API calls. This is implemented using the `react-spinners` package.
+
+-   **`LoadingSpinner`**: A reusable component that renders a spinner.
+-   **`App.js`**: Manages a global `isLoading` state and passes a `setGlobalLoading` function to components that make API calls. It conditionally renders the `LoadingSpinner` based on the `isLoading` state.
+-   **API-calling Components**: Components like `Login`, `Problems`, `ProblemDetail`, `CodeSubmission`, `ProblemSubmissions`, `Profile`, `UserSubmissions`, `Contests`, and `ContestDetail` now accept `setGlobalLoading` as a prop. They call `setGlobalLoading(true)` before initiating an API request and `setGlobalLoading(false)` in the `finally` block of the API call to hide the spinner. These components now utilize a centralized API utility (`src/utils/api.js`) for making requests, which now directly returns the parsed JSON response (or text for non-JSON responses) and handles global concerns like unauthorized responses (e.g., session expiration) by redirecting to the login page.
+
 ### PDF Support
 
 The application now supports PDF versions of problem statements and solutions.
@@ -61,13 +77,9 @@ The application now supports PDF versions of problem statements and solutions.
 
 This feature is enabled by checking for `has_pdf_statement` and `has_pdf_solution` flags in the API responses.
 
-### Global Loading Indicator
+### Mathematical Rendering
 
-The application now includes a global loading indicator (spinner) that is displayed during API calls. This is implemented using the `react-spinners` package.
-
--   **`LoadingSpinner`**: A reusable component that renders a spinner.
--   **`App.js`**: Manages a global `isLoading` state and passes a `setGlobalLoading` function to components that make API calls. It conditionally renders the `LoadingSpinner` based on the `isLoading` state.
--   **API-calling Components**: Components like `Login`, `Problems`, `ProblemDetail`, `CodeSubmission`, `ProblemSubmissions`, `Profile`, and `UserSubmissions` now accept `setGlobalLoading` as a prop. They call `setGlobalLoading(true)` before initiating an API request and `setGlobalLoading(false)` in the `finally` block of the API call to hide the spinner.
+To ensure accurate and visually appealing display of mathematical expressions, especially in problem constraints, the frontend now integrates `react-katex`. This library allows rendering LaTeX-like mathematical notation directly within React components, providing high-quality typography for complex formulas.
 
 ### Toast Notifications
 
@@ -79,7 +91,8 @@ Significant effort has been made to improve the visual appeal and user experienc
 
 -   **Enhanced Styling**: The `SubmissionDetail` and `Credits` pages have received comprehensive styling updates, including modern layouts, improved typography, better spacing, and refined element designs. The `ProblemDetail` page has also been refined with improved layout for problem information and action buttons, and the problem statement content is now visually centered for better readability.
 -   **Icons in Credits**: The `Credits` page now features relevant icons (e.g., GitHub, LinkedIn) for contributor links, enhancing visual clarity and engagement.
--   **Emojis Across Pages**: Emojis have been strategically added to various pages and components throughout the application, including titles, labels, buttons, and list items, to provide a more friendly and intuitive user interface.
+-   **Emojis Across Pages**: Emojis have been strategically added to various pages and components throughout the application, including titles, labels, buttons, and list items, to provide a more friendly and intuitive user interface. The frontend is now truly full of emojis! 🤩
+-   **Improved PDF Button Feedback**: The "View PDF Statement" and "View PDF Solution" buttons now provide better user feedback. They display a loading animation and are disabled while the PDF is being fetched. Toast notifications have also been added to inform the user that the PDF is opening in a new tab.
 
 ### Caching
 
@@ -99,6 +112,7 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
     -   Test cases now collapse by default, improving readability for submissions with many test cases.
     -   Test case statuses are now color-coded for quick visual feedback: green for "passed", red for "wrong answer", yellow for "runtime error", "time limit exceeded", and "memory limit exceeded", and grey for "compilation error".
     -   Input for each test case is now displayed, providing more context for debugging.
+-   **ProblemDetail Component Robustness:** Implemented defensive checks in the `ProblemDetail` component to prevent `TypeError: Cannot read properties of undefined (reading 'title')` when problem data is not fully loaded or when a problem belongs to a contest that has not started yet. This ensures a more stable rendering experience.
 
 ### Core Components
 
@@ -108,13 +122,12 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 *   **`Logout`**: A component that triggers the logout process, clearing user data from `localStorage` and redirecting to the login page.
 *   **`WelcomePage`**: A simple page displayed after successful user login.
 *   **`Problems`**: Fetches and displays a list of all available problems from the backend. Includes search and filter functionalities (by title, ID, difficulty, and tags). Problem titles are clickable links to their detail pages. Now includes a "View Solution" button for each problem.
-*   **`ProblemDetail`**: Displays the detailed information for a specific problem. If the problem belongs to an upcoming contest, it displays an informational message. It uses caching to improve performance.
+*   **`ProblemDetail`**: Displays the detailed information for a specific problem, fetched from the backend. If the problem is not found, it displays a message indicating that the problem is not there. Now includes a "View Solution" button. It now also displays problem constraints and utilizes the `SampleCases` component for rendering sample test cases.
 *   **`SampleCases`**: A dedicated component for displaying sample input/output test cases for problems. It provides a convenient "Copy" button for each input and output, allowing users to easily copy the content to their clipboard. Toast notifications are used to provide feedback on copy operations.
 *   **`Profile`**: Displays user profile information. Now allows editing of name, username, and bio. Also displays a list of solved problems with clickable links to problem details.
 *   **`UserSubmissions`**: Displays a sortable table of all submissions for a specific user, fetched from the backend. Includes robust filter functionalities (by problem ID, status, language, and timestamp) with dynamically generated status options to ensure accuracy. Each submission ID is a clickable link to its detailed view, and problem IDs are now clickable links to user profiles.
 *   **`ProblemSubmissions`**: Displays a list of all submissions for a specific problem, fetched from the backend. Includes filter functionalities (by user ID, status, and timestamp). Each submission is a clickable link to its detailed view, and user IDs are now clickable links to user profiles.
-*   **`SubmissionDetail`**: Displays the detailed information for a specific submission. Access to submissions is restricted during a running contest to the owner of the submission.
-*   **`SolutionDetail`**: Displays the solution for a specific problem. Access to solutions is restricted for problems in a running or scheduled contest.
+*   **`SubmissionDetail`**: Displays the detailed information for a specific submission. It now features a **live polling mechanism** and a **copy-to-clipboard** functionality. If a submission is still being judged, the page will automatically fetch updates every few seconds. Users can now easily copy the submission code, as well as the input, expected output, and actual output for each test case, with a single click. Test cases now collapse by default, and their statuses are color-coded (green for passed, red for wrong answer, yellow for runtime/time limit/memory limit, grey for compilation error). Input for each test case is also displayed. If the submission is not found, it displays a message indicating that the submission is not there.
 *   **`CodeSubmission`**: Provides a form for users to submit code for a specific problem. Upon submission, it now displays a toast notification confirming the submission and immediately redirects the user to the problem's submissions page, where they can see their submission appear with a "Queued" status.
 *   **`Credits`**: Displays credits for the project, including contributors and technologies used.
 *   **`Footer`**: Displays copyright information, links to About Us, Contact, and Privacy Policy pages.
@@ -125,12 +138,8 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
 *   **`ForgotPassword`**: Provides a form for users to request their User ID or initiate a password reset via OTP. Sends an OTP to the user's email for password reset requests. The OTP is discarded after 3 incorrect attempts.
 *   **`ResetPassword`**: Allows users to reset their password by providing their email, the OTP received, and a new password.
-*   **`Contests`**: Fetches and displays a list of all available contests from the backend. Each contest is a clickable link to its detail page.
-*   **`ContestDetail`**: Displays the detailed information for a specific contest. It handles different states of the contest:
-    *   If the contest has not started, it shows a message indicating that.
-    *   If the user is not registered for an upcoming or running contest, it prompts them to register.
-    *   If the contest is running, it displays the contest details, including the list of problems and a leaderboard with usernames.
-    The component uses caching for both contest details and problem details to improve performance on subsequent visits. It also fetches problem details in parallel to reduce loading time.
+*   **`Contests`**: Fetches and displays a list of all available contests from the backend. Each contest is a clickable link to its detail page. It now displays the contest status (Upcoming, Running, Over), shows whether the user is registered for each contest, and allows direct registration from the list.
+*   **`ContestDetail`**: Displays the detailed information for a specific contest, including its metadata, description, and theoretical background. It now also indicates if the contest is a practice contest. It uses `react-markdown` to render the `contest_description` and `contest_theory` fields. **Bug Fix:** Corrected problem meta data access to prevent `TypeError` when rendering `ProblemCard` components, specifically by ensuring `authors` array is always present in fallback metadata. **Optimization:** Improved efficiency by fetching only problem metadata for `ProblemCard` components, rather than full problem details.
 
 ### Authentication Flow
 
