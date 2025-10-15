@@ -6,7 +6,7 @@ import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
 
 function UserSubmissions() { // Removed token prop
-  const { userId } = useParams();
+  const { username } = useParams();
   const [allSubmissions, setAllSubmissions] = useState([]); // Store all fetched submissions
   const [submissions, setSubmissions] = useState([]); // Submissions to display after filtering
   const [error, setError] = useState(null);
@@ -18,10 +18,9 @@ function UserSubmissions() { // Removed token prop
   const [sortKey, setSortKey] = useState('submission_id');
   const [sortOrder, setSortOrder] = useState('desc');
   const [isLoadingLocal, setIsLoadingLocal] = useState(true);
-  const [username, setUsername] = useState(''); // New state for username
 
   useEffect(() => {
-    const fetchUserDataAndSubmissions = async () => {
+    const fetchUserSubmissions = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
         setError('No token found. Please log in.');
@@ -31,18 +30,9 @@ function UserSubmissions() { // Removed token prop
 
       setIsLoadingLocal(true);
       try {
-        // Fetch username
-        const userData = await api.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/username`,
-          token
-        );
-        if (userData && userData.username) {
-          setUsername(userData.username);
-        }
-
         // Fetch submissions
         const submissionsData = await api.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/submissions`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/users/${username}/submissions`,
           token
         );
 
@@ -59,11 +49,11 @@ function UserSubmissions() { // Removed token prop
       }
     };
 
-    if (userId) {
-      fetchUserDataAndSubmissions();
+    if (username) {
+      fetchUserSubmissions();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId]);
+  }, [username]);
 
   useEffect(() => {
     let filtered = allSubmissions;
@@ -140,7 +130,7 @@ function UserSubmissions() { // Removed token prop
 
   return (
     <div className="user-submissions-container">
-      <h2>Submissions for User: {username ? `${username} 🧑‍💻 (${userId})` : userId} 📋</h2>
+      <h2>Submissions for User: {username} 🧑‍💻</h2>
 
       <div className="user-submissions-filters">
         <input

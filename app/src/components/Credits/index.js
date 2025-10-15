@@ -1,6 +1,3 @@
-
-
-
 import React from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import './index.css'; // Import the CSS file
@@ -102,5 +99,3 @@ function Credits() {
 }
 
 export default Credits;
-
-

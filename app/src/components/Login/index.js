@@ -7,7 +7,7 @@ import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
 
 function Login({ onLogin }) { // Add setIsLoading prop
-  const [userId, setUserId] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -19,26 +19,25 @@ function Login({ onLogin }) { // Add setIsLoading prop
     setIsLoadingLocal(true); // Use local loading
 
     try {
-      const data = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, { user_id: userId, password: password });
+      const data = await api.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/login`, { username: username, password: password });
 
       if (!data) { // If data is null, it means handleApiResponse redirected
         return;
       }
 
       if (data) {
-        localStorage.setItem('user_id', data.user_id);
         localStorage.setItem('username', data.username);
         localStorage.setItem('name', data.name);
         localStorage.setItem('token', data.token);
 
-        onLogin(data.user_id, data.username, data.name, data.token);
+        onLogin(data.username, data.name, data.token);
         toast.success('Login successful!');
         navigate('/welcome');
       } else {
         setError(data.error || 'Login failed');
         toast.error(data.error || 'Login failed');
         if (data.error === "Account not verified. Please verify your email with OTP.") {
-          navigate(`/verify-otp/${userId}`);
+          navigate(`/verify-otp/${username}`);
         }
       }
     } catch (err) {
@@ -55,12 +54,12 @@ function Login({ onLogin }) { // Add setIsLoading prop
       <h2 className="login-title">Login 🔑</h2>
       <form onSubmit={handleSubmit}>
         <div className="login-form-group">
-          <label htmlFor="userId" className="login-label">User ID:</label>
+          <label htmlFor="username" className="login-label">Username:</label>
           <input
             type="text"
-            id="userId"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className="login-input"
             required
           />
@@ -85,7 +84,7 @@ function Login({ onLogin }) { // Add setIsLoading prop
         Don't have an account? <Link to="/signup">Sign Up</Link>
       </p>
       <p className="login-forgot-password-link">
-        <Link to="/forgot-password">Forgot User ID / Password?</Link>
+        <Link to="/forgot-password">Forgot Username / Password?</Link>
       </p>
     </div>
   );

@@ -28,7 +28,7 @@ To run the frontend application:
     npm install
     ```
 3.  **Configure API Base URL:**
-    Create a `.env` file in the `frontend-for-annaforces/app` directory and add the following line, replacing `YOUR_BACKEND_API_BASE_URL` with the actual URL of your backend API (e.g., `https://backend-for-annaforces.onrender.com`):
+    Create a `.env` file in the `frontend-for-annaforces/app` directory and add the following line, replacing `YOUR_BACKEND_API_BASE_URL` with the actual URL of your backend API (e.g., `http://localhost:5000`):
     ```
     REACT_APP_API_BASE_URL=YOUR_BACKEND_API_BASE_URL
     ```
@@ -116,17 +116,17 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 
 ### Core Components
 
-*   **`Login`**: Provides a form for user authentication against the backend API. Displays a loading indicator during submission. Stores user credentials and token in `localStorage` upon successful login. If a user's account is unverified, they will be redirected to the OTP verification page.
-*   **`Signup`**: Provides a form for new user registration. After successful registration, redirects the user to the OTP verification page.
+*   **`Login`**: Provides a form for user authentication using `username` and password against the backend API. Displays a loading indicator during submission. Stores user credentials and token in `localStorage` upon successful login. If a user's account is unverified, they will be redirected to the OTP verification page.
+*   **`Signup`**: Provides a form for new user registration, taking `username`, `password`, `name`, and `email` as input. After successful registration, redirects the user to the OTP verification page.
 *   **`OTPVerification`**: Allows users to verify their email address by entering an OTP sent to their registered email. Upon successful verification, the user can then log in.
 *   **`Logout`**: A component that triggers the logout process, clearing user data from `localStorage` and redirecting to the login page.
 *   **`WelcomePage`**: A simple page displayed after successful user login.
 *   **`Problems`**: Fetches and displays a list of all available problems from the backend. Includes search and filter functionalities (by title, ID, difficulty, and tags). Problem titles are clickable links to their detail pages. Now includes a "View Solution" button for each problem.
 *   **`ProblemDetail`**: Displays the detailed information for a specific problem, fetched from the backend. If the problem is not found, it displays a message indicating that the problem is not there. Now includes a "View Solution" button. It now also displays problem constraints and utilizes the `SampleCases` component for rendering sample test cases.
 *   **`SampleCases`**: A dedicated component for displaying sample input/output test cases for problems. It provides a convenient "Copy" button for each input and output, allowing users to easily copy the content to their clipboard. Toast notifications are used to provide feedback on copy operations.
-*   **`Profile`**: Displays user profile information. Now allows editing of name, username, and bio. Also displays a list of solved problems with clickable links to problem details.
-*   **`UserSubmissions`**: Displays a sortable table of all submissions for a specific user, fetched from the backend. Includes robust filter functionalities (by problem ID, status, language, and timestamp) with dynamically generated status options to ensure accuracy. Each submission ID is a clickable link to its detailed view, and problem IDs are now clickable links to user profiles.
-*   **`ProblemSubmissions`**: Displays a list of all submissions for a specific problem, fetched from the backend. Includes filter functionalities (by user ID, status, and timestamp). Each submission is a clickable link to its detailed view, and user IDs are now clickable links to user profiles.
+*   **`Profile`**: Displays user profile information based on the `username` from the URL. Now allows editing of name, username, and bio. Also displays a list of solved problems with clickable links to problem details.
+*   **`UserSubmissions`**: Displays a sortable table of all submissions for a specific `username`, fetched from the backend. Includes robust filter functionalities (by problem ID, status, language, and timestamp) with dynamically generated status options to ensure accuracy. Each submission ID is a clickable link to its detailed view, and problem IDs are now clickable links to user profiles.
+*   **`ProblemSubmissions`**: Displays a list of all submissions for a specific problem, fetched from the backend. Includes filter functionalities (by `username`, status, and timestamp). Each submission is a clickable link to its detailed view, and user IDs are now clickable links to user profiles.
 *   **`SubmissionDetail`**: Displays the detailed information for a specific submission. It now features a **live polling mechanism** and a **copy-to-clipboard** functionality. If a submission is still being judged, the page will automatically fetch updates every few seconds. Users can now easily copy the submission code, as well as the input, expected output, and actual output for each test case, with a single click. Test cases now collapse by default, and their statuses are color-coded (green for passed, red for wrong answer, yellow for runtime/time limit/memory limit, grey for compilation error). Input for each test case is also displayed. If the submission is not found, it displays a message indicating that the submission is not there.
 *   **`CodeSubmission`**: Provides a form for users to submit code for a specific problem. Upon submission, it now displays a toast notification confirming the submission and immediately redirects the user to the problem's submissions page, where they can see their submission appear with a "Queued" status.
 *   **`Credits`**: Displays credits for the project, including contributors and technologies used.
@@ -136,7 +136,7 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 *   **`PrivacyPolicy`**: Outlines the privacy policy of the Annaforces platform.
 *   **`NotFound`**: Displays a 404 "Page Not Found" message, including the incorrect URL, and provides a link to the Welcome Page.
 *   **`ProtectedRoute`**: A routing helper component that ensures only authenticated users can access certain routes.
-*   **`ForgotPassword`**: Provides a form for users to request their User ID or initiate a password reset via OTP. Sends an OTP to the user's email for password reset requests. The OTP is discarded after 3 incorrect attempts.
+*   **`ForgotPassword`**: Provides a form for users to request their `Username` or initiate a password reset via OTP. Sends an OTP to the user's email for password reset requests. The OTP is discarded after 3 incorrect attempts.
 *   **`ResetPassword`**: Allows users to reset their password by providing their email, the OTP received, and a new password.
 *   **`Contests`**: Fetches and displays a list of all available contests from the backend. Each contest is a clickable link to its detail page. It now displays the contest status (Upcoming, Running, Over), shows whether the user is registered for each contest, and allows direct registration from the list.
 *   **`ContestDetail`**: Displays the detailed information for a specific contest, including its metadata, description, and theoretical background. It now also indicates if the contest is a practice contest. It uses `react-markdown` to render the `contest_description` and `contest_theory` fields. **Bug Fix:** Corrected problem meta data access to prevent `TypeError` when rendering `ProblemCard` components, specifically by ensuring `authors` array is always present in fallback metadata. **Optimization:** Improved efficiency by fetching only problem metadata for `ProblemCard` components, rather than full problem details.
@@ -145,13 +145,13 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 
 1.  Users are redirected to the `/login` page if not authenticated.
 2.  **Signup Process:**
-    *   Users can register via the `/signup` page by providing a User ID, Username, Password, Name, and Email.
+    *   Users can register via the `/signup` page by providing a Username, Password, Name, and Email.
     *   Upon successful registration, an OTP is sent to the provided email address.
-    *   The user is then redirected to the `/verify-otp/:userId` page to enter the OTP.
+    *   The user is then redirected to the `/verify-otp/:email` page to enter the OTP.
     *   Once the OTP is successfully verified, the user's account is activated, and they can proceed to log in.
 3.  **Login Process:**
-    *   Upon successful login via the `Login` component, user data (ID, username, name, and JWT token) is stored in `localStorage`.
-    *   If a user attempts to log in with an unverified account, they will be redirected to the `/verify-otp/:userId` page.
+    *   Upon successful login via the `Login` component, user data (username, name, and JWT token) is stored in `localStorage`.
+    *   If a user attempts to log in with an unverified account, they will be redirected to the `/verify-otp/:username` page.
     *   The application's state (`isLoggedIn`, `userName`, etc.) is updated, and the user is redirected to the `/welcome` page.
 4.  Authenticated users can navigate to protected routes like `/problems`.
 5.  The JWT token is automatically included in API requests to protected backend endpoints.
@@ -162,15 +162,15 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 *   `/`: Redirects to `/welcome` if logged in, or `/login` if not.
 *   `/login`: Displays the login form. If the user is already logged in, it redirects to `/welcome`.
 *   `/signup`: Displays the signup form.
-*   `/verify-otp/:userId`: Allows users to verify their email with an OTP.
+*   `/verify-otp/:email`: Allows users to verify their email with an OTP.
 *   `/welcome`: Displays the welcome message for logged-in users.
 *   `/problems`: Displays a list of all problems (protected route).
 *   `/problems/:problem_id`: Displays details for a specific problem (protected route).
 *   `/problems/:problemId/submit`: Provides a form for submitting code to a specific problem (protected route).
 *   `/problems/:problemId/submissions`: Displays a list of all submissions for a specific problem (protected route).
 *   `/problems/:problemId/solution`: Displays the solution code and explanation for a specific problem (protected route).
-*   `/users/:userId`: Displays the profile information for a specific user (protected route).
-*   `/users/:userId/submissions`: Displays a list of all submissions for a specific user (protected route).
+*   `/users/:username`: Displays the profile information for a specific user (protected route).
+*   `/users/:username/submissions`: Displays a list of all submissions for a specific user (protected route).
 *   `/submissions/:submissionId`: Displays detailed information for a specific submission (protected route).
 *   `/credits`: Displays the credits page (protected route).
 *   `/contests`: Displays a list of all contests (protected route).
@@ -178,6 +178,6 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 *   `/about`: Displays information about the platform.
 *   `/contact`: Displays contact information.
 *   `/privacy`: Outlines the privacy policy of the Annaforces platform.
-*   `/forgot-password`: Allows users to request their User ID or initiate a password reset via OTP.
+*   `/forgot-password`: Allows users to request their Username or initiate a password reset via OTP.
 *   `/reset-password`: Allows users to reset their password using an OTP.
 *   Any other unmatched route redirects to `/login`.

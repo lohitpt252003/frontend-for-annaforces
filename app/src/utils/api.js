@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 const handleApiResponse = async (response) => {
   if (response.status === 401) {
     localStorage.removeItem('token');
-    localStorage.removeItem('user_id');
+
     localStorage.removeItem('username');
     localStorage.removeItem('name');
     toast.error('Session expired or unauthorized. Please log in again.');
@@ -22,10 +22,10 @@ const handleApiResponse = async (response) => {
 const api = {
   get: async (url, token) => {
     const response = await fetch(url, {
-      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': token ? `Bearer ${token}` : '',
+        'Cache-Control': 'no-cache',
       },
     });
     return handleApiResponse(response);

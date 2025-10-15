@@ -28,7 +28,7 @@ To run the frontend application:
     npm install
     ```
 3.  **Configure API Base URL:**
-    Create a `.env` file in the `frontend-for-annaforces/app` directory and add the following line, replacing `YOUR_BACKEND_API_BASE_URL` with the actual URL of your backend API (e.g., `https://backend-for-annaforces.onrender.com`):
+    Create a `.env` file in the `frontend-for-annaforces/app` directory and add the following line, replacing `YOUR_BACKEND_API_BASE_URL` with the actual URL of your backend API (e.g., `http://localhost:5000`):
     ```
     REACT_APP_API_BASE_URL=YOUR_BACKEND_API_BASE_URL
     ```

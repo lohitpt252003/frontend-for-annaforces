@@ -32,7 +32,6 @@ import themeData from './assets/theme.json';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
   const [userName, setUserName] = useState('');
-  const [userId, setUserId] = useState('');
   const [token, setToken] = useState('');
   const [isLoading, setIsLoading] = useState(false); // New state for global loading
   const [theme, setTheme] = useState(() => {
@@ -49,20 +48,17 @@ function App() {
   }, [theme]);
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem('user_id');
     const storedUserName = localStorage.getItem('username');
     const storedToken = localStorage.getItem('token');
 
-    if (storedUserId && storedUserName && storedToken) {
-      setUserId(storedUserId);
+    if (storedUserName && storedToken) {
       setUserName(storedUserName);
       setToken(storedToken);
       setIsLoggedIn(true);
     }
   }, []);
 
-  const handleLoginSuccess = (newUserId, newUserName, newName, newToken) => {
-    setUserId(newUserId);
+  const handleLoginSuccess = (newUserName, newName, newToken) => {
     setUserName(newUserName);
     setToken(newToken);
     setIsLoggedIn(true);
@@ -72,7 +68,6 @@ function App() {
     localStorage.clear();
     setIsLoggedIn(false);
     setUserName('');
-    setUserId('');
     setToken('');
     toast.success('Logged out successfully!');
   };
@@ -84,7 +79,7 @@ function App() {
   return (
     <Router>
       <div>
-        <Header isLoggedIn={isLoggedIn} userName={userName} userId={userId} onLogout={handleLogout} toggleTheme={toggleTheme} currentTheme={theme} />
+        <Header isLoggedIn={isLoggedIn} userName={userName} onLogout={handleLogout} toggleTheme={toggleTheme} currentTheme={theme} />
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLoginSuccess} setIsLoading={setIsLoading} />} />
           <Route path="/signup" element={<Signup setIsLoading={setIsLoading} />} />
@@ -94,13 +89,13 @@ function App() {
           
           <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
             <Route path="/welcome" element={<WelcomePage userName={userName} />} />
-            <Route path="/problems" element={<Problems userId={userId} token={token} setIsLoading={setIsLoading} />} />
-            <Route path="/problems/:problem_id" element={<ProblemDetail userId={userId} token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/problems" element={<Problems token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/problems/:problem_id" element={<ProblemDetail token={token} setIsLoading={setIsLoading} />} />
             <Route path="/problems/:problemId/submit" element={<CodeSubmission token={token} setIsLoading={setIsLoading} />} />
             <Route path="/problems/:problemId/submissions" element={<ProblemSubmissions token={token} setIsLoading={setIsLoading} />} />
             <Route path="/problems/:problemId/solution" element={<SolutionDetail setGlobalLoading={setIsLoading} />} />
-            <Route path="/users/:userId" element={<Profile loggedUserId={userId} token={token} setIsLoading={setIsLoading} />} />
-            <Route path="/users/:userId/submissions" element={<UserSubmissions token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/users/:username" element={<Profile loggedUsername={userName} token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/users/:username/submissions" element={<UserSubmissions token={token} setIsLoading={setIsLoading} />} />
             <Route path="/submissions/:submissionId" element={<SubmissionDetail token={token} setIsLoading={setIsLoading} />} />
             <Route path="/credits" element={<Credits />} />
             <Route path="/contests" element={<Contests theme={theme} />} />

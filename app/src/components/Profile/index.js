@@ -7,8 +7,8 @@ import './light.css';
 import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
 
-function Profile({ loggedUserId }) { // Removed token prop
-  const { userId } = useParams(); // Get userId from URL params
+function Profile({ loggedUsername }) { // Renamed prop
+  const { username } = useParams(); // Get username from URL params
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -29,7 +29,7 @@ function Profile({ loggedUserId }) { // Removed token prop
 
       setIsLoadingLocal(true);
       try {
-        const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, token);
+        const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${username}`, token);
         if (!data) return;
         
         setUserData(data);
@@ -47,11 +47,11 @@ function Profile({ loggedUserId }) { // Removed token prop
       }
     };
 
-    if (userId) {
+    if (username) {
       fetchUserDataAndContests();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId]); // Removed token from dependency array
+  }, [username]);
 
   const handleSave = async () => {
     const token = localStorage.getItem('token');
@@ -62,7 +62,7 @@ function Profile({ loggedUserId }) { // Removed token prop
 
     setIsLoadingLocal(true);
     try {
-      const data = await api.put(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}/update-profile`, {
+      const data = await api.put(`${process.env.REACT_APP_API_BASE_URL}/api/users/${username}/update-profile`, {
         name: editedName,
         username: editedUsername,
         bio: editedBio
@@ -74,7 +74,7 @@ function Profile({ loggedUserId }) { // Removed token prop
       setIsEditing(false);
 
       // Re-fetch user data to update the displayed profile
-      const updatedData = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${userId}`, token);
+      const updatedData = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${username}`, token);
       if (updatedData) {
         setUserData(updatedData);
       } else {
@@ -149,12 +149,10 @@ function Profile({ loggedUserId }) { // Removed token prop
         </div>
       ) : (
         <div className="profile-display">
-          <p><strong>User ID:</strong> 🆔 {userId}</p>
           <p><strong>Username:</strong> 🧑‍💻 {userData.username}</p>
           <p><strong>Name:</strong> 📛 {userData.name}</p>
           <p><strong>Bio:</strong> 📖 {userData.bio}</p>
           <p><strong>Joined:</strong> 📅 {userData.joined}</p>
-          <p><strong>Number of Submissions:</strong> 📋 {userData.number_of_submissions}</p>
           <p><strong>Number of Submissions:</strong> 📋 {userData.number_of_submissions}</p>
           <p><strong>Attempted Problems:</strong> 🧠
             {Object.keys(userData.attempted || {}).length > 0 ? (
@@ -208,9 +206,9 @@ function Profile({ loggedUserId }) { // Removed token prop
               'None'
             )}
           </p>
-          {loggedUserId === userId && (
+          {loggedUsername === username && (
             <div className="profile-actions-bottom">
-              <Link to={`/users/${userId}/submissions`} className="profile-view-submissions-link">View Submissions 📋</Link>
+              <Link to={`/users/${username}/submissions`} className="profile-view-submissions-link">View Submissions 📋</Link>
               <button onClick={() => setIsEditing(true)} className="profile-edit-button">Edit Profile ✏️</button>
             </div>
           )}

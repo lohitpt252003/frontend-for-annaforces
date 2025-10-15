@@ -14,7 +14,6 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   const [error, setError] = useState(null);
   const [expandedTestCases, setExpandedTestCases] = useState({});
   const [isCached, setIsCached] = useState(false);
-  const [submitterUsername, setSubmitterUsername] = useState(''); // New state for submitter's username
   const pollingInterval = useRef(null);
 
   const initializeExpandedState = (data) => {
@@ -62,66 +61,52 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   };
 
   useEffect(() => {
-    const fetchSubmissionAndUsername = async () => {
+    const fetchSubmission = async () => {
       setIsLoading(true); // Use global loading
-
-      // Check cache first
-      const cachedData = await getCachedSubmission(submissionId);
-      if (cachedData) {
-        setSubmissionData(cachedData);
-        initializeExpandedState(cachedData);
-        setIsCached(true);
-        // Fetch username for cached data
-        try {
-          const userData = await api.get(
-            `${process.env.REACT_APP_API_BASE_URL}/api/users/${cachedData.user_id}/username`,
-            token
-          );
-          if (userData && userData.username) {
-            setSubmitterUsername(userData.username);
-          }
-        } catch (userError) {
-          console.error(`Error fetching username for ${cachedData.user_id}:`, userError);
-          setSubmitterUsername('Unknown');
-        }
-        setIsLoading(false);
-        return;
-      }
 
       try {
         const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/submissions/${submissionId}`, token);
-        if (!data) return;
+        if (!data) {
+          // If API returns no data, try cache as a fallback
+          const cachedData = await getCachedSubmission(submissionId);
+          if (cachedData) {
+            setSubmissionData(cachedData);
+            initializeExpandedState(cachedData);
+            setIsCached(true);
+          } else {
+            setError({ message: "No submission data found from API or cache." });
+          }
+          setIsLoading(false);
+          return;
+        }
 
         setSubmissionData(data);
         initializeExpandedState(data);
-
-        // Fetch username
-        try {
-          const userData = await api.get(
-            `${process.env.REACT_APP_API_BASE_URL}/api/users/${data.user_id}/username`,
-            token
-          );
-          if (userData && userData.username) {
-            setSubmitterUsername(userData.username);
-          }
-        } catch (userError) {
-          console.error(`Error fetching username for ${data.user_id}:`, userError);
-          setSubmitterUsername('Unknown');
-        }
+        setIsCached(false); // Data is fresh from API
 
         const isRunning = data.status.startsWith("Running") || data.status === "Queued";
         if (isRunning) {
           console.log("Submission is running. Starting polling.");
-          pollingInterval.current = setInterval(pollSubmissionStatus, 3000);
+          pollingInterval.current = setInterval(pollSubmissionStatus, 1000);
         } else {
           await cacheSubmission(submissionId, data); // Cache if already final
         }
 
       } catch (error) {
-        if (error.message.includes("You are not allowed to see the submission of the other user during the contest.")) {
-            setError({ message: "You are not allowed to see the submission of other users during an active contest." });
+        console.error("API fetch error:", error);
+        // If API fetch fails, try to load from cache
+        const cachedData = await getCachedSubmission(submissionId);
+        if (cachedData) {
+          setSubmissionData(cachedData);
+          initializeExpandedState(cachedData);
+          setIsCached(true);
+          setError({ message: "Could not fetch latest data, displaying cached version." });
         } else {
-            setError(error);
+          if (error.message.includes("You are not allowed to see the submission of the other user during the contest.")) {
+              setError({ message: "You are not allowed to see the submission of other users during an active contest." });
+          } else {
+              setError(error);
+          }
         }
       } finally {
         setIsLoading(false);
@@ -129,7 +114,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
     };
 
     if (submissionId && token) {
-      fetchSubmissionAndUsername();
+      fetchSubmission();
     }
 
     // Cleanup function to clear interval when component unmounts
@@ -165,7 +150,7 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
       )}
       <h2>Submission Details: {submissionId}</h2>
       <p><strong>Problem ID:</strong> {submissionData.problem_id}</p>
-      <p><strong>User ID:</strong> {submissionData.user_id} ({submitterUsername} 🧑‍💻)</p>
+      <p><strong>Username:</strong> {submissionData.username} 🧑‍💻</p>
       <p><strong>Language:</strong> {submissionData.language}</p>
       <p><strong>Status:</strong> <span className={`status-${submissionData.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
         {console.log('Submission Status:', submissionData.status)}

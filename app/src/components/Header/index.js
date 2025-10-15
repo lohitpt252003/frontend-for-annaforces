@@ -5,7 +5,7 @@ import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
 
-function Header({ isLoggedIn, userName, userId, onLogout, toggleTheme, currentTheme }) {
+function Header({ isLoggedIn, userName, onLogout, toggleTheme, currentTheme }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -24,7 +24,7 @@ function Header({ isLoggedIn, userName, userId, onLogout, toggleTheme, currentTh
             <>
               <Link to="/problems" className="header-nav-link" onClick={toggleMobileMenu}>Problems 🧩</Link>
               <Link to="/contests" className="header-nav-link" onClick={toggleMobileMenu}>Contests 🏆</Link>
-              <Link to={`/users/${userId}`} className="header-nav-link" onClick={toggleMobileMenu}>Profile 🧑‍💻</Link>
+              <Link to={`/users/${userName}`} className="header-nav-link" onClick={toggleMobileMenu}>Profile 🧑‍💻</Link>
               <Link to="/credits" className="header-nav-link" onClick={toggleMobileMenu}>Credits 🏆</Link>
             </>
           )}
