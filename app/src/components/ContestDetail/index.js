@@ -7,7 +7,6 @@ import './light.css';
 import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
 import { getCachedContestDetail, cacheContestDetail, clearContestDetailCache } from '../../components/cache/contest_detail';
-import { getCachedProblemDetail, cacheProblemDetail } from '../../components/cache/problem_detail';
 
 import ProblemCard from '../../components/ProblemCard';
 
@@ -69,7 +68,7 @@ const ContestDetail = ({ theme }) => {
         console.log("Fetching contest and registration status...");
         const fetchContestAndRegistrationStatus = async () => {
             const token = localStorage.getItem('token');
-            const loggedUserId = localStorage.getItem('user_id');
+            const loggedUserId = localStorage.getItem('username');
             if (!token || !loggedUserId) {
                 setError('No token or user ID found. Please log in.');
                 return;
@@ -144,17 +143,14 @@ const ContestDetail = ({ theme }) => {
             setIsLoadingContestProblems(true);
             try {
                 const token = localStorage.getItem('token');
-                const loggedUserId = localStorage.getItem('user_id');
+                const loggedUserId = localStorage.getItem('username');
 
                 const problemPromises = contest.problems.map(async (problemId) => {
-                    // For now, we are not caching problem meta separately,
-                    // so we will directly fetch from the API.
-                    // If we want to cache meta, we would need a new caching function for it.
                     try {
-                        const metaData = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/meta`, token);
-                        return { [problemId]: { meta: metaData } };
+                        const problemData = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/contests/${contestId}/problems/${problemId}`, token);
+                        return { [problemId]: { meta: problemData.meta } };
                     } catch (err) {
-                        console.error(`Error fetching meta for problem ${problemId}:`, err);
+                        console.error(`Error fetching problem ${problemId}:`, err);
                         return { [problemId]: { meta: { title: 'Error loading problem', difficulty: 'N/A', tags: [], authors: [] }, error: true, message: err.message } };
                     }
                 });

@@ -1,0 +1,50 @@
+.problem-detail-actions {
+  display: flex; /* Use flexbox for buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap */
+  justify-content: center; /* Center buttons */
+  gap: 10px; /* Space between buttons */
+  margin-top: 20px; /* Add margin to the top */
+}
+
+.problem-detail-link-button {
+  display: inline-block;
+  /* Removed margin-top as it's handled by parent flex */
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Remove individual button margins as gap handles it */
+.problem-detail-submit-button,
+.problem-detail-view-submissions-button,
+.problem-detail-view-solution-button {
+  margin-right: 0; 
+  margin-left: 0;
+}
+
+.problem-detail-pdf-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.problem-detail-pdf-button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .problem-detail-actions {
+    flex-direction: column; /* Stack buttons vertically */
+    width: 100%; /* Full width for buttons */
+    gap: 8px; /* Adjust gap for stacked buttons */
+  }
+
+  .problem-detail-link-button {
+    width: 100%; /* Full width for each button */
+    padding: 10px 15px;
+    font-size: 0.95em;
+  }
+}

@@ -14,8 +14,14 @@ const handleApiResponse = async (response) => {
   if (response.ok) {
     return response.json();
   } else {
-    const errorData = await response.json();
-    throw new Error(errorData.message || `API Error: ${response.status}`);
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || `API Error: ${response.status}`);
+    } else {
+      const errorText = await response.text();
+      throw new Error(`API Error: ${response.status} - ${errorText}`);
+    }
   }
 };
 

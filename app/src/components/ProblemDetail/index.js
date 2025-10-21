@@ -10,6 +10,13 @@ import './index.css'; // Import the CSS file
 import './light.css';
 import './dark.css';
 import SampleCases from '../SampleCases';
+import ProblemHeader from '../ProblemHeader';
+import ProblemStatement from '../ProblemStatement';
+import ProblemInputFormat from '../ProblemInputFormat';
+import ProblemOutputFormat from '../ProblemOutputFormat';
+import ProblemConstraints from '../ProblemConstraints';
+import ProblemNotes from '../ProblemNotes';
+import ProblemDetailActions from '../ProblemDetailActions';
 import api from '../../utils/api'; // Import the new api utility
 import { getCachedProblemDetail, cacheProblemDetail, clearProblemDetailCache } from '../../components/cache/problem_detail';
 
@@ -125,151 +132,32 @@ function ProblemDetail() { // Accept setIsLoading prop
 
   return (
     <div className="problem-detail-container">
-      <h2 className="problem-detail-title">{problem && problem.meta && problem.meta.title} ({problem_id}) 📄</h2>
-      {isCached && (
-        <div className="cache-notification">
-          <p>This problem is being displayed from the cache. <button onClick={handleClearCache}>Clear Cache</button> to see the latest updates.</p>
-        </div>
-      )}
-      <div className="problem-detail-header-content">
-        <div className="problem-detail-info">
-          <p><strong>Difficulty:</strong> ⭐ {problem && problem.meta && problem.meta.difficulty}</p>
-          <p><strong>Time Limit:</strong> ⏰ {problem && problem.meta && problem.meta.timeLimit} ms</p>
-          <p><strong>Memory Limit:</strong> 🧠 {problem && problem.meta && problem.meta.memoryLimit} MB</p>
-          <p><strong>Tags:</strong> 🏷️ {problem && problem.meta && problem.meta.tags && problem.meta.tags.join(', ')}</p>
-          <p><strong>Authors:</strong> ✍️ {problem && problem.meta && problem.meta.authors && problem.meta.authors.join(', ')}</p>
-        </div>
-        <div className="problem-detail-actions">
-          <Link to={`/problems/${problem_id}/submit`} className="problem-detail-link-button problem-detail-submit-button">
-            Submit Code ✏️
-          </Link>
-          <Link to={`/problems/${problem_id}/submissions`} className="problem-detail-link-button problem-detail-view-submissions-button">
-            View All Submissions 📋
-          </Link>
-          <Link to={`/problems/${problem_id}/solution`} className="problem-detail-link-button problem-detail-view-solution-button">
-            View Solution 💡
-          </Link>
-          {problem.has_pdf_statement && (
-            <button onClick={handleViewPdf} className="problem-detail-link-button problem-detail-pdf-button" disabled={isPdfLoading}>
-              {isPdfLoading ? (
-                <>
-                  <span className="spinner" /> Loading...
-                </>
-              ) : (
-                'View PDF Statement'
-              )}
-            </button>
-          )}
-        </div>
-      </div>
+      <ProblemHeader
+        problem={problem}
+        problem_id={problem_id}
+        isCached={isCached}
+        handleClearCache={handleClearCache}
+      />
       <hr className="problem-detail-separator" />
-      <>
-        <div className="problem-detail-section">
-          <h3>Problem Statement 📝</h3>
-          <ReactMarkdown
-            remarkPlugins={[remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-            components={{
-              math: ({ value }) => <BlockMath>{value}</BlockMath>,
-              inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
-              p: ({ children }) => {
-                if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
-                  return children;
-                }
-                return <p>{children}</p>;
-              },
-            }}
-          >
-            {problem.description_content}
-          </ReactMarkdown>
-        </div>
+      <div className="problem-detail-body">
+        <ProblemStatement description_content={problem.description_content} />
 
-        <div className="problem-detail-section">
-          <h3>Input Format 📥</h3>
-          <ReactMarkdown
-            remarkPlugins={[remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-            components={{
-              math: ({ value }) => <BlockMath>{value}</BlockMath>,
-              inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
-              p: ({ children }) => {
-                if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
-                  return children;
-                }
-                return <p>{children}</p>;
-              },
-            }}
-          >
-            {problem.input_content}
-          </ReactMarkdown>
-        </div>
+        <ProblemInputFormat input_content={problem.input_content} />
 
-        <div className="problem-detail-section">
-          <h3>Output Format 📤</h3>
-          <ReactMarkdown
-            remarkPlugins={[remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-            components={{
-              math: ({ value }) => <BlockMath>{value}</BlockMath>,
-              inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
-              p: ({ children }) => {
-                if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
-                  return children;
-                }
-                return <p>{children}</p>;
-              },
-            }}
-          >
-            {problem.output_content}
-          </ReactMarkdown>
-        </div>
+        <ProblemOutputFormat output_content={problem.output_content} />
 
-        {problem.constraints_content && (
-          <div className="problem-detail-section">
-            <h3>Constraints 📏</h3>
-            <ReactMarkdown
-              remarkPlugins={[remarkMath]}
-              rehypePlugins={[rehypeKatex]}
-              components={{
-                math: ({ value }) => <BlockMath>{value}</BlockMath>,
-                inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
-                p: ({ children }) => {
-                  if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
-                    return children;
-                  }
-                  return <p>{children}</p>;
-                },
-              }}
-            >
-              {problem.constraints_content}
-            </ReactMarkdown>
-          </div>
-        )}
+        <ProblemConstraints constraints_content={problem.constraints_content} />
 
         <SampleCases samples_data={problem.samples_data} />
 
-        {problem.notes_content && (
-          <div className="problem-detail-section">
-            <h3>Notes 🗒️</h3>
-            <ReactMarkdown
-              remarkPlugins={[remarkMath]}
-              rehypePlugins={[rehypeKatex]}
-              components={{
-                math: ({ value }) => <BlockMath>{value}</BlockMath>,
-                inlineMath: ({ value }) => <InlineMath>{value}</InlineMath>,
-                p: ({ children }) => {
-                  if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
-                    return children;
-                  }
-                  return <p>{children}</p>;
-                },
-              }}
-            >
-              {problem.notes_content}
-            </ReactMarkdown>
-          </div>
-        )}
-      </>
+        <ProblemNotes notes_content={problem.notes_content} />
+      </div>
+      <ProblemDetailActions
+        problem_id={problem_id}
+        problem={problem}
+        handleViewPdf={handleViewPdf}
+        isPdfLoading={isPdfLoading}
+      />
     </div>
   );
 }

@@ -27,7 +27,7 @@ function Problems() { // Accept setIsLoading prop
       useEffect(() => {
       const fetchProblemsAndStatus = async () => {
         const token = localStorage.getItem('token');
-        const loggedUserId = localStorage.getItem('user_id');
+        const loggedUserId = localStorage.getItem('username');
         if (!token || !loggedUserId) {
           setError('No token or user ID found. Please log in.');
           return;

@@ -1,10 +1,6 @@
-# frontend-for-annaforces
-
-This is the frontend for the Annaforces project, built with React.
-
 ## Data Structure
 
-For a detailed understanding of how problems, submissions, users, and solutions are structured and stored, please refer to the [DATA/README.md](../DATA/README.md) file.
+For a detailed understanding of how problems, submissions, users, and solutions are structured and stored, please refer to the [DATA/README.md](../DATA/README.md) file. The templates for creating new problems, contests, and solutions are now located in the [DATA/blueprint](../DATA/blueprint) directory.
 
 ## Data Structure
 
