@@ -1,0 +1,82 @@
+.contest-header-container {
+  /* No container-specific styles needed yet */
+}
+
+.contest-header-title {
+  margin-bottom: 10px;
+}
+
+.contest-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.contest-header-info p {
+  margin-bottom: 5px;
+}
+
+.contest-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 0;
+}
+
+.contest-header-link-button {
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.contest-progress-bar-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  height: 10px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.contest-progress-bar {
+  height: 100%;
+  background-color: #4CAF50; /* Green */
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  transition: width 0.5s ease-in-out;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .contest-header-title {
+    font-size: 1.8em;
+  }
+
+  .contest-header-content {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .contest-header-info {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .contest-header-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .contest-header-link-button {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.95em;
+  }
+}

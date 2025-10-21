@@ -23,158 +23,15 @@
   margin-bottom: 20px;
 }
 
-.contest-detail-title {
-  margin-bottom: 10px;
-}
+/* Styles moved to ContestHeader component */
 
-.contest-detail-header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 20px;
-}
-
-.contest-detail-info p {
-  margin-bottom: 5px;
-}
-
-.contest-detail-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 0;
-}
-
-.contest-detail-link-button {
-  display: inline-block;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.contest-detail-view-problems-button {
-  margin-right: 0;
-  margin-left: 0;
-  background-color: #5B57FF; /* Example color, adjust as needed */
-  color: #FFFFFF;
-}
-
-.contest-detail-view-problems-button:hover {
-  background-color: #2E2BB2;
-}
-
-.contest-detail-separator {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  border: 0;
-}
-
-.contest-detail-section {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  line-height: 1.6;
-}
-
-.contest-detail-section h1,
-.contest-detail-section h2,
-.contest-detail-section h3,
-.contest-detail-section h4,
-.contest-detail-section h5,
-.contest-detail-section h6 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.contest-detail-section p {
-  margin-bottom: 10px;
-}
-
-.contest-detail-section pre {
-  border: 1px solid #ddd;
-  padding: 10px;
-  overflow-x: auto;
-  font-family: 'Ubuntu Mono', monospace;
-  font-size: 0.9em;
-  margin-bottom: 15px;
-}
-
-.contest-detail-section code {
-  font-family: 'Ubuntu Mono', monospace;
-  padding: 2px 4px;
-  border-radius: 3px;
-}
-
-.contest-detail-section ul,
-.contest-detail-section ol {
-  margin-left: 20px;
-  margin-bottom: 10px;
-}
-
-.contest-detail-section li {
-  margin-bottom: 5px;
-}
-
-.contest-progress-bar-container {
-  width: 100%;
-  background-color: #e0e0e0;
-  border-radius: 5px;
-  height: 10px;
-  margin-top: 10px;
-  overflow: hidden;
-}
-
-.contest-progress-bar {
-  height: 100%;
-  background-color: #4CAF50; /* Green */
-  border-radius: 5px;
-  text-align: center;
-  color: white;
-  transition: width 0.5s ease-in-out;
-}
-
-.contest-detail-tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #ccc;
-}
-
-.contest-detail-tab-button {
-  background-color: transparent;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 1.1em;
-  font-weight: bold;
-  color: #555;
-  transition: color 0.3s ease, border-bottom 0.3s ease;
-  border-bottom: 3px solid transparent;
-}
-
-.contest-detail-tab-button:hover {
-  color: #007bff;
-}
-
-.contest-detail-tab-button.active {
-  color: #007bff;
-  border-bottom: 3px solid #007bff;
-}
+/* Styles moved to ContestTabs component */
 
 .contest-detail-tab-content {
   padding: 20px 0;
 }
 
-.contest-problems-loading,
-.contest-problems-no-problems,
-.contest-problem-error {
-  padding: 20px;
-  text-align: center;
-  font-size: 1.1em;
-  color: #555;
-}
+/* Styles moved to ContestProblems component */
 
 
 /* Responsive adjustments for smaller screens */
@@ -183,90 +40,12 @@
     padding: 15px;
   }
 
-  .contest-detail-title {
-    font-size: 1.8em;
-  }
+  /* Styles moved to ContestHeader component */
 
-  .contest-detail-header-content {
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 15px;
-  }
 
-  .contest-detail-info {
-    text-align: center;
-    margin-bottom: 15px;
-  }
 
-  .contest-detail-actions {
-    flex-direction: column;
-    width: 100%;
-    gap: 8px;
-  }
+  /* Styles moved to ContestTabs component */
 
-  .contest-detail-link-button {
-    width: 100%;
-    padding: 10px 15px;
-    font-size: 0.95em;
-  }
-
-  .contest-detail-section {
-    padding: 10px;
-    font-size: 0.95em;
-  }
-
-  .contest-detail-section h1 {
-    font-size: 1.8em;
-  }
-
-  .contest-detail-section h2 {
-    font-size: 1.5em;
-  }
-
-  .contest-detail-section h3 {
-    font-size: 1.3em;
-  }
-
-  .contest-detail-section pre {
-    font-size: 0.85em;
-  }
-
-  .contest-detail-tabs {
-    flex-wrap: wrap;
-  }
-
-  .contest-detail-tab-button {
-    width: 100%;
-    border-bottom: none;
-    border-top: 1px solid #eee;
-  }
-
-  .contest-detail-tab-button.active {
-    border-bottom: none;
-    border-top: 3px solid #007bff;
-  }
-
-  .contest-problems-list {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .contest-problems-list-item {
-    padding: 15px;
-  }
-
-  .contest-problems-list-item h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-
-  .contest-problems-list-item p {
-    font-size: 0.9em;
-  }
-
-  .contest-problems-link-button {
-    padding: 8px 12px;
-    font-size: 0.85em;
-  }
+  /* Styles moved to ContestProblems component */
 }
 

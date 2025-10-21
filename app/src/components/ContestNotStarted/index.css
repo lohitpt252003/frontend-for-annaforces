@@ -1,0 +1,12 @@
+.contest-not-started-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.contest-not-started-title {
+  margin-bottom: 10px;
+}
+
+.contest-not-started-content {
+  margin-top: 20px;
+}

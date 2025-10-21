@@ -1,0 +1,26 @@
+.contest-problems-section {
+  /* No container-specific styles needed yet */
+}
+
+.contest-problems-loading,
+.contest-problems-no-problems,
+.contest-problem-error {
+  padding: 20px;
+  text-align: center;
+  font-size: 1.1em;
+  color: #555;
+}
+
+.problem-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .problem-cards-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}

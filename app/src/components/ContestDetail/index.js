@@ -9,6 +9,14 @@ import api from '../../utils/api'; // Import the new api utility
 import { getCachedContestDetail, cacheContestDetail, clearContestDetailCache } from '../../components/cache/contest_detail';
 
 import ProblemCard from '../../components/ProblemCard';
+import ContestHeader from '../../components/ContestHeader';
+import ContestTabs from '../../components/ContestTabs';
+import ContestProblems from '../../components/ContestProblems';
+import ContestDescription from '../../components/ContestDescription';
+import ContestTheory from '../../components/ContestTheory';
+import ContestLeaderboard from '../../components/ContestLeaderboard';
+import ContestNotRegistered from '../../components/ContestNotRegistered';
+import ContestNotStarted from '../../components/ContestNotStarted';
 
 const ContestDetail = ({ theme }) => {
     const { contestId } = useParams();
@@ -265,193 +273,60 @@ const ContestDetail = ({ theme }) => {
 
     if (!isRegistered && status !== "Over 🏁") {
         return (
-            <div className="contest-detail-container">
-                <h2 className="contest-detail-title">{contest.name} ({contestId}) 🏆</h2>
-                <div className="contest-detail-not-registered">
-                    <p>You are not registered for this contest.</p>
-                    <button onClick={handleRegister} className="contest-detail-link-button contest-detail-register-button">
-                        Register for Contest 📝
-                    </button>
-                </div>
-            </div>
+            <ContestNotRegistered
+                contest={contest}
+                contestId={contestId}
+                handleRegister={handleRegister}
+            />
         );
     }
 
     if (isRegistered && status === "Upcoming ⏳") {
         return (
-            <div className="contest-detail-container">
-                <h2 className="contest-detail-title">{contest.name} ({contestId}) 🏆</h2>
-                <div className="contest-detail-not-started">
-                    <p>The contest has not begun yet.</p>
-                    <p>{timeInfo}</p>
-                </div>
-            </div>
+            <ContestNotStarted
+                contest={contest}
+                contestId={contestId}
+                timeInfo={timeInfo}
+            />
         );
     }
 
     return (
         <div className="contest-detail-container">
-            <h2 className="contest-detail-title">{contest.name} ({contestId}) 🏆</h2>
-            {isCached && (
-                <div className="cache-notification">
-                    <p>This contest is being displayed from the cache. <button onClick={handleClearCache}>Clear Cache</button> to see the latest updates.</p>
-                </div>
-            )}
-            <div className="contest-detail-header-content">
-                <div className="contest-detail-info">
-                    <p><strong>Status:</strong> {status}</p>
-                    {timeInfo && <p>{timeInfo}</p>}
-                    {status === "Running 🚀" && (
-                        <div className="contest-progress-bar-container">
-                            <div className="contest-progress-bar" style={{ width: `${progress}%` }}></div>
-                        </div>
-                    )}
-                    {contest.is_practice && <p><strong>Type:</strong> Practice Contest ✅</p>}
-                    <p><strong>Authors:</strong> ✍️ {contest.authors.join(', ')}</p>
-                    <p><strong>Start Time:</strong> 🗓️ {new Date(contest.startTime).toLocaleString()}</p>
-                    <p><strong>End Time:</strong> 🏁 {new Date(contest.endTime).toLocaleString()}</p>
-                </div>
-                <div className="contest-detail-actions">
-                    {isRegistered ? (
-                        <p style={{ color: 'green', fontWeight: 'bold', marginRight: '10px' }}>Registered ✅</p>
-                    ) : (status !== "Over 🏁" && (
-                        <button onClick={handleRegister} className="contest-detail-link-button contest-detail-register-button">
-                            Register for Contest 📝
-                        </button>
-                    ))}
-                </div>
-            </div>
+            <ContestHeader
+                contest={contest}
+                contestId={contestId}
+                isCached={isCached}
+                handleClearCache={handleClearCache}
+                status={status}
+                timeInfo={timeInfo}
+                progress={progress}
+                isRegistered={isRegistered}
+                handleRegister={handleRegister}
+            />
             <hr className="contest-detail-separator" />
 
-            <div className="contest-detail-tabs">
-                <button
-                    className={`contest-detail-tab-button ${activeTab === 'problems' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('problems')}
-                >
-                    Problems 🧩
-                </button>
-                <button
-                    className={`contest-detail-tab-button ${activeTab === 'description' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('description')}
-                >
-                    Description 📝
-                </button>
-                <button
-                    className={`contest-detail-tab-button ${activeTab === 'theory' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('theory')}
-                >
-                    Theory 🧠
-                </button>
-                <button
-                    className={`contest-detail-tab-button ${activeTab === 'leaderboard' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('leaderboard')}
-                >
-                    Leaderboard 🏆
-                </button>
-            </div>
+            <ContestTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
             <div className="contest-detail-tab-content">
                 {activeTab === 'problems' && (
-                    <div className="contest-detail-section">
-                        <h3>Problems in this Contest 🧩</h3>
-                        {isLoadingContestProblems ? (
-                            <p className="contest-problems-loading">Loading problems...</p>
-                        ) : Object.keys(contestProblemsDetails).length === 0 ? (
-                            <p className="contest-problems-no-problems">No problems available for this contest.</p>
-                        ) : (
-                            <div className="problem-cards-container">
-                                {Object.entries(contestProblemsDetails).map(([problemId, problemData]) => (
-                                    <ProblemCard
-                                        key={problemId}
-                                        problem={{ id: problemId, meta: problemData.meta }}
-                                        userProblemStatus={userProblemStatus[problemId]}
-                                    />
-                                ))}
-                            </div>
-                        )}
-                    </div>
+                    <ContestProblems
+                        isLoadingContestProblems={isLoadingContestProblems}
+                        contestProblemsDetails={contestProblemsDetails}
+                        userProblemStatus={userProblemStatus}
+                    />
                 )}
 
                 {activeTab === 'description' && (
-                    <div className="contest-detail-section">
-                        <h3>Description 📝</h3>
-                        <ReactMarkdown
-                    components={{
-                        // Custom component to prevent <p> tags from wrapping <div>s (e.g., from BlockMath)
-                        p: ({ children }) => {
-                            if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
-                                return children;
-                            }
-                            return <p>{children}</p>;
-                        },
-                    }}
-                >{contest.contest_description}</ReactMarkdown>
-                    </div>
+                    <ContestDescription contest_description={contest.contest_description} />
                 )}
 
                 {activeTab === 'theory' && (
-                    <div className="contest-detail-section">
-                        <h3>Theory Behind the Contest 🧠</h3>
-                        <ReactMarkdown
-                    components={{
-                        // Custom component to prevent <p> tags from wrapping <div>s (e.g., from BlockMath)
-                        p: ({ children }) => {
-                            if (children && children[0] && children[0].props && children[0].props.node && children[0].props.node.tagName === 'div') {
-                                return children;
-                            }
-                            return <p>{children}</p>;
-                        },
-                    }}
-                >{contest.contest_theory}</ReactMarkdown>
-                    </div>
+                    <ContestTheory contest_theory={contest.contest_theory} />
                 )}
 
                 {activeTab === 'leaderboard' && (
-                    <div className="contest-detail-section">
-                        <h3>Leaderboard 🏆</h3>
-                        {!leaderboardData ? (
-                            <p>Loading leaderboard...</p>
-                        ) : leaderboardData.standings.length === 0 ? (
-                            <p>No participants on the leaderboard yet.</p>
-                        ) : (
-                            <div className="leaderboard-table-container">
-                                <p>Last Updated: {new Date(leaderboardData.last_updated).toLocaleString()}</p>
-                                <table className="leaderboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Rank</th>
-                                            <th>User ID</th>
-                                            <th>Username</th>
-                                            <th>Total Score</th>
-                                            <th>Total Penalty</th>
-                                            {contest.problems.map(pId => (
-                                                <th key={pId}>{pId}</th>
-                                            ))}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {leaderboardData.standings.map((entry, index) => (
-                                            <tr key={entry.user_id}>
-                                                <td>{index + 1}</td>
-                                                <td><Link to={`/users/${entry.user_id}`}>{entry.user_id}</Link></td>
-                                                <td>{entry.username}</td>
-                                                <td>{entry.total_score}</td>
-                                                <td>{entry.total_penalty}</td>
-                                                {contest.problems.map(pId => (
-                                                    <td key={pId}>
-                                                        {entry.problems[pId] ? 
-                                                            `${entry.problems[pId].status === 'solved' ? '✅' : '❌'} (${entry.problems[pId].attempts})`
-                                                            : '-'
-                                                        }
-                                                    </td>
-                                                ))}
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
-                    </div>
+                    <ContestLeaderboard leaderboardData={leaderboardData} contest={contest} />
                 )}
             </div>
         </div>
