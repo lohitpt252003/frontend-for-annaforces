@@ -1,0 +1,109 @@
+.problems-container {
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1200px; /* Increased max-width for wider layout */
+}
+
+.cache-notification {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.problems-loading,
+.problems-error,
+.problems-no-problems {
+  padding: 20px;
+  text-align: center;
+  font-size: 1.1em;
+  color: #555;
+}
+
+.problems-filters {
+  margin-bottom: 30px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; /* Align items vertically */
+}
+
+.problems-filter-input,
+.problems-filter-select {
+  padding: 12px; /* Slightly increased padding */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  flex: 1;
+  min-width: 200px; /* Increased min-width for better input size */
+  max-width: 250px; /* Added max-width */
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .problems-container {
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 100%; /* Allow full width on smaller screens */
+  }
+
+  .problems-filters {
+    flex-direction: column; /* Stack filters vertically */
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .problems-filter-input,
+  .problems-filter-select {
+    width: 100%; /* Full width for inputs */
+    max-width: none; /* Remove max-width constraint */
+    min-width: unset; /* Remove min-width constraint */
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .problems-list {
+    grid-template-columns: 1fr; /* Single column for problems on small screens */
+    gap: 15px;
+  }
+
+  .problems-list-item {
+    padding: 15px;
+  }
+
+  .problems-list-item h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  .problems-list-item p {
+    font-size: 0.9em;
+  }
+
+  .problems-view-submissions-link,
+  .problems-view-solution-link {
+    padding: 8px 12px;
+    font-size: 0.85em;
+  }
+}

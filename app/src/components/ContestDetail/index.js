@@ -155,8 +155,8 @@ const ContestDetail = ({ theme }) => {
 
                 const problemPromises = contest.problems.map(async (problemId) => {
                     try {
-                        const problemData = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/contests/${contestId}/problems/${problemId}`, token);
-                        return { [problemId]: { meta: problemData.meta } };
+                        const problemData = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/meta`, token);
+                        return { [problemId]: { meta: problemData } };
                     } catch (err) {
                         console.error(`Error fetching problem ${problemId}:`, err);
                         return { [problemId]: { meta: { title: 'Error loading problem', difficulty: 'N/A', tags: [], authors: [] }, error: true, message: err.message } };

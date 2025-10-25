@@ -1,0 +1,36 @@
+.problem-output-format-section {
+  margin-bottom: 20px;
+}
+
+.problem-output-format-section h3 {
+  margin-bottom: 10px;
+}
+
+.problem-output-format-section p {
+  margin-bottom: 10px;
+}
+
+.problem-output-format-section pre {
+  border: 1px solid #ddd;
+  padding: 10px;
+  overflow-x: auto;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.problem-output-format-section code {
+  font-family: 'Ubuntu Mono', monospace;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.problem-output-format-section ul,
+.problem-output-format-section ol {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.problem-output-format-section li {
+  margin-bottom: 5px;
+}

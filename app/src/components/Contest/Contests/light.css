@@ -1,0 +1,88 @@
+.light-theme .contests-container {
+  background-color: #fff;
+}
+
+.light-theme .cache-notification {
+  background-color: #E3F2FD;
+  border: 1px solid #90CAF9;
+  color: #0D47A1;
+}
+
+.light-theme .contests-error {
+  color: #D32F2F;
+}
+
+.light-theme .contests-filter-input,
+.light-theme .contests-filter-select {
+  border: 1px solid #D0D7DE;
+  background-color: #fff;
+  color: #333;
+}
+
+.light-theme .contests-list-item {
+  border: 1px solid #E6EBF1;
+  background-color: #fdfdfd;
+}
+
+.light-theme .contests-list-item h3 {
+  color: #333;
+}
+
+.light-theme .contests-list-item-link {
+  color: #007bff;
+}
+
+.light-theme .contests-list-item p {
+  color: #666;
+}
+
+.light-theme .contests-list-item strong {
+  color: #444;
+}
+
+.light-theme .contests-no-contests {
+  color: #555;
+}
+
+/* Responsive adjustments for smaller screens in light theme */
+@media (max-width: 768px) {
+  .light-theme .contests-container {
+    background-color: #fff;
+  }
+
+  .light-theme .contests-error {
+    color: #D32F2F;
+  }
+
+  .light-theme .contests-filter-input,
+  .light-theme .contests-filter-select {
+    border: 1px solid #D0D7DE;
+    background-color: #fff;
+    color: #333;
+  }
+
+  .light-theme .contests-list-item {
+    border: 1px solid #E6EBF1;
+    background-color: #fdfdfd;
+  }
+
+  .light-theme .contests-list-item h3 {
+    color: #333;
+  }
+
+  .light-theme .contests-list-item-link {
+    color: #007bff;
+  }
+
+  .light-theme .contests-list-item p {
+    color: #666;
+  }
+
+  .light-theme .contests-list-item strong {
+    color: #444;
+  }
+
+  .light-theme .contests-no-contests {
+    color: #555;
+  }
+}
