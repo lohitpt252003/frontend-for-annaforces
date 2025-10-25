@@ -8,7 +8,7 @@ import './index.css';
 import './light.css';
 import './dark.css';
 
-function ProblemStatement({ description_content }) {
+function ProblemStatement({ problem_statement }) {
   return (
     <div className="problem-statement-section">
       <h3>Problem Statement 📝</h3>
@@ -26,7 +26,7 @@ function ProblemStatement({ description_content }) {
           },
         }}
       >
-        {description_content}
+        {problem_statement}
       </ReactMarkdown>
     </div>
   );

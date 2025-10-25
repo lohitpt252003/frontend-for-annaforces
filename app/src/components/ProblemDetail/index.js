@@ -12,16 +12,12 @@ import './dark.css';
 import SampleCases from '../SampleCases';
 import ProblemHeader from '../ProblemHeader';
 import ProblemStatement from '../ProblemStatement';
-import ProblemInputFormat from '../ProblemInputFormat';
-import ProblemOutputFormat from '../ProblemOutputFormat';
-import ProblemConstraints from '../ProblemConstraints';
-import ProblemNotes from '../ProblemNotes';
 import ProblemDetailActions from '../ProblemDetailActions';
 import api from '../../utils/api'; // Import the new api utility
 import { getCachedProblemDetail, cacheProblemDetail, clearProblemDetailCache } from '../../components/cache/problem_detail';
 
 function ProblemDetail() { // Accept setIsLoading prop
-  const { problem_id } = useParams();
+  const { contestId, problemId } = useParams();
   const [problem, setProblem] = useState(null);
   const [error, setError] = useState('');
   const [infoMessage, setInfoMessage] = useState('');
@@ -29,7 +25,7 @@ function ProblemDetail() { // Accept setIsLoading prop
   const [isCached, setIsCached] = useState(false);
 
   const handleClearCache = async () => {
-    await clearProblemDetailCache(problem_id);
+    await clearProblemDetailCache(problemId);
     window.location.reload();
   };
 
@@ -42,7 +38,7 @@ function ProblemDetail() { // Accept setIsLoading prop
     toast.info("Fetching PDF statement...");
     const token = localStorage.getItem('token');
     try {
-      const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}/statement.pdf`, token);
+      const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}/statement.pdf`, token);
       if (data.pdf_data) {
         const byteCharacters = atob(data.pdf_data);
         const byteNumbers = new Array(byteCharacters.length);
@@ -78,7 +74,7 @@ function ProblemDetail() { // Accept setIsLoading prop
 
       setIsLoadingLocal(true);
 
-      const cachedProblem = await getCachedProblemDetail(problem_id);
+      const cachedProblem = await getCachedProblemDetail(problemId);
       if (cachedProblem) {
         setProblem(cachedProblem);
         setIsCached(true);
@@ -87,14 +83,9 @@ function ProblemDetail() { // Accept setIsLoading prop
       }
 
       try {
-        const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problem_id}`, token);
-        if (data.status === 'not_started') {
-            setInfoMessage(data.message);
-            setProblem(null); // Reset problem state
-        } else if (data.status === 'started') {
-            setProblem(data.data);
-            await cacheProblemDetail(problem_id, data.data);
-        }
+        const data = await api.get(`${process.env.REACT_APP_API_BASE_URL}/api/problems/${problemId}`, token);
+        setProblem(data);
+        await cacheProblemDetail(problemId, data);
       } catch (err) {
         if (err.message.includes("404")) {
             setError("The problem is not there.");
@@ -108,7 +99,7 @@ function ProblemDetail() { // Accept setIsLoading prop
 
     fetchProblem();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [problem_id]);
+  }, [problemId]);
 
   if (error) {
     return <div className="problem-detail-error">Error: {error}</div>;
@@ -134,26 +125,18 @@ function ProblemDetail() { // Accept setIsLoading prop
     <div className="problem-detail-container">
       <ProblemHeader
         problem={problem}
-        problem_id={problem_id}
+        problem_id={problemId}
         isCached={isCached}
         handleClearCache={handleClearCache}
       />
       <hr className="problem-detail-separator" />
       <div className="problem-detail-body">
-        <ProblemStatement description_content={problem.description_content} />
-
-        <ProblemInputFormat input_content={problem.input_content} />
-
-        <ProblemOutputFormat output_content={problem.output_content} />
-
-        <ProblemConstraints constraints_content={problem.constraints_content} />
+        <ProblemStatement problem_statement={problem.problem_statement} />
 
         <SampleCases samples_data={problem.samples_data} />
-
-        <ProblemNotes notes_content={problem.notes_content} />
       </div>
       <ProblemDetailActions
-        problem_id={problem_id}
+        problem_id={problemId}
         problem={problem}
         handleViewPdf={handleViewPdf}
         isPdfLoading={isPdfLoading}
