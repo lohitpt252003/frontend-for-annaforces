@@ -4,10 +4,10 @@ import './index.css';
 import './light.css';
 import './dark.css';
 
-function ProblemDetailActions({ problem_id, problem, handleViewPdf, isPdfLoading }) {
+function ProblemDetailActions({ problem_id, contest_id, problem, handleViewPdf, isPdfLoading }) {
   return (
     <div className="problem-detail-actions">
-      <Link to={`/problems/${problem_id}/submit`} className="problem-detail-link-button problem-detail-submit-button">
+      <Link to={`/contests/${contest_id}/problems/${problem_id}/submit`} className="problem-detail-link-button problem-detail-submit-button">
         Submit Code ✏️
       </Link>
       <Link to={`/problems/${problem_id}/submissions`} className="problem-detail-link-button problem-detail-view-submissions-button">

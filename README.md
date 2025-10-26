@@ -1,15 +1,3 @@
-## Data Structure
-
-For a detailed understanding of how problems, submissions, users, and solutions are structured and stored, please refer to the [DATA/README.md](../DATA/README.md) file. The templates for creating new problems, contests, and solutions are now located in the [DATA/blueprint](../DATA/blueprint) directory.
-
-## Data Structure
-
-For a detailed understanding of how problems, submissions, users, and solutions are structured and stored, please refer to the [DATA/README.md](../DATA/README.md) file.
-
-## Data Structure
-
-For a detailed understanding of how problems, submissions, users, and solutions are structured and stored, please refer to the [DATA/README.md](../DATA/README.md) file.
-
 ## Project Structure
 
 The main frontend application is located in the `frontend-for-annaforces/app` directory.
@@ -79,7 +67,7 @@ To ensure accurate and visually appealing display of mathematical expressions, e
 
 ### Toast Notifications
 
-The application uses `react-toastify` to display success and error messages to the user. The `ToastContainer` is included in `App.js`, and individual components use the `toast` function to trigger notifications.
+The application uses `react-toastify` to display success and error messages to the user. The `ToastContainer` is included in `App.js`, and individual components uses the `toast` function to trigger notifications.
 
 ### Visual Enhancements
 
@@ -109,6 +97,14 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
     -   Test case statuses are now color-coded for quick visual feedback: green for "passed", red for "wrong answer", yellow for "runtime error", "time limit exceeded", and "memory limit exceeded", and grey for "compilation error".
     -   Input for each test case is now displayed, providing more context for debugging.
 -   **ProblemDetail Component Robustness:** Implemented defensive checks in the `ProblemDetail` component to prevent `TypeError: Cannot read properties of undefined (reading 'title')` when problem data is not fully loaded or when a problem belongs to a contest that has not started yet. This ensures a more stable rendering experience.
+
+-   **New CodeSubmission Component:** A new component `CodeSubmission` has been added. It provides a form for users to submit code for a specific problem. After successful submission, the user is redirected to the submission queue page.
+
+-   **New SubmissionQueue Component:** A new component `SubmissionQueue` has been added. It displays live updates of submissions in the processing queue. It fetches data dynamically and displays submissions in a table format.
+
+-   **Leaderboard Removed:** The leaderboard functionality has been completely removed from the frontend, including its component, related states and API calls, and its navigation tab.
+
+-   **Contest Status Display:** The `ContestDetail` component has been updated to directly consume `status_info` from the backend API, which includes the contest status (Upcoming, Running, Over) and time information, providing a more robust and accurate display of contest state.
 
 ### Core Components
 
@@ -155,19 +151,20 @@ The caching logic is encapsulated in the `src/components/cache` directory, with 
 
 ### Routing
 
-*   `/`: Redirects to `/welcome` if logged in, or `/login` if not.
-*   `/login`: Displays the login form. If the user is already logged in, it redirects to `/welcome`.
+*   `/`: Redirects to `/login` if not logged in.
+*   `/login`: Displays the login form.
 *   `/signup`: Displays the signup form.
 *   `/verify-otp/:email`: Allows users to verify their email with an OTP.
 *   `/welcome`: Displays the welcome message for logged-in users.
 *   `/problems`: Displays a list of all problems (protected route).
-*   `/problems/:problem_id`: Displays details for a specific problem (protected route).
-*   `/problems/:problemId/submit`: Provides a form for submitting code to a specific problem (protected route).
-*   `/problems/:problemId/submissions`: Displays a list of all submissions for a specific problem (protected route).
-*   `/problems/:problemId/solution`: Displays the solution code and explanation for a specific problem (protected route).
+*   `/contests/:contestId/problems/:problemId`: Displays details for a specific problem (protected route).
+*   `/contests/:contestId/problems/:problemId/submit`: Provides a form for submitting code to a specific problem (protected route).
+*   `/contests/:contestId/problems/:problemId/submissions`: Displays a list of all submissions for a specific problem (protected route).
+*   `/contests/:contestId/problems/:problemId/solution`: Displays the solution code and explanation for a specific problem (protected route).
 *   `/users/:username`: Displays the profile information for a specific user (protected route).
 *   `/users/:username/submissions`: Displays a list of all submissions for a specific user (protected route).
 *   `/submissions/:submissionId`: Displays detailed information for a specific submission (protected route).
+*   `/submissions/queue`: Displays the live submission queue (protected route).
 *   `/credits`: Displays the credits page (protected route).
 *   `/contests`: Displays a list of all contests (protected route).
 *   `/contests/:contestId`: Displays details for a specific contest (protected route).

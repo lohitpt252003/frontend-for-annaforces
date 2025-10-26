@@ -1,0 +1,37 @@
+.submission-queue-container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submission-queue-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.submission-queue-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.submission-queue-table th,
+.submission-queue-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.submission-queue-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.submission-queue-loading,
+.submission-queue-error {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.1rem;
+}

@@ -1,0 +1,24 @@
+/* ProblemFilter/light.css */
+.light-theme .problem-filter-container {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+}
+
+.light-theme .problem-filter-input,
+.light-theme .problem-filter-select {
+  background-color: #fff;
+  color: #333;
+  border-color: #ccc;
+}
+
+.light-theme .problem-filter-input::placeholder {
+  color: #888;
+}
+
+.light-theme .problem-filter-button {
+  background-color: #007bff;
+}
+
+.light-theme .problem-filter-button:hover {
+  background-color: #0056b3;
+}

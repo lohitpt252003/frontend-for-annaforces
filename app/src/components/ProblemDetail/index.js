@@ -137,6 +137,7 @@ function ProblemDetail() { // Accept setIsLoading prop
       </div>
       <ProblemDetailActions
         problem_id={problemId}
+        contest_id={contestId}
         problem={problem}
         handleViewPdf={handleViewPdf}
         isPdfLoading={isPdfLoading}

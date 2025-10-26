@@ -13,7 +13,7 @@ import api from '../../utils/api';
 import { getCachedSolution, cacheSolution, clearSolutionCache } from '../../components/cache/solution';
 
 const SolutionDetail = () => {
-  const { problemId } = useParams();
+  const { contestId, problemId } = useParams();
   const [solutionData, setSolutionData] = useState(null);
   const [error, setError] = useState(null);
   const [infoMessage, setInfoMessage] = useState('');
@@ -245,7 +245,7 @@ const SolutionDetail = () => {
         </div>
       )}
 
-      <Link to={`/problems/${problemId}`} className="solution-detail-back-link">Back to Problem</Link>
+      <Link to={`/contests/${contestId}/problems/${problemId}`} className="solution-detail-back-link">Back to Problem</Link>
     </div>
   );
 };

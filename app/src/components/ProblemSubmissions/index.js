@@ -6,7 +6,7 @@ import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
 
 function ProblemSubmissions() { // Removed token prop
-  const { problemId } = useParams();
+  const { contestId, problemId } = useParams();
   const [allSubmissions, setAllSubmissions] = useState([]); // Store all fetched submissions
   const [submissions, setSubmissions] = useState([]); // Submissions to display after filtering
   const [error, setError] = useState(null);
@@ -38,8 +38,8 @@ function ProblemSubmissions() { // Removed token prop
           return;
         }
 
-        setAllSubmissions(submissionsData.submissions);
-        setSubmissions(submissionsData.submissions);
+        setAllSubmissions(submissionsData);
+        setSubmissions(submissionsData);
 
       } catch (error) {
         if (error.message.includes('500')) {

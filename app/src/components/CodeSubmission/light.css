@@ -1,78 +1,37 @@
-.light-theme .code-submission-container {
-  background-color: #FFFFFF;
+.code-submission-container {
+  background-color: #ffffff;
+  color: #333333;
 }
 
-.light-theme .code-submission-container h2 {
-  color: #1A1A1A;
+.code-submission-container h2 {
+  color: #007bff;
 }
 
-.light-theme .code-submission-form label {
+.code-submission-form label {
   color: #555555;
 }
 
-.light-theme .code-submission-form select,
-.light-theme .code-submission-form textarea {
-  border: 1px solid #D0D7DE;
-  background-color: #FFFFFF;
-  color: #1A1A1A;
+.code-submission-form .language-select,
+.code-submission-form .code-textarea {
+  background-color: #f8f9fa;
+  color: #333333;
+  border-color: #ced4da;
 }
 
-.light-theme .code-submission-form button {
-  background-color: #4B47FF;
-  color: #FFFFFF;
+.code-submission-form .code-textarea::placeholder {
+  color: #6c757d;
 }
 
-.light-theme .code-submission-form button:hover {
-  background-color: #2A28B0;
+.code-submission-form .submit-button {
+  background-color: #007bff;
+  color: white;
 }
 
-.light-theme .code-submission-message.success {
-  color: #2E7D32;
-  background-color: #E6F4EA;
-  border: 1px solid #A5D6A7;
+.code-submission-form .submit-button:hover:not(:disabled) {
+  background-color: #0056b3;
 }
 
-.light-theme .code-submission-message.error {
-  color: #D32F2F;
-  background-color: #FDECEA;
-  border: 1px solid #F5C2C7;
-}
-
-/* Responsive adjustments for smaller screens in light theme */
-@media (max-width: 768px) {
-  .light-theme .code-submission-container {
-    background-color: #FFFFFF;
-  }
-
-  .light-theme .code-submission-container h2 {
-    color: #1A1A1A;
-  }
-
-  .light-theme .code-submission-form label {
-    color: #555555;
-  }
-
-  .light-theme .code-submission-form select,
-  .light-theme .code-submission-form textarea {
-    border: 1px solid #D0D7DE;
-    background-color: #FFFFFF;
-    color: #1A1A1A;
-  }
-
-  .light-theme .code-submission-form button {
-    background-color: #4B47FF;
-    color: #FFFFFF;
-  }
-
-  .light-theme .code-submission-message.success {
-    color: #2E7D32;
-    background-color: #E6F4EA;
-    border: 1px solid #A5D6A7;
-  }
-
-  .light-theme .code-submission-message.error {
-    color: #D32F2F;
-    background-color: #FDECEA;
-    border: 1px solid #F5C2C7;
-  }
+.code-submission-form .submit-button:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
 }

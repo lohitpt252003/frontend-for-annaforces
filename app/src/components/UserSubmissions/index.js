@@ -32,7 +32,7 @@ function UserSubmissions() { // Removed token prop
       try {
         // Fetch submissions
         const submissionsData = await api.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/users/${username}/submissions`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/auth/${username}/submissions`,
           token
         );
 
@@ -40,8 +40,8 @@ function UserSubmissions() { // Removed token prop
           return;
         }
 
-        setAllSubmissions(submissionsData.submissions);
-        setSubmissions(submissionsData.submissions);
+        setAllSubmissions(submissionsData);
+        setSubmissions(submissionsData);
       } catch (error) {
         setError(error);
       } finally {

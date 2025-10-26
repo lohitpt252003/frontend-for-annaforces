@@ -11,6 +11,7 @@ import Profile from './components/Profile';
 import UserSubmissions from './components/UserSubmissions';
 import SubmissionDetail from './components/SubmissionDetail';
 import CodeSubmission from './components/CodeSubmission';
+import SubmissionQueue from './components/SubmissionQueue';
 import ProblemSubmissions from './components/ProblemSubmissions';
 import SolutionDetail from './components/SolutionDetail';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -90,13 +91,14 @@ function App() {
           <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
             <Route path="/welcome" element={<WelcomePage userName={userName} />} />
             <Route path="/problems" element={<Problems token={token} setIsLoading={setIsLoading} />} />
-            <Route path="/problems/:problem_id" element={<ProblemDetail token={token} setIsLoading={setIsLoading} />} />
-            <Route path="/problems/:problemId/submit" element={<CodeSubmission token={token} setIsLoading={setIsLoading} />} />
-            <Route path="/problems/:problemId/submissions" element={<ProblemSubmissions token={token} setIsLoading={setIsLoading} />} />
-            <Route path="/problems/:problemId/solution" element={<SolutionDetail setGlobalLoading={setIsLoading} />} />
+            <Route path="/contests/:contestId/problems/:problemId" element={<ProblemDetail token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/contests/:contestId/problems/:problemId/submit" element={<CodeSubmission token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/contests/:contestId/problems/:problemId/submissions" element={<ProblemSubmissions token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/contests/:contestId/problems/:problemId/solution" element={<SolutionDetail setGlobalLoading={setIsLoading} />} />
             <Route path="/users/:username" element={<Profile loggedUsername={userName} token={token} setIsLoading={setIsLoading} />} />
             <Route path="/users/:username/submissions" element={<UserSubmissions token={token} setIsLoading={setIsLoading} />} />
             <Route path="/submissions/:submissionId" element={<SubmissionDetail token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/submissions/queue" element={<SubmissionQueue token={token} setIsLoading={setIsLoading} />} />
             <Route path="/credits" element={<Credits />} />
             <Route path="/contests" element={<Contests theme={theme} />} />
             <Route path="/contests/:contestId" element={<ContestDetail theme={theme} />} />

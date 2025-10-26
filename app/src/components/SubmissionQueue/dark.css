@@ -1,0 +1,24 @@
+.submission-queue-container {
+  background-color: #282c34;
+  color: #e0e0e0;
+}
+
+.submission-queue-container h2 {
+  color: #61dafb;
+}
+
+.submission-queue-table th {
+  background-color: #3a3f4b;
+  color: #e0e0e0;
+}
+
+.submission-queue-table td {
+  background-color: #282c34;
+  color: #e0e0e0;
+  border-color: #555555;
+}
+
+.submission-queue-loading,
+.submission-queue-error {
+  color: #ff6b6b;
+}

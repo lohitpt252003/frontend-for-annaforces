@@ -1,0 +1,24 @@
+/* ProblemFilter/dark.css */
+.dark-theme .problem-filter-container {
+  background-color: #343a40;
+  border: 1px solid #495057;
+}
+
+.dark-theme .problem-filter-input,
+.dark-theme .problem-filter-select {
+  background-color: #495057;
+  color: #e9ecef;
+  border-color: #6c757d;
+}
+
+.dark-theme .problem-filter-input::placeholder {
+  color: #adb5bd;
+}
+
+.dark-theme .problem-filter-button {
+  background-color: #6c757d;
+}
+
+.dark-theme .problem-filter-button:hover {
+  background-color: #5a6268;
+}

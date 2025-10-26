@@ -24,12 +24,6 @@ function ContestTabs({ activeTab, setActiveTab }) {
       >
         Theory 🧠
       </button>
-      <button
-        className={`contest-tabs-button ${activeTab === 'leaderboard' ? 'active' : ''}`}
-        onClick={() => setActiveTab('leaderboard')}
-      >
-        Leaderboard 🏆
-      </button>
     </div>
   );
 }

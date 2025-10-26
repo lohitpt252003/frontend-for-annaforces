@@ -3,89 +3,57 @@
   max-width: 800px;
   margin: 20px auto;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .code-submission-container h2 {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
-.code-submission-form div {
+.code-submission-form .form-group {
   margin-bottom: 15px;
 }
 
 .code-submission-form label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   font-weight: bold;
 }
 
-.code-submission-form select,
-.code-submission-form textarea {
+.code-submission-form .language-select,
+.code-submission-form .code-textarea {
   width: 100%;
   padding: 10px;
-  border-radius: 5px;
-  font-size: 1em;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
 
-.code-submission-form textarea {
-  min-height: 250px; /* Make textarea larger */
-  font-family: 'Ubuntu Mono', monospace; /* Monospace font for code */
+.code-submission-form .code-textarea {
+  min-height: 300px;
+  font-family: 'Fira Code', 'monospace';
 }
 
-.code-submission-form button {
+.code-submission-form .submit-button {
   display: block;
   width: 100%;
-  padding: 12px 20px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 1.1em;
+  border-radius: 4px;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.code-submission-message {
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
+.code-submission-form .submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
-/* Responsive adjustments for smaller screens */
-@media (max-width: 768px) {
-  .code-submission-container {
-    padding: 15px;
-    margin: 10px auto;
-    max-width: 95%; /* Adjust max-width for smaller screens */
-  }
-
-  .code-submission-container h2 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-  }
-
-  .code-submission-form label {
-    font-size: 0.9em;
-  }
-
-  .code-submission-form select,
-  .code-submission-form textarea {
-    padding: 8px;
-    font-size: 0.9em;
-  }
-
-  .code-submission-form textarea {
-    min-height: 150px; /* Smaller height for mobile */
-  }
-
-  .code-submission-form button {
-    padding: 10px 15px;
-    font-size: 1em;
-  }
-
-  .code-submission-message {
-    font-size: 0.9em;
-  }
+.code-submission-form .submit-button:hover:not(:disabled) {
+  background-color: #0056b3;
 }

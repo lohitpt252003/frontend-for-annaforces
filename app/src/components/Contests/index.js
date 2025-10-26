@@ -17,55 +17,11 @@ const Contests = ({ theme }) => {
     const [isLoadingLocal, setIsLoadingLocal] = useState(true);
     const [isCached, setIsCached] = useState(false);
     const [currentTime, setCurrentTime] = useState(Date.now());
-    const [userRegistrations, setUserRegistrations] = useState({}); // New state for user registrations
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentTime(Date.now());
-        }, 1000);
-        return () => clearInterval(timer);
-    }, []);
 
-    const getContestStatus = (contest) => {
-        const start = new Date(contest.startTime).getTime();
-        const end = new Date(contest.endTime).getTime();
-        const now = currentTime;
 
-        if (now < start) {
-            const diff = start - now;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            return {
-                status: "Upcoming ⏳",
-                timeInfo: `Starts in: ${days}d ${hours}h ${minutes}m ${seconds}s`,
-                progress: 0
-            };
-        } else if (now >= start && now <= end) {
-            const totalDuration = end - start;
-            const elapsed = now - start;
-            const remaining = end - now;
-            const progress = (elapsed / totalDuration) * 100;
 
-            const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
 
-            return {
-                status: "Running 🚀",
-                timeInfo: `Ends in: ${days}d ${hours}h ${minutes}m ${seconds}s`,
-                progress: progress
-            };
-        } else {
-            return {
-                status: "Over 🏁",
-                timeInfo: "",
-                progress: 100
-            };
-        }
-    };
 
     useEffect(() => {
         const fetchContests = async () => {
@@ -111,31 +67,7 @@ const Contests = ({ theme }) => {
         fetchContests();
     }, []);
 
-    useEffect(() => {
-        const fetchUserRegistrations = async () => {
-            const token = localStorage.getItem('token');
-            if (!token || allContests.length === 0) {
-                return;
-            }
 
-            const registrations = {};
-            for (const contest of allContests) {
-                try {
-                    const response = await api.get(
-                        `${process.env.REACT_APP_API_BASE_URL}/api/contests/${contest.id}/is-registered`,
-                        token
-                    );
-                    registrations[contest.id] = response.is_registered;
-                } catch (err) {
-                    console.error(`Error fetching registration status for contest ${contest.id}:`, err);
-                    registrations[contest.id] = false; // Assume not registered on error
-                }
-            }
-            setUserRegistrations(registrations);
-        };
-
-        fetchUserRegistrations();
-    }, [allContests]);
 
     useEffect(() => {
         let filtered = [...allContests];
@@ -161,33 +93,7 @@ const Contests = ({ theme }) => {
         window.location.reload();
     };
 
-    const handleRegister = async (contestId) => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            toast.error('Please log in to register for the contest.');
-            return;
-        }
 
-        try {
-            // Optimistically update UI
-            setUserRegistrations(prev => ({ ...prev, [contestId]: true }));
-            toast.info('Registering for contest...');
-
-            const response = await api.post(
-                `${process.env.REACT_APP_API_BASE_URL}/api/contests/${contestId}/register`,
-                {},
-                token
-            );
-            if (response && response.message) {
-                toast.success(response.message);
-            }
-        } catch (err) {
-            toast.error(err.message || 'Failed to register for the contest.');
-            console.error('Contest registration error:', err);
-            // Revert optimistic update on error
-            setUserRegistrations(prev => ({ ...prev, [contestId]: false }));
-        }
-    };
 
     if (error) {
         return <div className="contests-error">Error: {error}</div>;
@@ -230,9 +136,7 @@ const Contests = ({ theme }) => {
                         <ContestCard
                             key={contest.id}
                             contest={contest}
-                            contestStatus={getContestStatus(contest)}
-                            isRegistered={userRegistrations[contest.id] || false}
-                            onRegister={handleRegister}
+                            contestStatus={contest.status_info}
                         />
                     ))}
                 </div>

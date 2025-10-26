@@ -2,7 +2,7 @@
 
 This is the frontend for the Annaforces project, built with React.
 
-**Note:** The data structure for problems has been updated. Problems are now located inside their respective contest's directory, and the `problem_id` is in the format `C<contest_id><problem_letter>` (e.g., `C0A`, `C1C`, `C1000F`). If there are more than 26 problems in a contest, the problem letters will continue as `AA`, `AB`, etc. (e.g., `C1AA`, `C1AB`). The frontend components and routing need to be updated to reflect these changes.
+
 
 ## Data Structure
 
