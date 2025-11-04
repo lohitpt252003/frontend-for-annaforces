@@ -6,7 +6,7 @@ import './dark.css';
 import api from '../../utils/api'; // Import the new api utility
 
 function ProblemSubmissions() { // Removed token prop
-  const { contestId, problemId } = useParams();
+  const { contestId = null, problemId } = useParams();
   const [allSubmissions, setAllSubmissions] = useState([]); // Store all fetched submissions
   const [submissions, setSubmissions] = useState([]); // Submissions to display after filtering
   const [error, setError] = useState(null);

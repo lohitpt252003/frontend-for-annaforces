@@ -94,6 +94,7 @@ function App() {
             <Route path="/contests/:contestId/problems/:problemId" element={<ProblemDetail token={token} setIsLoading={setIsLoading} />} />
             <Route path="/contests/:contestId/problems/:problemId/submit" element={<CodeSubmission token={token} setIsLoading={setIsLoading} />} />
             <Route path="/contests/:contestId/problems/:problemId/submissions" element={<ProblemSubmissions token={token} setIsLoading={setIsLoading} />} />
+            <Route path="/problems/:problemId/submissions" element={<ProblemSubmissions token={token} setIsLoading={setIsLoading} />} />
             <Route path="/contests/:contestId/problems/:problemId/solution" element={<SolutionDetail setGlobalLoading={setIsLoading} />} />
             <Route path="/users/:username" element={<Profile loggedUsername={userName} token={token} setIsLoading={setIsLoading} />} />
             <Route path="/users/:username/submissions" element={<UserSubmissions token={token} setIsLoading={setIsLoading} />} />

@@ -32,7 +32,7 @@ function UserSubmissions() { // Removed token prop
       try {
         // Fetch submissions
         const submissionsData = await api.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/auth/${username}/submissions`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/users/${username}/submissions`,
           token
         );
 
