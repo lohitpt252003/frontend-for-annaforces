@@ -19,8 +19,14 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
   const initializeExpandedState = (data) => {
     const initialExpandedState = {};
     if (data.test_results) {
+      let firstFailedExpanded = false;
       data.test_results.forEach(tr => {
-        initialExpandedState[tr.test_case_number] = false;
+        if (tr.status === 'wrong_answer' && !firstFailedExpanded) {
+          initialExpandedState[tr.test_case_number] = true;
+          firstFailedExpanded = true;
+        } else {
+          initialExpandedState[tr.test_case_number] = false;
+        }
       });
     }
     setExpandedTestCases(initialExpandedState);
@@ -153,7 +159,6 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
       <p><strong>Username:</strong> {submissionData.username} 🧑‍💻</p>
       <p><strong>Language:</strong> {submissionData.language}</p>
       <p><strong>Status:</strong> <span className={`status-${submissionData.status.toLowerCase().replace(/ /g, '-').replace(/_/g, '-')}`}>
-        {console.log('Submission Status:', submissionData.status)}
         {submissionData.status}
       </span></p>
       <p><strong>Timestamp:</strong> {new Date(submissionData.timestamp).toLocaleString()}</p>
@@ -184,18 +189,13 @@ function SubmissionDetail({ token, setIsLoading }) { // Accept setIsLoading prop
                   <p><strong>Memory Usage:</strong> {testResult.memory_usage} MB</p>
                   <div className="test-case-io">
                     <strong>Input:</strong>
-                    <button onClick={() => handleCopy(testResult.input, 'Input')} className="copy-button-inline">Copy</button>
-                    <pre>{testResult.input}</pre>
+                    <button onClick={() => handleCopy(testResult.stdin, 'Input')} className="copy-button-inline">Copy</button>
+                    <pre>{testResult.stdin}</pre>
                   </div>
                   <div className="test-case-io">
-                    <strong>Expected Output:</strong>
-                    <button onClick={() => handleCopy(testResult.expected_output, 'Expected Output')} className="copy-button-inline">Copy</button>
-                    <pre>{testResult.expected_output}</pre>
-                  </div>
-                  <div className="test-case-io">
-                    <strong>Actual Output:</strong>
-                    <button onClick={() => handleCopy(testResult.actual_output, 'Actual Output')} className="copy-button-inline">Copy</button>
-                    <pre>{testResult.actual_output}</pre>
+                    <strong>Output:</strong>
+                    <button onClick={() => handleCopy(testResult.stdout, 'Output')} className="copy-button-inline">Copy</button>
+                    <pre>{testResult.stdout}</pre>
                   </div>
                 </div>
               )}

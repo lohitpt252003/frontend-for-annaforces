@@ -86,7 +86,7 @@ const ContestDetail = ({ theme }) => {
     useEffect(() => {
         console.log("Fetching contest problems and status...");
         const fetchContestProblemsAndStatus = async () => {
-            if (!contest || !contest.problems || contest.problems.length === 0) {
+            if (!contest || !contest.problems || contest.problems.length === 0 || contest.status_info.status === 'Upcoming') {
                 setContestProblemsDetails({});
                 return;
             }
@@ -169,20 +169,24 @@ const ContestDetail = ({ theme }) => {
             <ContestTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
             <div className="contest-detail-tab-content">
-                {activeTab === 'problems' && (
-                    <ContestProblems
-                        isLoadingContestProblems={isLoadingContestProblems}
-                        contestProblemsDetails={contestProblemsDetails}
-                        userProblemStatus={userProblemStatus}
-                    />
+                {status === 'Upcoming' ? (
+                    <ContestNotStarted contest={contest} contestId={contestId} timeInfo={timeInfo} />
+                ) : (
+                    activeTab === 'problems' && (
+                        <ContestProblems
+                            isLoadingContestProblems={isLoadingContestProblems}
+                            contestProblemsDetails={contestProblemsDetails}
+                            userProblemStatus={userProblemStatus}
+                        />
+                    )
                 )}
 
                 {activeTab === 'description' && (
-                    <ContestDescription contest_description={contest.contest_description} />
+                    <ContestDescription contest_description={contest.contest_description || ""} />
                 )}
 
                 {activeTab === 'theory' && (
-                    <ContestTheory contest_theory={contest.contest_theory} />
+                    <ContestTheory contest_theory={contest.contest_theory || ""} />
                 )}
             </div>
         </div>

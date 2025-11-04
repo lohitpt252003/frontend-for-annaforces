@@ -40,6 +40,7 @@ function CodeSubmission() {
       // Redirect to submission detail page or problem page
       navigate('/submissions/queue');
     } catch (error) {
+      console.error("Submission error:", error); // Log the full error object
       toast.error(error.message || 'Failed to submit code.');
     } finally {
       setIsSubmitting(false);

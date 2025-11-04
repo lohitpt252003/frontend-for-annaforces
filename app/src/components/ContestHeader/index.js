@@ -14,7 +14,7 @@ function ContestHeader({ contest, contestId, isCached, handleClearCache, status,
       )}
       <div className="contest-header-content">
         <div className="contest-header-info">
-          <p><strong>Status:</strong> {status}</p>
+          <p><strong>Status:</strong> {status === 'Upcoming' ? 'Upcoming ⏳' : status === 'Running' ? 'Running 🚀' : 'Over 🏁'}</p>
           {timeInfo && <p>{timeInfo}</p>}
           {status === "Running 🚀" && (
             <div className="contest-progress-bar-container">

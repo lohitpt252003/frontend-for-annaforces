@@ -5,3 +5,30 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
+.problem-detail-sample {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+}
+
+.problem-detail-sample h4 {
+  margin-top: 0;
+  color: #333;
+}
+
+.problem-detail-sample p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.problem-detail-sample pre {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
